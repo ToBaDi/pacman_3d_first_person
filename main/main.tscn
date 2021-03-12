@@ -5,7 +5,11 @@
 [ext_resource path="res://wall/wall.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Environment" id=1]
+background_mode = 1
 ambient_light_energy = 0.0
+adjustment_enabled = true
+adjustment_contrast = 1.1
+adjustment_saturation = 0.9
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.5
