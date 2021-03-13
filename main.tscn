@@ -18,14 +18,12 @@ radius = 0.5
 [sub_resource type="PhysicsMaterial" id=3]
 friction = 0.0
 
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0, 0.635294, 0.188235, 1 )
-metallic_specular = 0.0
-roughness = 0.0
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0, 0.329412, 0.0352941, 1 )
 
-[sub_resource type="CubeMesh" id=5]
-material = SubResource( 4 )
-size = Vector3( 1, 1, 1 )
+[sub_resource type="PlaneMesh" id=8]
+material = SubResource( 7 )
+size = Vector2( 1, 1 )
 
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
@@ -80,46 +78,163 @@ __meta__ = {
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
+visible = false
 light_color = Color( 1, 0.996078, 0.631373, 1 )
-light_energy = 0.3
 shadow_enabled = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Level" type="Spatial" parent="."]
-
-[node name="Ground" type="StaticBody" parent="Level"]
-transform = Transform( 20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0 )
+[node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 54, 16, 0, 0 )
 physics_material_override = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
-[node name="Mesh" type="MeshInstance" parent="Level/Ground"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-mesh = SubResource( 5 )
+[node name="Mesh" type="MeshInstance" parent="Ground"]
+mesh = SubResource( 8 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape" type="CollisionShape" parent="Level/Ground"]
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
 shape = SubResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Wall" parent="Level" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
+[node name="Walls" type="Spatial" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
-[node name="Wall2" parent="Level" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6 )
+[node name="Wall" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 
-[node name="Wall3" parent="Level" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 5, -3, 0, 0 )
+[node name="Wall2" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 4, 3, 0, -9 )
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 7, -3, 0, 0 )
+
+[node name="Wall4" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 7, 9, 0, 0 )
+
+[node name="Wall5" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 4, 3, 0, 9 )
+
+[node name="Wall6" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0 )
+
+[node name="Wall7" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 9, -9, 0, -14 )
+
+[node name="Wall8" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -12 )
+
+[node name="Wall9" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 12 )
+
+[node name="Wall10" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 9, -9, 0, 14 )
+
+[node name="Wall11" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2, -3, 0, -25 )
+
+[node name="Wall12" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2, -3, 0, 25 )
+
+[node name="Wall13" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -18 )
+
+[node name="Wall14" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 3, 0, -20 )
+
+[node name="Wall15" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 18 )
+
+[node name="Wall16" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 3, 0, 20 )
+
+[node name="Wall17" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12 )
+
+[node name="Wall18" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 12, 0, 22 )
+
+[node name="Wall19" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 24, 0, 22 )
+
+[node name="Wall20" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 24, 0, -22 )
+
+[node name="Wall21" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 12, 0, -22 )
+
+[node name="Wall22" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -12 )
+
+[node name="Wall23" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 7, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, -12 )
+
+[node name="Wall24" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 7, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0, 12 )
+
+[node name="Wall25" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 33, 0, 20 )
+
+[node name="Wall26" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 33, 0, -20 )
+
+[node name="Wall27" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 3, 40, 0, 20 )
+
+[node name="Wall28" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 3, 40, 0, -20 )
+
+[node name="Wall29" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 4, 40, 0, 9 )
+
+[node name="Wall30" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 4, 40, 0, -9 )
+
+[node name="Wall31" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 0 )
+
+[node name="Wall32" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 0 )
+
+[node name="Wall33" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 7, 33, 0, 0 )
+
+[node name="Wall34" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 27, 0, 8 )
+
+[node name="Wall35" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 27, 0, -8 )
+
+[node name="Wall36" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 27, 47, 0, 0 )
+
+[node name="Wall37" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 27, -15, 0, 0 )
+
+[node name="Wall38" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 16, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28 )
+
+[node name="Wall39" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 14, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 28 )
+
+[node name="Wall40" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 16, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -28 )
+
+[node name="Wall41" parent="Walls" instance=ExtResource( 3 )]
+transform = Transform( 14, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -28 )
 
 [node name="Dots" type="Spatial" parent="."]
 
@@ -132,7 +247,512 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5 )
 [node name="Dot3" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7 )
 
+[node name="Dot4" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3 )
+
+[node name="Dot5" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -3 )
+
+[node name="Dot6" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
+
+[node name="Dot7" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3 )
+
+[node name="Dot8" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3 )
+
+[node name="Dot9" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3 )
+
+[node name="Dot10" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 5 )
+
+[node name="Dot11" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3 )
+
+[node name="Dot12" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -5 )
+
+[node name="Dot13" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -7 )
+
+[node name="Dot14" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -9 )
+
+[node name="Dot15" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -11 )
+
+[node name="Dot16" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -13 )
+
+[node name="Dot17" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15 )
+
+[node name="Dot18" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -15 )
+
+[node name="Dot19" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15 )
+
+[node name="Dot20" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+
+[node name="Dot21" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -15 )
+
+[node name="Dot22" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13 )
+
+[node name="Dot23" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11 )
+
+[node name="Dot24" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9 )
+
+[node name="Dot25" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -9 )
+
+[node name="Dot26" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -9 )
+
+[node name="Dot27" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -9 )
+
+[node name="Dot28" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -7 )
+
+[node name="Dot29" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -5 )
+
+[node name="Dot30" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3 )
+
+[node name="Dot31" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -3 )
+
+[node name="Dot32" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -3 )
+
+[node name="Dot33" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -3 )
+
+[node name="Dot34" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -5 )
+
+[node name="Dot35" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -7 )
+
+[node name="Dot36" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -9 )
+
+[node name="Dot37" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -11 )
+
+[node name="Dot38" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -13 )
+
+[node name="Dot39" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -15 )
+
+[node name="Dot40" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -15 )
+
+[node name="Dot41" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15 )
+
+[node name="Dot42" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -17 )
+
+[node name="Dot43" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -19 )
+
+[node name="Dot44" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -21 )
+
+[node name="Dot45" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -21 )
+
+[node name="Dot46" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -23 )
+
+[node name="Dot47" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -25 )
+
+[node name="Dot48" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -25 )
+
+[node name="Dot49" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -25 )
+
+[node name="Dot50" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -25 )
+
+[node name="Dot51" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -23 )
+
+[node name="Dot52" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -21 )
+
+[node name="Dot53" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -19 )
+
+[node name="Dot54" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -17 )
+
+[node name="Dot55" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -21 )
+
+[node name="Dot56" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21 )
+
+[node name="Dot57" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23 )
+
+[node name="Dot58" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -25 )
+
+[node name="Dot59" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -25 )
+
+[node name="Dot60" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
+
+[node name="Dot61" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
+
+[node name="Dot62" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9 )
+
+[node name="Dot63" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 9 )
+
+[node name="Dot64" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9 )
+
+[node name="Dot65" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 9 )
+
+[node name="Dot66" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 7 )
+
+[node name="Dot67" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 5 )
+
+[node name="Dot68" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3 )
+
+[node name="Dot69" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 3 )
+
+[node name="Dot70" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 3 )
+
+[node name="Dot71" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 3 )
+
+[node name="Dot72" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 1 )
+
+[node name="Dot73" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -1 )
+
+[node name="Dot74" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 5 )
+
+[node name="Dot75" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 7 )
+
+[node name="Dot76" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 9 )
+
+[node name="Dot77" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 11 )
+
+[node name="Dot78" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 13 )
+
+[node name="Dot79" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15 )
+
+[node name="Dot80" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 17 )
+
+[node name="Dot81" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 19 )
+
+[node name="Dot82" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 21 )
+
+[node name="Dot83" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 23 )
+
+[node name="Dot84" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 25 )
+
+[node name="Dot85" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 25 )
+
+[node name="Dot86" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 25 )
+
+[node name="Dot87" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 25 )
+
+[node name="Dot88" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 23 )
+
+[node name="Dot89" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 21 )
+
+[node name="Dot90" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 19 )
+
+[node name="Dot91" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 17 )
+
+[node name="Dot92" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15 )
+
+[node name="Dot93" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 15 )
+
+[node name="Dot94" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 15 )
+
+[node name="Dot95" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+
+[node name="Dot96" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13 )
+
+[node name="Dot97" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11 )
+
+[node name="Dot98" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -25 )
+
+[node name="Dot99" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -23 )
+
+[node name="Dot100" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -21 )
+
+[node name="Dot101" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -19 )
+
+[node name="Dot102" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -17 )
+
+[node name="Dot103" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -15 )
+
+[node name="Dot104" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 15 )
+
+[node name="Dot105" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 21 )
+
+[node name="Dot106" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 21 )
+
+[node name="Dot107" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 21 )
+
+[node name="Dot108" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 23 )
+
+[node name="Dot109" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 25 )
+
+[node name="Dot110" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 25 )
+
+[node name="Dot111" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 25 )
+
+[node name="Dot112" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 23 )
+
+[node name="Dot113" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 21 )
+
+[node name="Dot114" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 19 )
+
+[node name="Dot115" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 17 )
+
+[node name="Dot116" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15 )
+
+[node name="Dot117" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 15 )
+
+[node name="Dot118" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 15 )
+
+[node name="Dot119" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 13 )
+
+[node name="Dot120" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 11 )
+
+[node name="Dot121" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 9 )
+
+[node name="Dot122" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 7 )
+
+[node name="Dot123" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 15 )
+
+[node name="Dot124" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 15 )
+
+[node name="Dot125" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 15 )
+
+[node name="Dot126" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15 )
+
+[node name="Dot127" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
+
+[node name="Dot128" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
+
+[node name="Dot129" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 15 )
+
+[node name="Dot130" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 15 )
+
+[node name="Dot131" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 15 )
+
+[node name="Dot132" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 15 )
+
+[node name="Dot133" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 15 )
+
+[node name="Dot134" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 15 )
+
+[node name="Dot135" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 15 )
+
+[node name="Dot136" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 15 )
+
+[node name="Dot137" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 13 )
+
+[node name="Dot138" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 11 )
+
+[node name="Dot139" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 9 )
+
+[node name="Dot140" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 9 )
+
+[node name="Dot141" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 9 )
+
+[node name="Dot142" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 9 )
+
+[node name="Dot143" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 7 )
+
+[node name="Dot144" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 5 )
+
+[node name="Dot145" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 3 )
+
+[node name="Dot146" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 17 )
+
+[node name="Dot147" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 19 )
+
+[node name="Dot148" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 21 )
+
+[node name="Dot149" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 23 )
+
+[node name="Dot150" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 25 )
+
+[node name="Dot151" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 25 )
+
+[node name="Dot152" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 25 )
+
+[node name="Dot153" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 25 )
+
+[node name="Dot154" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 23 )
+
+[node name="Dot155" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 21 )
+
+[node name="Dot156" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 19 )
+
+[node name="Dot157" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 17 )
+
+[node name="Dot158" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 15 )
+
+[node name="Dot159" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 15 )
+
+[node name="Dot160" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 15 )
+
+[node name="Dot161" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 15 )
+
+[node name="Dot162" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 17 )
+
+[node name="Dot163" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 19 )
+
+[node name="Dot164" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 21 )
+
+[node name="Dot165" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 23 )
+
+[node name="Dot166" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 25 )
+
+[node name="Dot167" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 25 )
+
+[node name="Dot168" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 25 )
+
+[node name="Dot169" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 13 )
+
+[node name="Dot170" parent="Dots" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44, 0, 11 )
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, -0.612372, 0.612372, -2, 8, 5 )
-current = true
+
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 17, 40, 0 )
+projection = 1
+size = 60.0
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed"]

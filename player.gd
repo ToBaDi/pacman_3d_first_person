@@ -1,8 +1,8 @@
 extends Area
 
 
-const MOVEMENT_DURATION : int = 1
-const ROTATION_DURATION : float = .5
+const MOVEMENT_DURATION : float = .5
+const ROTATION_DURATION : float = .25
 
 var clear : bool = true
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
@@ -53,7 +53,11 @@ func rotate_back() -> void:
 
 func start() -> void:
 		if not $Tween.is_active():
-			_on_Tween_tween_all_completed()
+			var target : Vector3  = transform.origin + (-transform.basis.z * 3)
+			$Tween.interpolate_property(self, "translation",
+			null, target, MOVEMENT_DURATION,
+			Tween.TRANS_CUBIC, Tween.EASE_OUT)
+			$Tween.start()
 
 
 func add_rotation_task(value : int) -> void:
@@ -66,7 +70,7 @@ func add_rotation_task(value : int) -> void:
 
 
 func add_movement_task():
-	var target : Vector3  = transform.origin + (-transform.basis.z * 3)
+	var target : Vector3  = transform.origin + (-transform.basis.z * 2)
 	$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
