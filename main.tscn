@@ -49,10 +49,10 @@ friction = 0.0
 [sub_resource type="ConvexPolygonShape" id=9]
 points = PoolVector3Array( -1, 1.5, 1, 1, 1.5, -1, 1, 1.5, 1, -1, 1.5, -1, -1, -1.5, 1, 1, -1.5, -1, 1, -1.5, 1, -1, -1.5, -1, 1, 1.5, 1, -1, 1.5, -1, 1, 1.5, -1, -1, 1.5, 1, 1, -1.5, 1, -1, -1.5, -1, 1, -1.5, -1, -1, -1.5, 1, 1, 1.5, 1, -1, -1.5, 1, -1, 1.5, 1, 1, -1.5, 1, 1, 1.5, -1, -1, -1.5, -1, -1, 1.5, -1, 1, -1.5, -1 )
 
-[sub_resource type="BoxShape" id=11]
+[sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=11]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=12]
@@ -128,6 +128,7 @@ __meta__ = {
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
+visible = false
 light_color = Color( 1, 0.996078, 0.631373, 1 )
 shadow_enabled = true
 __meta__ = {
@@ -1125,7 +1126,7 @@ destination = Vector3( 18, 0, 27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="LeftTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="RightTeleportToggle" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
@@ -1134,18 +1135,17 @@ destination = Vector3( 18, 0, -27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="RightTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
-current = true
 size = 80.0
 
 [node name="Ghost" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 1 )
 input_ray_pickable = false
-material = SubResource( 10 )
+material = SubResource( 11 )
 
 [node name="Ghost2" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 25 )
@@ -1155,7 +1155,7 @@ material = SubResource( 12 )
 [node name="Ghost3" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 1 )
 input_ray_pickable = false
-material = SubResource( 10 )
+material = SubResource( 11 )
 
 [node name="Ghost4" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
@@ -1164,5 +1164,5 @@ material = SubResource( 12 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed" flags=3]
-[connection signal="area_entered" from="LeftTeleportToggle" to="LeftTeleportToggle" method="_on_LeftTeleportToggle_area_entered"]
-[connection signal="area_entered" from="RightTeleportToggle" to="RightTeleportToggle" method="_on_LeftTeleportToggle_area_entered"]
+[connection signal="area_entered" from="LeftTeleportToggle" to="LeftTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
+[connection signal="area_entered" from="RightTeleportToggle" to="RightTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
