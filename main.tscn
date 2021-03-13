@@ -663,20 +663,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 15 )
 [node name="Dot126" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15 )
 
-[node name="RightMirror" parent="Dots/Dot126" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
+[node name="LeftMirror" parent="Dots/Dot126" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
 
 [node name="Dot127" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
 
-[node name="RightMirror" parent="Dots/Dot127" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
+[node name="LeftMirror" parent="Dots/Dot127" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
 
 [node name="Dot128" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
 
-[node name="RightMirror" parent="Dots/Dot128" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
+[node name="LeftMirror" parent="Dots/Dot128" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
 
 [node name="Dot129" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 15 )
@@ -1002,20 +1002,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -15 )
 [node name="Dot236" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15 )
 
-[node name="LeftMirror" parent="Dots/Dot236" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
+[node name="RightMirror" parent="Dots/Dot236" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
 
 [node name="Dot237" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -15 )
 
-[node name="LeftMirror" parent="Dots/Dot237" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
+[node name="RightMirror" parent="Dots/Dot237" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
 
 [node name="Dot238" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15 )
 
-[node name="LeftMirror" parent="Dots/Dot238" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
+[node name="RightMirror" parent="Dots/Dot238" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
 
 [node name="Dot239" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15 )
