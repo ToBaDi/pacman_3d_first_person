@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player.gd" type="Script" id=4]
 [ext_resource path="res://wall_mesh.tres" type="CubeMesh" id=5]
+[ext_resource path="res://ghost.tscn" type="PackedScene" id=6]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Label
@@ -47,6 +48,9 @@ friction = 0.0
 [sub_resource type="ConvexPolygonShape" id=9]
 points = PoolVector3Array( -1, 1.5, 1, 1, 1.5, -1, 1, 1.5, 1, -1, 1.5, -1, -1, -1.5, 1, 1, -1.5, -1, 1, -1.5, 1, -1, -1.5, -1, 1, 1.5, 1, -1, 1.5, -1, 1, 1.5, -1, -1, 1.5, 1, 1, -1.5, 1, -1, -1.5, -1, 1, -1.5, -1, -1, -1.5, 1, 1, 1.5, 1, -1, -1.5, 1, -1, 1.5, 1, 1, -1.5, 1, 1, 1.5, -1, -1, -1.5, -1, -1, 1.5, -1, 1, -1.5, -1 )
 
+[sub_resource type="SpatialMaterial" id=10]
+albedo_color = Color( 1, 0, 0, 1 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
@@ -87,7 +91,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.25 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.25 )
 current = true
 fov = 120.0
 __meta__ = {
@@ -96,11 +100,11 @@ __meta__ = {
 
 [node name="SpotLight" type="SpotLight" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 1.5, 0 )
-light_color = Color( 1, 0.937255, 0.52549, 1 )
+light_color = Color( 1, 0.662745, 0.482353, 1 )
 shadow_reverse_cull_face = true
-spot_range = 7.0
+spot_range = 10.0
 spot_attenuation = 0.249999
-spot_angle = 90.0
+spot_angle = 70.0
 spot_angle_attenuation = 4.92458
 __meta__ = {
 "_edit_lock_": true
@@ -1108,10 +1112,15 @@ transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15 )
 [node name="Wall5" parent="RightMirror" instance=ExtResource( 3 )]
 transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 21 )
 
-[node name="Camera2" type="Camera" parent="."]
+[node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, -1, -1.62921e-07, 0, -1.62921e-07, 1, -1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
 size = 65.0
+
+[node name="Ghost" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9 )
+input_ray_pickable = false
+material = SubResource( 10 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed" flags=3]
