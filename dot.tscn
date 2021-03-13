@@ -1,11 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://dot/dot_mesh.tres" type="SphereMesh" id=1]
+[ext_resource path="res://dot_mesh.tres" type="SphereMesh" id=1]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.2, 0.2, 0.2 )
 
-[node name="Dot" type="Area"]
+[node name="Dot" type="Area" groups=[
+"Dots",
+]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
