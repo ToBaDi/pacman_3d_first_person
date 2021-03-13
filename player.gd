@@ -7,8 +7,9 @@ signal eat_cookie
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
-var clear : bool = true
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var clear : bool = true
+var teleport : Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
@@ -25,6 +26,26 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_back()
 	if event.is_action_pressed("ui_accept", true):
 		start()
+	pass
+
+
+func _on_Tween_tween_all_completed() -> void:
+	if teleport:
+		transform.origin = teleport
+		teleport = Vector3.ZERO
+	$RayCast.cast_to = Vector3.FORWARD * 3
+	$RayCast.force_raycast_update()
+	if not $RayCast.get_collider():
+		add_movement_task()
+	$Tween.start()
+	clear = true
+	pass
+
+
+func _on_Player_area_entered(area : Area) -> void:
+	if area.is_in_group("Dots"):
+		area.queue_free()
+		emit_signal("eat_cookie")
 	pass
 
 
@@ -76,22 +97,5 @@ func add_movement_task():
 	$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	pass
-
-
-func _on_Tween_tween_all_completed() -> void:
-	$RayCast.cast_to = Vector3.FORWARD * 3
-	$RayCast.force_raycast_update()
-	if not $RayCast.get_collider():
-		add_movement_task()
-	$Tween.start()
-	clear = true
-	pass
-
-
-func _on_Player_area_entered(area : Area) -> void:
-	if area.is_in_group("Dots"):
-		area.queue_free()
-		emit_signal("eat_cookie")
 	pass
 

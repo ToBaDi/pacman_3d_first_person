@@ -2,35 +2,34 @@
 
 [ext_resource path="res://ghost.gd" type="Script" id=1]
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="CapsuleMesh" id=1]
 mid_height = 2.0
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 emission_enabled = true
 emission = Color( 1, 1, 1, 1 )
 emission_energy = 1.0
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=4]
-material = SubResource( 3 )
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
 radius = 0.2
 height = 0.2
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
 radius = 0.1
 height = 0.2
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=6]
 
 [node name="Ghost" type="Area" groups=[
 "Ghost",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 monitoring = false
 script = ExtResource( 1 )
 __meta__ = {
@@ -39,49 +38,134 @@ __meta__ = {
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 0 )
-mesh = SubResource( 2 )
+mesh = SubResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftEye" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, -0.4, -0.8, -1 )
+mesh = SubResource( 3 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="LeftEye" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -0.4, 4, 0.9 )
-mesh = SubResource( 4 )
+[node name="LeftEye2" type="MeshInstance" parent="Body/LeftEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="RightEye" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0.4, -0.8, -1 )
+mesh = SubResource( 3 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="LeftEye2" type="MeshInstance" parent="LeftEye"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0499997, 0.12 )
-mesh = SubResource( 6 )
+[node name="RightEye2" type="MeshInstance" parent="Body/RightEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
 material/0 = null
 
-[node name="RightEye" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.4, 4, 0.9 )
-mesh = SubResource( 4 )
-material/0 = null
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="RightEye2" type="MeshInstance" parent="RightEye"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0499997, 0.12 )
-mesh = SubResource( 6 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 7 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( -1, -1.42109e-14, -3.25841e-07, -1.62921e-07, 0.866025, 0.5, 2.82187e-07, 0.5, -0.866025, 0, 2, 1 )
+[node name="SpotLight" type="SpotLight" parent="Body"]
+transform = Transform( 1, -4.37113e-08, 4.01552e-07, -3.6961e-07, -0.5, 0.866025, 1.62921e-07, -0.866025, -0.5, -4.37114e-08, 1.62921e-07, 1 )
 shadow_enabled = true
 spot_range = 10.0
 
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37114e-08, 1, 1 )
+cast_to = Vector3( 0, 0, 3 )
+
 [node name="Tween" type="Tween" parent="."]
+
+[node name="LeftMirror" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, -56 )
+mesh = SubResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftEye" type="MeshInstance" parent="LeftMirror"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, -0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftEye2" type="MeshInstance" parent="LeftMirror/LeftEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="RightEye" type="MeshInstance" parent="LeftMirror"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightEye2" type="MeshInstance" parent="LeftMirror/RightEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="SpotLight" type="SpotLight" parent="LeftMirror"]
+transform = Transform( 1, -4.37113e-08, 4.01552e-07, -3.6961e-07, -0.5, 0.866025, 1.62921e-07, -0.866025, -0.5, 0, 0, 1 )
+shadow_enabled = true
+spot_range = 10.0
+
+[node name="RightMirror" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 56 )
+mesh = SubResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftEye" type="MeshInstance" parent="RightMirror"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, -0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftEye2" type="MeshInstance" parent="RightMirror/LeftEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="RightEye" type="MeshInstance" parent="RightMirror"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightEye2" type="MeshInstance" parent="RightMirror/RightEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="SpotLight" type="SpotLight" parent="RightMirror"]
+transform = Transform( 1, -4.37113e-08, 4.01552e-07, -3.6961e-07, -0.5, 0.866025, 1.62921e-07, -0.866025, -0.5, 0, 0, 1 )
+shadow_enabled = true
+spot_range = 10.0
 [connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed" flags=3]
