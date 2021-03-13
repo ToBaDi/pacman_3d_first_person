@@ -43,7 +43,7 @@ start={
 
 [physics]
 
-common/physics_fps=1
+common/physics_fps=10
 
 [rendering]
 

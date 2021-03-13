@@ -1,6 +1,9 @@
 extends Area
 
 
+signal eat_cookie
+
+
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
@@ -32,12 +35,14 @@ func rotate_left() -> void:
 		if not $RayCast.get_collider():
 			add_rotation_task(90)
 
+
 func rotate_right() -> void:
 	if clear:
 		$RayCast.cast_to = Vector3.RIGHT * 3
 		$RayCast.force_raycast_update()
 		if not $RayCast.get_collider():
 			add_rotation_task(-90)
+
 
 func rotate_back() -> void:
 	if clear:
@@ -47,13 +52,14 @@ func rotate_back() -> void:
 		else:
 			add_rotation_task(-180)
 
+
 func start() -> void:
-		if not $Tween.is_active():
-			var target : Vector3  = transform.origin + (-transform.basis.z * 3)
-			$Tween.interpolate_property(self, "translation",
-			null, target, MOVEMENT_DURATION,
-			Tween.TRANS_CUBIC, Tween.EASE_OUT)
-			$Tween.start()
+	if not $Tween.is_active():
+		var target : Vector3  = transform.origin + (-transform.basis.z * 3)
+		$Tween.interpolate_property(self, "translation",
+		null, target, MOVEMENT_DURATION,
+		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.start()
 
 
 func add_rotation_task(value : int) -> void:
@@ -73,7 +79,7 @@ func add_movement_task():
 	pass
 
 
-func _on_Tween_tween_all_completed():
+func _on_Tween_tween_all_completed() -> void:
 	$RayCast.cast_to = Vector3.FORWARD * 3
 	$RayCast.force_raycast_update()
 	if not $RayCast.get_collider():
@@ -81,3 +87,11 @@ func _on_Tween_tween_all_completed():
 	$Tween.start()
 	clear = true
 	pass
+
+
+func _on_Player_area_entered(area : Area) -> void:
+	if area.is_in_group("Dots"):
+		area.queue_free()
+		emit_signal("eat_cookie")
+	pass
+
