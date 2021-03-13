@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player.gd" type="Script" id=4]
+[ext_resource path="res://wall_mesh.tres" type="CubeMesh" id=5]
 
 [sub_resource type="GDScript" id=9]
 script/source = "extends Label
@@ -11,7 +12,9 @@ script/source = "extends Label
 
 
 func _process(delta : float) -> void:
-	if delta != 0:
+	if delta == 0:
+		text = \"0\"
+	else:
 		text = String(1/delta)
 "
 
@@ -38,6 +41,12 @@ size = Vector2( 1, 1 )
 [sub_resource type="ConvexPolygonShape" id=6]
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
 
+[sub_resource type="PhysicsMaterial" id=10]
+friction = 0.0
+
+[sub_resource type="ConvexPolygonShape" id=11]
+points = PoolVector3Array( -1, 1.5, 1, 1, 1.5, -1, 1, 1.5, 1, -1, 1.5, -1, -1, -1.5, 1, 1, -1.5, -1, 1, -1.5, 1, -1, -1.5, -1, 1, 1.5, 1, -1, 1.5, -1, 1, 1.5, -1, -1, 1.5, 1, 1, -1.5, 1, -1, -1.5, -1, 1, -1.5, -1, -1, -1.5, 1, 1, 1.5, 1, -1, -1.5, 1, -1, 1.5, 1, 1, -1.5, 1, 1, 1.5, -1, -1, -1.5, -1, -1, 1.5, -1, 1, -1.5, -1 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
@@ -58,6 +67,9 @@ environment = SubResource( 1 )
 
 [node name="Player" type="Area" parent="."]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0 )
@@ -99,13 +111,12 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
 light_color = Color( 1, 0.996078, 0.631373, 1 )
 shadow_enabled = true
-editor_only = true
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 54, 16, 0, 0 )
+transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 100, 16, 0, 0 )
 physics_material_override = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
@@ -226,7 +237,7 @@ transform = Transform( 2, 0, 0, 0, 1, 0, 0, 0, 4, 40, 0, -9 )
 transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, 0 )
 
 [node name="Wall32" parent="Walls" instance=ExtResource( 3 )]
-transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 0 )
+transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 0 )
 
 [node name="Wall33" parent="Walls" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 7, 33, 0, 0 )
@@ -639,11 +650,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 15 )
 [node name="Dot126" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15 )
 
+[node name="RightMirror" parent="Dots/Dot126" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
+
 [node name="Dot127" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
 
+[node name="RightMirror" parent="Dots/Dot127" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
+
 [node name="Dot128" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
+
+[node name="RightMirror" parent="Dots/Dot128" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26 )
 
 [node name="Dot129" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 15 )
@@ -969,11 +989,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -15 )
 [node name="Dot236" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15 )
 
+[node name="LeftMirror" parent="Dots/Dot236" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
+
 [node name="Dot237" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -15 )
 
+[node name="LeftMirror" parent="Dots/Dot237" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
+
 [node name="Dot238" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15 )
+
+[node name="LeftMirror" parent="Dots/Dot238" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -26 )
 
 [node name="Dot239" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15 )
@@ -981,11 +1010,97 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15 )
 [node name="Dot240" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -15 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.866025, 0.353553, -0.353553, 0, 0.707107, 0.707107, 0.5, -0.612372, 0.612372, -2, 8, 5 )
+[node name="GhostHouse" type="Spatial" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Wall" parent="GhostHouse" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 6.5, 14, 0, 0 )
+
+[node name="Wall2" parent="GhostHouse" instance=ExtResource( 3 )]
+transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, -6 )
+
+[node name="Wall3" parent="GhostHouse" instance=ExtResource( 3 )]
+transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, 6 )
+
+[node name="Wall4" parent="GhostHouse" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 21, 0, 4 )
+
+[node name="Wall5" parent="GhostHouse" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 21, 0, -4 )
+
+[node name="InvisibleWall" type="StaticBody" parent="GhostHouse"]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 21, 0, 0 )
+physics_material_override = SubResource( 10 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Mesh" type="MeshInstance" parent="GhostHouse/InvisibleWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+visible = false
+mesh = ExtResource( 5 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="GhostHouse/InvisibleWall"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+shape = SubResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftMirror" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -29 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Wall" parent="LeftMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 6, 0, -5 )
+
+[node name="Wall2" parent="LeftMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, -6, 0, -5 )
+
+[node name="Wall3" parent="LeftMirror" instance=ExtResource( 3 )]
+transform = Transform( 7, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -15 )
+
+[node name="Wall4" parent="LeftMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15 )
+
+[node name="Wall5" parent="LeftMirror" instance=ExtResource( 3 )]
+transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, -21 )
+
+[node name="RightMirror" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Wall" parent="RightMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, 6, 0, 5 )
+
+[node name="Wall2" parent="RightMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 5, -6, 0, 5 )
+
+[node name="Wall3" parent="RightMirror" instance=ExtResource( 3 )]
+transform = Transform( 7, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 15 )
+
+[node name="Wall4" parent="RightMirror" instance=ExtResource( 3 )]
+transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15 )
+
+[node name="Wall5" parent="RightMirror" instance=ExtResource( 3 )]
+transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 21 )
 
 [node name="Camera2" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 17, 40, 0 )
+transform = Transform( -1.62921e-07, -1, -1.62921e-07, 0, -1.62921e-07, 1, -1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
-size = 60.0
+size = 65.0
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed"]
