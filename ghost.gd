@@ -7,11 +7,20 @@ const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
 export(Material) var material : Material
+export(Vector3) var scatter_pos : Vector3
 
-var target_pos : Vector3 = Vector3.ZERO
-var back_dir : float = 270
+var target_pos : Vector3
+var back_dir : float = -1
 var teleport : Vector3 = Vector3.ZERO
 var rot : int = 0
+
+
+func _enter_tree() -> void:
+	target_pos = scatter_pos
+	$Body.transform.basis.z = transform.basis.z
+	$LeftMirror.transform.basis.z = transform.basis.z
+	$RightMirror.transform.basis.z = transform.basis.z
+	transform.basis = Transform.IDENTITY.basis
 
 
 func _ready() -> void:

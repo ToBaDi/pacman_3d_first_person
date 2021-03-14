@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dot.tscn" type="PackedScene" id=2]
@@ -17,7 +17,7 @@ func _process(delta : float) -> void:
 	if delta == 0:
 		text = \"0\"
 	else:
-		text = String(1/delta)
+		text = \"{}\\n{}\".format([1/delta, delta], \"{}\")
 "
 
 [sub_resource type="Environment" id=2]
@@ -46,8 +46,8 @@ points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 
 [sub_resource type="PhysicsMaterial" id=8]
 friction = 0.0
 
-[sub_resource type="ConvexPolygonShape" id=9]
-points = PoolVector3Array( -1, 1.5, 1, 1, 1.5, -1, 1, 1.5, 1, -1, 1.5, -1, -1, -1.5, 1, 1, -1.5, -1, 1, -1.5, 1, -1, -1.5, -1, 1, 1.5, 1, -1, 1.5, -1, 1, 1.5, -1, -1, 1.5, 1, 1, -1.5, 1, -1, -1.5, -1, 1, -1.5, -1, -1, -1.5, 1, 1, 1.5, 1, -1, -1.5, 1, -1, 1.5, 1, 1, -1.5, 1, 1, 1.5, -1, -1, -1.5, -1, -1, 1.5, -1, 1, -1.5, -1 )
+[sub_resource type="ConvexPolygonShape" id=15]
+points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.5, 0.5, 0.5 )
@@ -56,7 +56,13 @@ extents = Vector3( 0.5, 0.5, 0.5 )
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 1, 0, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
 albedo_color = Color( 0, 1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_color = Color( 1, 0.498039, 0, 1 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -1040,27 +1046,26 @@ __meta__ = {
 transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 6.5, 14, 0, 0 )
 
 [node name="Wall2" parent="GhostHouse" instance=ExtResource( 3 )]
-transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, -6 )
+transform = Transform( 4.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, -7 )
 
 [node name="Wall3" parent="GhostHouse" instance=ExtResource( 3 )]
-transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, 6 )
+transform = Transform( 4.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 18, 0, 7 )
 
 [node name="Wall4" parent="GhostHouse" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 21, 0, 4 )
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 22, 0, 5 )
 
 [node name="Wall5" parent="GhostHouse" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 21, 0, -4 )
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 22, 0, -5 )
 
 [node name="InvisibleWall" type="StaticBody" parent="GhostHouse"]
-transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 21, 0, 0 )
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 3.5, 22, 0, 0 )
 physics_material_override = SubResource( 8 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Mesh" type="MeshInstance" parent="GhostHouse/InvisibleWall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 visible = false
 mesh = ExtResource( 5 )
 material/0 = null
@@ -1069,8 +1074,8 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="GhostHouse/InvisibleWall"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-shape = SubResource( 9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 15 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1142,25 +1147,32 @@ transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62
 projection = 1
 size = 80.0
 
-[node name="Ghost" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 1 )
+[node name="Oikake" parent="." instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, 5 )
 input_ray_pickable = false
 material = SubResource( 11 )
+scatter_pos = Vector3( 54, 0, 23 )
 
-[node name="Ghost2" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 25 )
+[node name="Machibuse" parent="." instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, -3 )
 input_ray_pickable = false
 material = SubResource( 12 )
+scatter_pos = Vector3( 54, 0, -23 )
 
-[node name="Ghost3" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 0, 1 )
+[node name="Kimagure" parent="." instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, -5 )
 input_ray_pickable = false
-material = SubResource( 11 )
+material = SubResource( 13 )
+scatter_pos = Vector3( -16, 0, 27 )
 
-[node name="Ghost4" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
+[node name="Otoboke" parent="." instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, 3 )
 input_ray_pickable = false
-material = SubResource( 12 )
+material = SubResource( 14 )
+scatter_pos = Vector3( -16, 0, -27 )
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 27 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed" flags=3]

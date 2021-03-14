@@ -8,8 +8,13 @@ onready var ui : CanvasLayer = $UI
 onready var hud : CanvasLayer = $HUD
 
 
-func _ready() -> void:
-	print($Dots.get_child_count())
+#func _ready() -> void:
+#	print($Dots.get_child_count())
+#	for c in get_children():
+#		if c == $HUD or c == $UI:
+#			continue
+#		(c as Node).queue_free()
+#		remove_child(c)
 
 
 func _exit_tree() -> void:
