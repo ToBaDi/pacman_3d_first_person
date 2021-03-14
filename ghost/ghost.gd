@@ -16,6 +16,8 @@ var target_pos : Vector3
 var back_dir : float = 180
 var teleport : Vector3 = Vector3.ZERO
 var rot : int = 0
+var rot_t : float = 1
+var rot_quat : Quat = Quat.IDENTITY
 var dont_go_up : bool = false
 var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
@@ -26,6 +28,7 @@ func _init() -> void:
 	start_game.set_function("_start_game")
 	enter_house.set_function("_enter_house")
 	exit_house.set_function("_exit_house")
+	rot_quat.set_axis_angle(Vector3.RIGHT, deg2rad(90))
 
 
 func _enter_tree() -> void:
@@ -40,9 +43,12 @@ func _ready() -> void:
 
 
 func _process(_delta : float) -> void:
-	$Body.rotation_degrees.y = rot
-	$LeftMirror.rotation_degrees.y = rot
-	$RightMirror.rotation_degrees.y = rot
+	var b : Quat = Quat.IDENTITY
+	b.set_euler(Vector3(deg2rad(90), deg2rad(rot), 0))
+	rot_quat = rot_quat.slerp(b, rot_t)
+	$Body.transform.basis = Basis(rot_quat)
+	$LeftMirror.transform.basis = Basis(rot_quat)
+	$RightMirror.transform.basis = Basis(rot_quat)
 
 
 func connect_tween() -> void:
@@ -73,8 +79,9 @@ func _on_Tween_tween_all_completed():
 
 
 func add_rotation_task(dir : int) -> void:
-	$Tween.interpolate_property(self, "rot",
-		null, dir, ROTATION_DURATION,
+	rot = dir
+	$Tween.interpolate_property(self, "rot_t",
+		0, 1, ROTATION_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	pass
 

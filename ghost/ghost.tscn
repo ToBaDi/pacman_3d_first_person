@@ -15,6 +15,7 @@ __meta__ = {
 }
 
 [node name="Body" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, 0 )
 
 [node name="LeftMirror" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, -56 )
