@@ -62,6 +62,7 @@ func _on_Oikake_tween_all_completed() -> void:
 
 
 func _on_Machibuse_tween_all_completed() -> void:
+	machibuse.target_pos = player_pos + (Vector3.BACK * 8).rotated(Vector3.UP, deg2rad(player_dir))
 	pass
 
 

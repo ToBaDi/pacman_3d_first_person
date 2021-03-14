@@ -99,7 +99,11 @@ __meta__ = {
 environment = SubResource( 2 )
 
 [node name="Player" type="Area" parent="."]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
@@ -109,7 +113,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.25 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0.25 )
 current = true
 fov = 120.0
 __meta__ = {
@@ -117,7 +121,7 @@ __meta__ = {
 }
 
 [node name="SpotLight" type="SpotLight" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 1.5, 0 )
+transform = Transform( -1, 5.65818e-08, -3.20891e-07, 0, 0.984808, 0.173648, 3.25841e-07, 0.173648, -0.984808, 0, 1.5, 0 )
 light_color = Color( 1, 0.662745, 0.482353, 1 )
 shadow_reverse_cull_face = true
 spot_range = 10.0
@@ -129,7 +133,7 @@ __meta__ = {
 }
 
 [node name="RayCast" type="RayCast" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, 0 )
 cast_to = Vector3( 0, 0, -3 )
 __meta__ = {
 "_edit_lock_": true
@@ -138,8 +142,7 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="Player"]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
 light_color = Color( 1, 0.996078, 0.631373, 1 )
 shadow_enabled = true
 __meta__ = {
@@ -1208,6 +1211,7 @@ scatter_pos = Vector3( -16, 0, -27 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
+current = true
 size = 80.0
 
 [node name="Camera2" type="Camera" parent="."]

@@ -72,7 +72,7 @@ func rotate_back() -> void:
 
 func start() -> void:
 	if not $Tween.is_active():
-		var target : Vector3  = transform.origin + (-transform.basis.z * 3)
+		var target : Vector3  = transform.origin + (transform.basis.z * 3)
 		$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
@@ -85,12 +85,12 @@ func add_rotation_task(value : int) -> void:
 		null, target, ROTATION_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	clear = false
-	emit_signal("next_dir", value)
+	emit_signal("next_dir", (int(round(rotation_degrees.y)) + value) % 360)
 	pass
 
 
 func add_movement_task():
-	var target : Vector3  = transform.origin + (-transform.basis.z * 2)
+	var target : Vector3  = transform.origin + (transform.basis.z * 2)
 	$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)

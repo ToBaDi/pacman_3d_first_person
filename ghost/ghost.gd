@@ -40,6 +40,7 @@ func _ready() -> void:
 		$Body.material_override = material
 		$LeftMirror.material_override = material
 		$RightMirror.material_override = material
+		$Node/Target.material_override = material
 
 
 func _process(_delta : float) -> void:
@@ -49,6 +50,8 @@ func _process(_delta : float) -> void:
 	$Body.transform.basis = Basis(rot_quat)
 	$LeftMirror.transform.basis = Basis(rot_quat)
 	$RightMirror.transform.basis = Basis(rot_quat)
+	$Node/Target.transform.origin.x = target_pos.x
+	$Node/Target.transform.origin.z = target_pos.z
 
 
 func connect_tween() -> void:
