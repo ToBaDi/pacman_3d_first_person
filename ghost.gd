@@ -10,7 +10,7 @@ export(Material) var material : Material
 export(Vector3) var scatter_pos : Vector3
 
 var target_pos : Vector3
-var back_dir : float = -1
+var back_dir : float = 180
 var teleport : Vector3 = Vector3.ZERO
 var rot : int = 0
 

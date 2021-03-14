@@ -134,7 +134,6 @@ __meta__ = {
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10, 0 )
-visible = false
 light_color = Color( 1, 0.996078, 0.631373, 1 )
 shadow_enabled = true
 __meta__ = {
@@ -1145,34 +1144,35 @@ shape = SubResource( 10 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
+current = true
 size = 80.0
 
 [node name="Oikake" parent="." instance=ExtResource( 6 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, 5 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, 0 )
 input_ray_pickable = false
 material = SubResource( 11 )
 scatter_pos = Vector3( 54, 0, 23 )
 
 [node name="Machibuse" parent="." instance=ExtResource( 6 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, -3 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0, 0 )
 input_ray_pickable = false
 material = SubResource( 12 )
 scatter_pos = Vector3( 54, 0, -23 )
 
 [node name="Kimagure" parent="." instance=ExtResource( 6 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, -5 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0, -3 )
 input_ray_pickable = false
 material = SubResource( 13 )
 scatter_pos = Vector3( -16, 0, 27 )
 
 [node name="Otoboke" parent="." instance=ExtResource( 6 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24, 0, 3 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, 0, 3 )
 input_ray_pickable = false
 material = SubResource( 14 )
 scatter_pos = Vector3( -16, 0, -27 )
 
 [node name="Position3D" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 27 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 1 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed" flags=3]
