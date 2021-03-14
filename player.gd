@@ -1,7 +1,9 @@
 extends Area
 
 
-signal eat_cookie
+signal eat_cookie()
+signal next_pos(pos)
+signal next_dir(dir)
 
 
 const MOVEMENT_DURATION : float = .5
@@ -83,6 +85,7 @@ func add_rotation_task(value : int) -> void:
 		null, target, ROTATION_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	clear = false
+	emit_signal("next_dir", value)
 	pass
 
 
@@ -91,5 +94,6 @@ func add_movement_task():
 	$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	emit_signal("next_pos", target)
 	pass
 

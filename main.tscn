@@ -1211,6 +1211,8 @@ current = true
 size = 80.0
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]
+[connection signal="next_dir" from="Player" to="GhostsManager" method="_on_Player_next_dir" flags=3]
+[connection signal="next_pos" from="Player" to="GhostsManager" method="_on_Player_next_pos" flags=3]
 [connection signal="tween_all_completed" from="Player/Tween" to="Player" method="_on_Tween_tween_all_completed" flags=3]
 [connection signal="area_entered" from="DontGoUpZone1" to="DontGoUpZone1" method="_on_DontGoUpZone_area_entered"]
 [connection signal="area_exited" from="DontGoUpZone1" to="DontGoUpZone1" method="_on_DontGoUpZone_area_exited"]
@@ -1218,3 +1220,4 @@ size = 80.0
 [connection signal="area_exited" from="DontGoUpZone2" to="DontGoUpZone2" method="_on_DontGoUpZone_area_exited"]
 [connection signal="area_entered" from="LeftTeleportToggle" to="LeftTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
 [connection signal="area_entered" from="RightTeleportToggle" to="RightTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
+[connection signal="next_pos" from="GhostsManager/Oikake" to="GhostsManager" method="_on_Oikake_next_pos" flags=3]

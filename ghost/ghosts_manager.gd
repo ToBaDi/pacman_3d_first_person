@@ -6,6 +6,10 @@ onready var machibuse : Ghost = $Machibuse
 onready var kimagure : Ghost = $Kimagure
 onready var otoboke : Ghost = $Otoboke
 
+var player_pos : Vector3 = Vector3.ZERO
+var player_dir : int = 180
+var oikake_pos : Vector3 = oikake.transform.origin
+
 
 func _ready() -> void:
 	oikake.start_game.set_instance(OikakePattern)
@@ -38,12 +42,21 @@ func _unhandled_key_input(event : InputEventKey) -> void:
 	pass
 
 
+func _on_Player_next_dir(dir : int) -> void:
+	player_dir = dir
+
+
+func _on_Player_next_pos(pos : Vector3) -> void:
+	player_pos = pos
+
+
+func _on_Oikake_next_pos(pos : Vector3) -> void:
+	oikake_pos = pos
+
+
 func start_game() -> void:
 	for c in get_children():
 		if c is Ghost:
 			c.start_game.call_func(c)
 			c.back_dir = 0
 	pass
-
-
-

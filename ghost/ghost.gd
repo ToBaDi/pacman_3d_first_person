@@ -2,6 +2,9 @@ class_name Ghost
 extends Area
 
 
+signal next_pos(pos)
+
+
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
@@ -79,6 +82,7 @@ func add_movement_task(dir : int, steps : int = 2) -> void:
 	$Tween.interpolate_property(self, "translation",
 		null, t, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	emit_signal("next_pos", t)
 	pass
 
 
@@ -86,6 +90,7 @@ func add_go_to_position_task(pos : Vector3, duration : float) -> void:
 	$Tween.interpolate_property(self, "translation",
 		null, pos, duration,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	emit_signal("next_pos", pos)
 	pass
 
 
