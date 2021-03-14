@@ -1221,3 +1221,7 @@ size = 80.0
 [connection signal="area_entered" from="LeftTeleportToggle" to="LeftTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
 [connection signal="area_entered" from="RightTeleportToggle" to="RightTeleportToggle" method="_on_LeftTeleportToggle_area_entered" flags=3]
 [connection signal="next_pos" from="GhostsManager/Oikake" to="GhostsManager" method="_on_Oikake_next_pos" flags=3]
+[connection signal="tween_all_completed" from="GhostsManager/Oikake" to="GhostsManager" method="_on_Oikake_tween_all_completed"]
+[connection signal="tween_all_completed" from="GhostsManager/Machibuse" to="GhostsManager" method="_on_Machibuse_tween_all_completed"]
+[connection signal="tween_all_completed" from="GhostsManager/Kimagure" to="GhostsManager" method="_on_Kimagure_tween_all_completed"]
+[connection signal="tween_all_completed" from="GhostsManager/Otoboke" to="GhostsManager" method="_on_Otoboke_tween_all_completed"]

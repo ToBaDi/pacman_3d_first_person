@@ -2,7 +2,9 @@ class_name KimagurePattern
 extends GhostPattern
 
 
-static func _start_game(_ghost : Ghost) -> void:
+static func _start_game(ghost : Ghost) -> void:
+	ghost.start_tween()
+	ghost.connect_tween()
 	pass
 
 

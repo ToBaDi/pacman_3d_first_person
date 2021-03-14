@@ -5,10 +5,10 @@ onready var oikake : Ghost = $Oikake
 onready var machibuse : Ghost = $Machibuse
 onready var kimagure : Ghost = $Kimagure
 onready var otoboke : Ghost = $Otoboke
+onready var oikake_pos : Vector3 = oikake.transform.origin
 
 var player_pos : Vector3 = Vector3.ZERO
 var player_dir : int = 180
-var oikake_pos : Vector3 = oikake.transform.origin
 
 
 func _ready() -> void:
@@ -42,6 +42,7 @@ func _unhandled_key_input(event : InputEventKey) -> void:
 	pass
 
 
+### Gathering information for target calculation
 func _on_Player_next_dir(dir : int) -> void:
 	player_dir = dir
 
@@ -52,6 +53,25 @@ func _on_Player_next_pos(pos : Vector3) -> void:
 
 func _on_Oikake_next_pos(pos : Vector3) -> void:
 	oikake_pos = pos
+###
+
+
+### Targeting calculation
+func _on_Oikake_tween_all_completed() -> void:
+	oikake.target_pos = player_pos
+
+
+func _on_Machibuse_tween_all_completed() -> void:
+	pass
+
+
+func _on_Kimagure_tween_all_completed() -> void:
+	pass
+
+
+func _on_Otoboke_tween_all_completed() -> void:
+	pass
+###
 
 
 func start_game() -> void:

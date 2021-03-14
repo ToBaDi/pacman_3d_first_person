@@ -3,6 +3,7 @@ extends Area
 
 
 signal next_pos(pos)
+signal tween_all_completed()
 
 
 const MOVEMENT_DURATION : float = .5
@@ -59,6 +60,7 @@ func start_tween() -> void:
 
 
 func _on_Tween_tween_all_completed():
+	emit_signal("tween_all_completed")
 	if teleport:
 		transform.origin = teleport
 		teleport = Vector3.ZERO
@@ -116,7 +118,7 @@ func find_closest_direction(valid_directions : PoolIntArray) -> int:
 	for i in valid_directions:
 		var c_next_pos : Vector3 = next_pos(closest_direction)
 		var i_next_pos : Vector3 = next_pos(i)
-		if i_next_pos.distance_squared_to(target_pos) < c_next_pos.distance_squared_to(target_pos):
+		if round(i_next_pos.distance_squared_to(target_pos)) < round(c_next_pos.distance_squared_to(target_pos)):
 			closest_direction = i
 	return closest_direction
 
