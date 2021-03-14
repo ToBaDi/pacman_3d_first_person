@@ -7,14 +7,8 @@ signal eat_cookie
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var clear : bool = true
 var teleport : Vector3 = Vector3.ZERO
-
-
-func _ready() -> void:
-	rng.randomize()
-	pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -67,7 +61,7 @@ func rotate_right() -> void:
 
 func rotate_back() -> void:
 	if clear:
-		var r : int = rng.randi_range(0, 1)
+		var r : int = RNG.rng.randi_range(0, 1)
 		if r:
 			add_rotation_task(180)
 		else:
