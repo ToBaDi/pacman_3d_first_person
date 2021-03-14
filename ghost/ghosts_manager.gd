@@ -24,17 +24,26 @@ func _ready() -> void:
 	otoboke.enter_house.set_instance(OtobokePattern)
 	otoboke.exit_house.set_instance(OtobokePattern)
 	
-	
 	for c in get_children():
 		if c is Ghost:
-			c.start_game.call_func(c)
-#			c.connect_tween()
-#			c.start_play()
+			c.add_rotation_task(90)
+			c.start_tween()
 	
 	pass
 
 
+func _unhandled_key_input(event : InputEventKey) -> void:
+	if event.is_action_pressed("ui_accept"):
+		start_game()
+	pass
 
+
+func start_game() -> void:
+	for c in get_children():
+		if c is Ghost:
+			c.start_game.call_func(c)
+			c.back_dir = 0
+	pass
 
 
 

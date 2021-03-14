@@ -3,8 +3,7 @@
 [ext_resource path="res://ghost/ghost.gd" type="Script" id=1]
 [ext_resource path="res://ghost/ghost_visual.tscn" type="PackedScene" id=2]
 
-
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=1]
 
 [node name="Ghost" type="Area" groups=[
 "Ghost",
@@ -25,7 +24,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }

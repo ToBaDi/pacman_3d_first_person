@@ -14,6 +14,7 @@ var target_pos : Vector3
 var back_dir : float = 180
 var teleport : Vector3 = Vector3.ZERO
 var rot : int = 0
+var dont_go_up : bool = false
 var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
 var exit_house : FuncRef = FuncRef.new()
@@ -56,10 +57,6 @@ func start_tween() -> void:
 	$Tween.start()
 
 
-func start_play() -> void:
-	_on_Tween_tween_all_completed()
-
-
 func _on_Tween_tween_all_completed():
 	if teleport:
 		transform.origin = teleport
@@ -79,10 +76,17 @@ func add_rotation_task(dir : int) -> void:
 	pass
 
 
-func add_movement_task(dir : int, steps : int = 2):
+func add_movement_task(dir : int, steps : int = 2) -> void:
 	var t : Vector3  = next_pos(dir, steps)
 	$Tween.interpolate_property(self, "translation",
 		null, t, MOVEMENT_DURATION,
+		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	pass
+
+
+func add_go_to_position_task(pos : Vector3, duration : float) -> void:
+	$Tween.interpolate_property(self, "translation",
+		null, pos, duration,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	pass
 
@@ -93,9 +97,11 @@ func find_valid_directions() -> PoolIntArray:
 		var dir : int = (90 * i) % 360
 		if back_dir == dir:
 			continue
+		if dont_go_up and dir == 90:
+			continue
 		$RayCast.global_transform = Transform.IDENTITY
 		$RayCast.global_transform.origin = transform.origin
-		$RayCast.set_cast_to(Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
+		$RayCast.set_cast_to(Vector3.BACK.rotated(Vector3.UP, deg2rad(dir)) * 3)
 		$RayCast.force_raycast_update()
 		if not $RayCast.get_collider():
 			valid_directions.append(dir)
@@ -113,7 +119,7 @@ func find_closest_direction(valid_directions : PoolIntArray) -> int:
 
 
 func next_pos(dir : int, steps : int = 2) -> Vector3:
-	return transform.origin + (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * steps)
+	return transform.origin + (Vector3.BACK.rotated(Vector3.UP, deg2rad(dir)) * steps)
 
 
 
