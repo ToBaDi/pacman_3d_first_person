@@ -2,8 +2,6 @@ class_name Ghost
 extends Area
 
 
-enum {UP, LEFT, DOWN, RIGHT}
-
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 
