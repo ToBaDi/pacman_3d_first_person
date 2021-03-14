@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="CapsuleMesh" id=1]
+mid_height = 2.0
+
+[sub_resource type="SpatialMaterial" id=2]
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 0.2
+height = 0.2
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
+radius = 0.1
+height = 0.2
+
+[node name="Body" type="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( -1, -8.74228e-08, 1.4243e-14, 8.74228e-08, -1, 3.25842e-07, -1.4243e-14, 3.25842e-07, 1, 0, 0, 0 )
+
+[node name="LeftEye" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, -0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftEye2" type="MeshInstance" parent="Spatial/LeftEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="RightEye" type="MeshInstance" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0.4, -0.8, -1 )
+mesh = SubResource( 3 )
+material/0 = null
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightEye2" type="MeshInstance" parent="Spatial/RightEye"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.12 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="SpotLight" type="SpotLight" parent="Spatial"]
+transform = Transform( 1, -4.37114e-08, 4.01552e-07, -3.6961e-07, -0.5, 0.866025, 1.62921e-07, -0.866025, -0.5, -4.37114e-08, 1.62921e-07, 1 )
+shadow_enabled = true
+spot_range = 10.0

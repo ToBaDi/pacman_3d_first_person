@@ -8,9 +8,44 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Area",
+"class": "Ghost",
+"language": "GDScript",
+"path": "res://ghost/ghost.gd"
+}, {
+"base": "Object",
+"class": "GhostPattern",
+"language": "GDScript",
+"path": "res://paterns/pattern.gd"
+}, {
+"base": "GhostPattern",
+"class": "KimagurePattern",
+"language": "GDScript",
+"path": "res://paterns/kimagure.gd"
+}, {
+"base": "GhostPattern",
+"class": "MachibusePattern",
+"language": "GDScript",
+"path": "res://paterns/machibuse.gd"
+}, {
+"base": "GhostPattern",
+"class": "OikakePattern",
+"language": "GDScript",
+"path": "res://paterns/oikake.gd"
+}, {
+"base": "GhostPattern",
+"class": "OtobokePattern",
+"language": "GDScript",
+"path": "res://paterns/otoboke.gd"
+} ]
 _global_script_class_icons={
-
+"Ghost": "",
+"GhostPattern": "",
+"KimagurePattern": "",
+"MachibusePattern": "",
+"OikakePattern": "",
+"OtobokePattern": ""
 }
 
 [application]

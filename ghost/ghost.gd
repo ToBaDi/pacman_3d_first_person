@@ -1,3 +1,4 @@
+class_name Ghost
 extends Area
 
 
@@ -13,14 +14,19 @@ var target_pos : Vector3
 var back_dir : float = 180
 var teleport : Vector3 = Vector3.ZERO
 var rot : int = 0
+var start_game : FuncRef = FuncRef.new()
+var enter_house : FuncRef = FuncRef.new()
+var exit_house : FuncRef = FuncRef.new()
+
+
+func _init() -> void:
+	start_game.set_function("_start_game")
+	enter_house.set_function("_enter_house")
+	exit_house.set_function("_exit_house")
 
 
 func _enter_tree() -> void:
 	target_pos = scatter_pos
-	$Body.transform.basis.z = transform.basis.z
-	$LeftMirror.transform.basis.z = transform.basis.z
-	$RightMirror.transform.basis.z = transform.basis.z
-	transform.basis = Transform.IDENTITY.basis
 
 
 func _ready() -> void:
@@ -28,7 +34,6 @@ func _ready() -> void:
 		$Body.material_override = material
 		$LeftMirror.material_override = material
 		$RightMirror.material_override = material
-	start()
 
 
 func _process(_delta : float) -> void:
@@ -37,7 +42,21 @@ func _process(_delta : float) -> void:
 	$RightMirror.rotation_degrees.y = rot
 
 
-func start() -> void:
+func connect_tween() -> void:
+	if not $Tween.is_connected("tween_all_completed", self, "_on_Tween_tween_all_completed"):
+# warning-ignore:return_value_discarded
+		$Tween.connect("tween_all_completed", self, "_on_Tween_tween_all_completed", [], Tween.CONNECT_DEFERRED)
+
+
+func disconnect_tween() -> void:
+	$Tween.disconnect("tween_all_completed", self, "_on_Tween_tween_all_completed")
+
+
+func start_tween() -> void:
+	$Tween.start()
+
+
+func start_play() -> void:
 	_on_Tween_tween_all_completed()
 
 
@@ -60,8 +79,8 @@ func add_rotation_task(dir : int) -> void:
 	pass
 
 
-func add_movement_task(dir : int):
-	var t : Vector3  = next_pos(dir)
+func add_movement_task(dir : int, steps : int = 2):
+	var t : Vector3  = next_pos(dir, steps)
 	$Tween.interpolate_property(self, "translation",
 		null, t, MOVEMENT_DURATION,
 		Tween.TRANS_CUBIC, Tween.EASE_OUT)
@@ -93,8 +112,8 @@ func find_closest_direction(valid_directions : PoolIntArray) -> int:
 	return closest_direction
 
 
-func next_pos(dir : int) -> Vector3:
-	return transform.origin + (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 2)
+func next_pos(dir : int, steps : int = 2) -> Vector3:
+	return transform.origin + (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * steps)
 
 
 

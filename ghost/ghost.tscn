@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ghost/ghost.gd" type="Script" id=1]
+[ext_resource path="res://ghost/ghost_visual.tscn" type="PackedScene" id=2]
+
+
+[sub_resource type="BoxShape" id=6]
+
+[node name="Ghost" type="Area" groups=[
+"Ghost",
+]]
+monitoring = false
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Body" parent="." instance=ExtResource( 2 )]
+
+[node name="LeftMirror" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, -56 )
+
+[node name="RightMirror" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 56 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37114e-08, 1, 1 )
+cast_to = Vector3( 0, 0, 3 )
+
+[node name="Tween" type="Tween" parent="."]
