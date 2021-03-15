@@ -62,6 +62,9 @@ func _on_Oikake_tween_all_completed() -> void:
 
 
 func _on_Machibuse_tween_all_completed() -> void:
+	if int(round(player_dir)) == 90 or int(round(player_dir)) == -270:
+			machibuse.target_pos = player_pos + Vector3(8, 0, -8)
+			return
 	machibuse.target_pos = player_pos + (Vector3.BACK * 8).rotated(Vector3.UP, deg2rad(player_dir))
 	pass
 

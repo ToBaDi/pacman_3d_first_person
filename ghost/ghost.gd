@@ -22,6 +22,7 @@ var dont_go_up : bool = false
 var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
 var exit_house : FuncRef = FuncRef.new()
+var tween_msg_bus : Array = []
 
 
 func _init() -> void:
@@ -73,10 +74,16 @@ func _on_Tween_tween_all_completed():
 	if teleport:
 		transform.origin = teleport
 		teleport = Vector3.ZERO
-	var next_dir : int = find_closest_direction(find_valid_directions())
-	back_dir = (next_dir + 180) % 360
-	add_rotation_task(next_dir)
-	add_movement_task(next_dir)
+	var f = tween_msg_bus.pop_front()
+	if f:
+		if f is FuncRef:
+			f.call_func(self)
+	else:
+		var next_dir : int = find_closest_direction(find_valid_directions())
+		back_dir = (next_dir + 180) % 360
+		add_rotation_task(next_dir)
+		add_movement_task(next_dir)
+	
 	$Tween.start()
 	pass
 
@@ -93,7 +100,7 @@ func add_movement_task(dir : int, steps : int = 2) -> void:
 	var t : Vector3  = next_pos(dir, steps)
 	$Tween.interpolate_property(self, "translation",
 		null, t, MOVEMENT_DURATION,
-		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	emit_signal("next_pos", t)
 	pass
 
@@ -101,7 +108,7 @@ func add_movement_task(dir : int, steps : int = 2) -> void:
 func add_go_to_position_task(pos : Vector3, duration : float) -> void:
 	$Tween.interpolate_property(self, "translation",
 		null, pos, duration,
-		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	emit_signal("next_pos", pos)
 	pass
 

@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "OtobokePattern",
 "language": "GDScript",
 "path": "res://paterns/otoboke.gd"
+}, {
+"base": "Object",
+"class": "TweenMessages",
+"language": "GDScript",
+"path": "res://paterns/tween_messages.gd"
 } ]
 _global_script_class_icons={
 "Ghost": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "KimagurePattern": "",
 "MachibusePattern": "",
 "OikakePattern": "",
-"OtobokePattern": ""
+"OtobokePattern": "",
+"TweenMessages": ""
 }
 
 [application]
@@ -56,6 +62,10 @@ run/main_scene="res://main.tscn"
 [autoload]
 
 RNG="*res://rng.gd"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
 
 [input]
 

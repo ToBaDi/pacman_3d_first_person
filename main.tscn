@@ -1185,13 +1185,13 @@ shape = SubResource( 11 )
 script = ExtResource( 8 )
 
 [node name="Oikake" parent="GhostsManager" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 1 )
 input_ray_pickable = false
 material = SubResource( 12 )
 scatter_pos = Vector3( 54, 0, 23 )
 
 [node name="Machibuse" parent="GhostsManager" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -1 )
 input_ray_pickable = false
 material = SubResource( 13 )
 scatter_pos = Vector3( 54, 0, -23 )

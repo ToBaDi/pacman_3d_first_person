@@ -75,7 +75,7 @@ func start() -> void:
 		var target : Vector3  = transform.origin + (transform.basis.z * 3)
 		$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
-		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		$Tween.start()
 
 
@@ -93,7 +93,7 @@ func add_movement_task():
 	var target : Vector3  = transform.origin + (transform.basis.z * 2)
 	$Tween.interpolate_property(self, "translation",
 		null, target, MOVEMENT_DURATION,
-		Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	emit_signal("next_pos", target)
 	pass
 
