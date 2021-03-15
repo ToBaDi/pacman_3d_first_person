@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dot.tscn" type="PackedScene" id=2]
@@ -22,9 +22,6 @@ func _process(delta : float) -> void:
 	else:
 		text = \"{}\\n{}\".format([1/delta, delta], \"{}\")
 "
-
-[sub_resource type="Environment" id=17]
-background_mode = 1
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.5, 0.5, 1 )
@@ -97,7 +94,6 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 17 )
 
 [node name="Player" type="Area" parent="."]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
@@ -1253,9 +1249,9 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
+transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 16, 50, 0 )
 projection = 1
-size = 80.0
+size = 65.0
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="ate_a_ghost" from="Player" to="." method="_on_Player_ate_a_ghost" flags=3]
 [connection signal="ate_cookie" from="Player" to="." method="_on_Player_ate_cookie" flags=3]

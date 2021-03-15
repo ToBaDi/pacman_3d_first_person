@@ -74,7 +74,7 @@ func _on_Oikake_next_pos(pos : Vector3) -> void:
 
 ### Targeting calculation
 func _on_Oikake_tween_all_completed() -> void:
-	if oikake.is_in_house:
+	if oikake.is_in_house or oikake.is_eaten or oikake.is_frightened:
 		return
 	
 	if on_scatter:
@@ -85,7 +85,7 @@ func _on_Oikake_tween_all_completed() -> void:
 
 
 func _on_Machibuse_tween_all_completed() -> void:
-	if machibuse.is_in_house:
+	if machibuse.is_in_house or machibuse.is_eaten or machibuse.is_frightened:
 		return
 	
 	if on_scatter:
@@ -99,7 +99,7 @@ func _on_Machibuse_tween_all_completed() -> void:
 
 
 func _on_Kimagure_tween_all_completed() -> void:
-	if kimagure.is_in_house:
+	if kimagure.is_in_house or kimagure.is_eaten or kimagure.is_frightened:
 		return
 	
 	if on_scatter:
@@ -117,7 +117,7 @@ func _on_Kimagure_tween_all_completed() -> void:
 
 
 func _on_Otoboke_tween_all_completed() -> void:
-	if otoboke.is_in_house:
+	if otoboke.is_in_house or otoboke.is_eaten or otoboke.is_frightened:
 		return
 	
 	if on_scatter:

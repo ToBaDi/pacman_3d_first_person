@@ -8,8 +8,10 @@ signal tween_all_completed()
 
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
+const FRONT_HOUSE_POS : Vector3 = Vector3(24, 0, 0)
 
 export(Material) var material : Material
+export(Material) var frightened_material : Material
 export(Vector3) var scatter_pos : Vector3
 
 var target_pos : Vector3
@@ -21,6 +23,7 @@ var rot_quat : Quat = Quat.IDENTITY
 var dont_go_up : bool = false
 var is_in_house : bool = true
 var is_frightened : bool = false
+var is_eaten : bool = false
 var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
 var exit_house : FuncRef = FuncRef.new()
@@ -39,10 +42,9 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	if material:
-		$Body.material_override = material
-		$LeftMirror.material_override = material
-		$RightMirror.material_override = material
+	$Body.material_override = material
+	$LeftMirror.material_override = material
+	$RightMirror.material_override = material
 
 
 func _process(_delta : float) -> void:
@@ -53,6 +55,29 @@ func _process(_delta : float) -> void:
 	$LeftMirror.transform.basis = Basis(rot_quat)
 	$RightMirror.transform.basis = Basis(rot_quat)
 
+
+func _on_Tween_tween_all_completed():
+	emit_signal("tween_all_completed")
+	if teleport:
+		transform.origin = teleport
+		teleport = Vector3.ZERO
+	var f = tween_msg_bus.pop_front()
+	if f:
+		if f is FuncRef:
+			f.call_func(self)
+	else:
+		var next_dir : int
+		if is_frightened and not is_in_house:
+			next_dir = pick_random_direction(find_valid_directions())
+		else:
+			next_dir = find_direction_closest_to_target(find_valid_directions())
+		
+		back_dir = (next_dir + 180) % 360
+		add_rotation_task(next_dir)
+		add_movement_task(next_dir)
+	
+	$Tween.start()
+	pass
 
 
 func connect_tween() -> void:
@@ -67,25 +92,6 @@ func disconnect_tween() -> void:
 
 func start_tween() -> void:
 	$Tween.start()
-
-
-func _on_Tween_tween_all_completed():
-	emit_signal("tween_all_completed")
-	if teleport:
-		transform.origin = teleport
-		teleport = Vector3.ZERO
-	var f = tween_msg_bus.pop_front()
-	if f:
-		if f is FuncRef:
-			f.call_func(self)
-	else:
-		var next_dir : int = find_direction_closest_to_target(find_valid_directions())
-		back_dir = (next_dir + 180) % 360
-		add_rotation_task(next_dir)
-		add_movement_task(next_dir)
-	
-	$Tween.start()
-	pass
 
 
 func add_rotation_task(dir : int) -> void:
@@ -149,8 +155,30 @@ func next_pos(dir : int, steps : int = 2) -> Vector3:
 	return transform.origin + (Vector3.BACK.rotated(Vector3.UP, deg2rad(dir)) * steps)
 
 
+func pick_random_direction(valid_directions : PoolIntArray) -> int:
+	var r : int = RNG.rng.randi_range(0, valid_directions.size()-1)
+	return valid_directions[r]
+
+
 func go_frightened() -> void:
-	is_frightened = true
+	if not is_eaten:
+		is_frightened = true
+		$Body.material_override = frightened_material
+		$LeftMirror.material_override = frightened_material
+		$RightMirror.material_override = frightened_material
+	pass
+
+
+func go_eaten() -> void:
+	is_frightened = false
+	is_eaten = true
+	$Body.material_override = material
+	$LeftMirror.material_override = material
+	$RightMirror.material_override = material
+	$Body.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	$LeftMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	$RightMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	target_pos = FRONT_HOUSE_POS
 	pass
 
 

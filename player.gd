@@ -50,7 +50,10 @@ func _on_Player_area_entered(area : Area) -> void:
 		emit_signal("ate_power_pellet")
 	elif area is Ghost:
 		if (area as Ghost).is_frightened:
+			(area as Ghost).go_eaten()
 			emit_signal("ate_a_ghost")
+		if (area as Ghost).is_eaten:
+			pass
 		else:
 			emit_signal("caught_by_a_ghost")
 	pass
