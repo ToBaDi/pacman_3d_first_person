@@ -146,7 +146,6 @@ __meta__ = {
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
-visible = false
 light_color = Color( 1, 0.996078, 0.631373, 1 )
 shadow_enabled = true
 __meta__ = {
@@ -1249,6 +1248,7 @@ __meta__ = {
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 17, 40, 0 )
 projection = 1
+current = true
 size = 80.0
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="eat_cookie" from="Player" to="." method="_on_Player_eat_cookie" flags=3]

@@ -78,7 +78,7 @@ func _on_Tween_tween_all_completed():
 		if f is FuncRef:
 			f.call_func(self)
 	else:
-		var next_dir : int = find_closest_direction(find_valid_directions())
+		var next_dir : int = find_direction_closest_to_target(find_valid_directions())
 		back_dir = (next_dir + 180) % 360
 		add_rotation_task(next_dir)
 		add_movement_task(next_dir)
@@ -129,12 +129,17 @@ func find_valid_directions() -> PoolIntArray:
 	return valid_directions
 
 
-func find_closest_direction(valid_directions : PoolIntArray) -> int:
+func find_direction_closest_to_target(valid_directions : PoolIntArray) -> int:
+	var closest_target : Vector3 = target_pos
+#	for i in range(-1, 2):
+#		if transform.origin.distance_squared_to(target_pos + (Vector3.BACK * (56 * i))) < transform.origin.distance_squared_to(closest_target):
+#			closest_target = target_pos + (Vector3.BACK * (56 * i))
+	
 	var closest_direction : int = valid_directions[0]
 	for i in valid_directions:
 		var c_next_pos : Vector3 = next_pos(closest_direction)
 		var i_next_pos : Vector3 = next_pos(i)
-		if round(i_next_pos.distance_squared_to(target_pos)) < round(c_next_pos.distance_squared_to(target_pos)):
+		if round(i_next_pos.distance_squared_to(closest_target)) < round(c_next_pos.distance_squared_to(closest_target)):
 			closest_direction = i
 	return closest_direction
 

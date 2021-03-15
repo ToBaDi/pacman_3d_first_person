@@ -9,6 +9,7 @@ onready var oikake_pos : Vector3 = oikake.transform.origin
 
 var player_pos : Vector3 = Vector3.ZERO
 var player_dir : int = 180
+var on_scatter : bool = false
 var debug : bool = true
 
 
@@ -76,11 +77,19 @@ func _on_Oikake_tween_all_completed() -> void:
 	if oikake.is_in_house:
 		return
 	
+	if on_scatter:
+		oikake.target_pos = oikake.scatter_pos
+		return
+	
 	oikake.target_pos = player_pos
 
 
 func _on_Machibuse_tween_all_completed() -> void:
 	if machibuse.is_in_house:
+		return
+	
+	if on_scatter:
+		machibuse.target_pos = machibuse.scatter_pos
 		return
 	
 	if int(round(player_dir)) == 90 or int(round(player_dir)) == -270:
@@ -91,6 +100,10 @@ func _on_Machibuse_tween_all_completed() -> void:
 
 func _on_Kimagure_tween_all_completed() -> void:
 	if kimagure.is_in_house:
+		return
+	
+	if on_scatter:
+		kimagure.target_pos = kimagure.scatter_pos
 		return
 	
 	var int_tile : Vector3
@@ -105,6 +118,10 @@ func _on_Kimagure_tween_all_completed() -> void:
 
 func _on_Otoboke_tween_all_completed() -> void:
 	if otoboke.is_in_house:
+		return
+	
+	if on_scatter:
+		otoboke.target_pos = otoboke.scatter_pos
 		return
 	
 	if int(round(abs(otoboke.transform.origin.distance_squared_to(player_pos)))) < pow(8 * 2, 2):
