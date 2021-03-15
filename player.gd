@@ -1,8 +1,10 @@
 extends Area
 
 
-signal eat_cookie()
-signal eat_power_pellet()
+signal ate_cookie()
+signal ate_power_pellet()
+signal ate_a_ghost()
+signal caught_by_a_ghost()
 signal next_pos(pos)
 signal next_dir(dir)
 
@@ -42,10 +44,15 @@ func _on_Tween_tween_all_completed() -> void:
 func _on_Player_area_entered(area : Area) -> void:
 	if area.is_in_group("Dots"):
 		area.queue_free()
-		emit_signal("eat_cookie")
-	if area.is_in_group("PowerDots"):
+		emit_signal("ate_cookie")
+	elif area.is_in_group("PowerDots"):
 		area.queue_free()
-		emit_signal("eat_power_pellet")
+		emit_signal("ate_power_pellet")
+	elif area is Ghost:
+		if (area as Ghost).is_frightened:
+			emit_signal("ate_a_ghost")
+		else:
+			emit_signal("caught_by_a_ghost")
 	pass
 
 
@@ -100,4 +107,3 @@ func add_movement_task():
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	emit_signal("next_pos", target)
 	pass
-

@@ -20,6 +20,7 @@ var rot_t : float = 1
 var rot_quat : Quat = Quat.IDENTITY
 var dont_go_up : bool = false
 var is_in_house : bool = true
+var is_frightened : bool = false
 var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
 var exit_house : FuncRef = FuncRef.new()
@@ -147,5 +148,9 @@ func find_direction_closest_to_target(valid_directions : PoolIntArray) -> int:
 func next_pos(dir : int, steps : int = 2) -> Vector3:
 	return transform.origin + (Vector3.BACK.rotated(Vector3.UP, deg2rad(dir)) * steps)
 
+
+func go_frightened() -> void:
+	is_frightened = true
+	pass
 
 

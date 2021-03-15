@@ -137,3 +137,15 @@ func start_game() -> void:
 			c.start_game.call_func(c)
 			c.back_dir = 0
 	pass
+
+
+func go_frightened() -> void:
+	oikake.go_frightened()
+	machibuse.go_frightened()
+	kimagure.go_frightened()
+	otoboke.go_frightened()
+	pass
+
+
+
+
