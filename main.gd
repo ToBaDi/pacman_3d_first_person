@@ -26,3 +26,9 @@ func _on_Player_eat_cookie():
 	score += 10
 	$HUD/score.text = String(score)
 	pass
+
+
+
+
+
+

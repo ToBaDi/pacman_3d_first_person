@@ -9,6 +9,7 @@ onready var oikake_pos : Vector3 = oikake.transform.origin
 
 var player_pos : Vector3 = Vector3.ZERO
 var player_dir : int = 180
+var debug : bool = true
 
 
 func _ready() -> void:
@@ -33,6 +34,20 @@ func _ready() -> void:
 			c.add_rotation_task(90)
 			c.start_tween()
 	
+	$TargetingDebug/Oikake.material_override = oikake.material
+	$TargetingDebug/Machibuse.material_override = machibuse.material
+	$TargetingDebug/Kimagure.material_override = kimagure.material
+	$TargetingDebug/Otoboke.material_override = otoboke.material
+	
+	pass
+
+
+func _physics_process(_delta : float) -> void:
+	if debug:
+		$TargetingDebug/Oikake.transform.origin = Vector3(oikake.target_pos.x, 10, oikake.target_pos.z - .5)
+		$TargetingDebug/Machibuse.transform.origin = Vector3(machibuse.target_pos.x + .5, 10, machibuse.target_pos.z)
+		$TargetingDebug/Kimagure.transform.origin = Vector3(kimagure.target_pos.x - .5, 10, kimagure.target_pos.z)
+		$TargetingDebug/Otoboke.transform.origin = Vector3(otoboke.target_pos.x, 10, otoboke.target_pos.z + .5)
 	pass
 
 
@@ -58,23 +73,44 @@ func _on_Oikake_next_pos(pos : Vector3) -> void:
 
 ### Targeting calculation
 func _on_Oikake_tween_all_completed() -> void:
+	if oikake.is_in_house:
+		return
+	
 	oikake.target_pos = player_pos
 
 
 func _on_Machibuse_tween_all_completed() -> void:
+	if machibuse.is_in_house:
+		return
+	
 	if int(round(player_dir)) == 90 or int(round(player_dir)) == -270:
 			machibuse.target_pos = player_pos + Vector3(8, 0, -8)
 			return
 	machibuse.target_pos = player_pos + (Vector3.BACK * 8).rotated(Vector3.UP, deg2rad(player_dir))
-	pass
 
 
 func _on_Kimagure_tween_all_completed() -> void:
-	pass
+	if kimagure.is_in_house:
+		return
+	
+	var int_tile : Vector3
+	
+	if int(round(player_dir)) == 90 or int(round(player_dir)) == -270:
+		int_tile = player_pos + Vector3(4, 0, -4)
+	else:
+		int_tile = player_pos + (Vector3.BACK * 4).rotated(Vector3.UP, deg2rad(player_dir))
+	
+	kimagure.target_pos = int_tile + (oikake_pos - int_tile).rotated(Vector3.UP, deg2rad(180))
 
 
 func _on_Otoboke_tween_all_completed() -> void:
-	pass
+	if otoboke.is_in_house:
+		return
+	
+	if int(round(abs(otoboke.transform.origin.distance_squared_to(player_pos)))) < pow(8 * 2, 2):
+		otoboke.target_pos = otoboke.scatter_pos
+	else:
+		otoboke.target_pos = player_pos
 ###
 
 

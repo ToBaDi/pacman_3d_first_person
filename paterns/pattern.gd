@@ -22,6 +22,11 @@ static func _exit_house(ghost : Ghost) -> void:
 	add_go_to_position_task_x24.set_function("add_go_to_position_task_x24")
 	ghost.tween_msg_bus.append(add_go_to_position_task_x24)
 	
+	var is_in_house_false : FuncRef = FuncRef.new()
+	is_in_house_false.set_instance(TweenMessages)
+	is_in_house_false.set_function("is_in_house_false")
+	ghost.tween_msg_bus.append(is_in_house_false)
+	
 	ghost.start_tween()
 	ghost.connect_tween()
 	pass
