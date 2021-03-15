@@ -2,6 +2,7 @@ extends Area
 
 
 signal eat_cookie()
+signal eat_power_pellet()
 signal next_pos(pos)
 signal next_dir(dir)
 
@@ -42,6 +43,9 @@ func _on_Player_area_entered(area : Area) -> void:
 	if area.is_in_group("Dots"):
 		area.queue_free()
 		emit_signal("eat_cookie")
+	if area.is_in_group("PowerDots"):
+		area.queue_free()
+		emit_signal("eat_power_pellet")
 	pass
 
 

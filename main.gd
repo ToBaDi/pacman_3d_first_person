@@ -22,8 +22,14 @@ func _exit_tree() -> void:
 	hud.queue_free()
 
 
-func _on_Player_eat_cookie():
+func _on_Player_eat_cookie() -> void:
 	score += 10
+	$HUD/score.text = String(score)
+	pass
+
+
+func _on_Player_eat_power_pellet() -> void:
+	score += 50
 	$HUD/score.text = String(score)
 	pass
 

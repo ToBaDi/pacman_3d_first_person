@@ -5,9 +5,7 @@
 
 [sub_resource type="BoxShape" id=1]
 
-[node name="Ghost" type="Area" groups=[
-"Ghost",
-]]
+[node name="Ghost" type="Area"]
 monitoring = false
 script = ExtResource( 1 )
 __meta__ = {
