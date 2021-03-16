@@ -3,5 +3,9 @@ extends GhostPattern
 
 
 static func _start_game(ghost : Ghost) -> void:
-	_exit_house(ghost)
+	exit_house(ghost)
+	pass
+
+
+static func _enter_house_wait_exit(_ghost : Ghost) -> void:
 	pass

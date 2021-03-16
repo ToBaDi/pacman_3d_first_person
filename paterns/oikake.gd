@@ -8,3 +8,7 @@ static func _start_game(ghost : Ghost) -> void:
 	ghost.start_tween()
 	ghost.connect_tween()
 	pass
+
+
+static func _enter_house_wait_exit(_ghost : Ghost) -> void:
+	pass

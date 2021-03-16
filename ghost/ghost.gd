@@ -25,15 +25,13 @@ var is_in_house : bool = true
 var is_frightened : bool = false
 var is_eaten : bool = false
 var start_game : FuncRef = FuncRef.new()
-var enter_house : FuncRef = FuncRef.new()
-var exit_house : FuncRef = FuncRef.new()
+var enter_house_wait_exit : FuncRef = FuncRef.new()
 var tween_msg_bus : Array = []
 
 
 func _init() -> void:
 	start_game.set_function("_start_game")
-	enter_house.set_function("_enter_house")
-	exit_house.set_function("_exit_house")
+	enter_house_wait_exit.set_function("_enter_house_wait_exit")
 	rot_quat.set_axis_angle(Vector3.RIGHT, deg2rad(90))
 
 
