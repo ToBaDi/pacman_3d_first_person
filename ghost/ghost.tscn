@@ -1,10 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ghost/ghost.gd" type="Script" id=1]
 [ext_resource path="res://ghost/ghost_visual.tscn" type="PackedScene" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0392157, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
 
 [sub_resource type="BoxShape" id=2]
 
@@ -15,6 +17,7 @@ __meta__ = {
 "_edit_group_": true
 }
 frightened_material = SubResource( 1 )
+frightened_white_material = SubResource( 3 )
 
 [node name="Body" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, 0 )
@@ -37,3 +40,17 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.37114
 cast_to = Vector3( 0, 0, 3 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="InHouseWalkingTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FrightenedTimer" type="Timer" parent="."]
+wait_time = 12.0
+one_shot = true
+
+[node name="FrightenedTimer2" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+[connection signal="timeout" from="InHouseWalkingTimer" to="." method="_on_InHouseWalkingTimer_timeout" flags=3]
+[connection signal="timeout" from="FrightenedTimer" to="." method="_on_FrightenedTimer_timeout" flags=3]
+[connection signal="timeout" from="FrightenedTimer2" to="." method="_on_FrightenedTimer2_timeout" flags=3]

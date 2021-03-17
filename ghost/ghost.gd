@@ -12,6 +12,7 @@ const FRONT_HOUSE_POS : Vector3 = Vector3(24, 0, 0)
 
 export(Material) var material : Material
 export(Material) var frightened_material : Material
+export(Material) var frightened_white_material : Material
 export(Vector3) var scatter_pos : Vector3
 
 var target_pos : Vector3
@@ -25,13 +26,15 @@ var is_in_house : bool = true
 var is_frightened : bool = false
 var is_eaten : bool = false
 var start_game : FuncRef = FuncRef.new()
-var enter_house_wait_exit : FuncRef = FuncRef.new()
+var enter_house : FuncRef = FuncRef.new()
+var exit_house : FuncRef = FuncRef.new()
 var tween_msg_bus : Array = []
 
 
 func _init() -> void:
 	start_game.set_function("_start_game")
-	enter_house_wait_exit.set_function("_enter_house_wait_exit")
+	enter_house.set_function("_enter_house")
+	exit_house.set_function("_exit_house")
 	rot_quat.set_axis_angle(Vector3.RIGHT, deg2rad(90))
 
 
@@ -75,6 +78,36 @@ func _on_Tween_tween_all_completed():
 		add_movement_task(next_dir)
 	
 	$Tween.start()
+	pass
+
+
+func _on_InHouseWalkingTimer_timeout() -> void:
+	exit_house.call_func(self)
+	pass
+
+
+func _on_FrightenedTimer_timeout() -> void:
+	is_frightened = false
+	$Body.material_override = material
+	$LeftMirror.material_override = material
+	$RightMirror.material_override = material
+	pass
+
+
+func _on_FrightenedTimer2_timeout() -> void:
+	var is_white : bool = false
+	while not $FrightenedTimer.is_stopped():
+		if is_white:
+			$Body.material_override = frightened_material
+			$LeftMirror.material_override = frightened_material
+			$RightMirror.material_override = frightened_material
+			is_white = false
+		else:
+			$Body.material_override = frightened_white_material
+			$LeftMirror.material_override = frightened_white_material
+			$RightMirror.material_override = frightened_white_material
+			is_white = true
+		yield(get_tree().create_timer(.5), "timeout")
 	pass
 
 
@@ -135,16 +168,11 @@ func find_valid_directions() -> PoolIntArray:
 
 
 func find_direction_closest_to_target(valid_directions : PoolIntArray) -> int:
-	var closest_target : Vector3 = target_pos
-#	for i in range(-1, 2):
-#		if transform.origin.distance_squared_to(target_pos + (Vector3.BACK * (56 * i))) < transform.origin.distance_squared_to(closest_target):
-#			closest_target = target_pos + (Vector3.BACK * (56 * i))
-	
 	var closest_direction : int = valid_directions[0]
 	for i in valid_directions:
 		var c_next_pos : Vector3 = next_pos(closest_direction)
 		var i_next_pos : Vector3 = next_pos(i)
-		if round(i_next_pos.distance_squared_to(closest_target)) < round(c_next_pos.distance_squared_to(closest_target)):
+		if round(i_next_pos.distance_squared_to(target_pos)) < round(c_next_pos.distance_squared_to(target_pos)):
 			closest_direction = i
 	return closest_direction
 
@@ -159,11 +187,12 @@ func pick_random_direction(valid_directions : PoolIntArray) -> int:
 
 
 func go_frightened() -> void:
-	if not is_eaten:
-		is_frightened = true
-		$Body.material_override = frightened_material
-		$LeftMirror.material_override = frightened_material
-		$RightMirror.material_override = frightened_material
+	is_frightened = true
+	$Body.material_override = frightened_material
+	$LeftMirror.material_override = frightened_material
+	$RightMirror.material_override = frightened_material
+	$FrightenedTimer.start()
+	$FrightenedTimer2.start()
 	pass
 
 
@@ -177,6 +206,32 @@ func go_eaten() -> void:
 	$LeftMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_SHADOWS_ONLY
 	$RightMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_SHADOWS_ONLY
 	target_pos = FRONT_HOUSE_POS
+	$FrightenedTimer.stop()
+	$FrightenedTimer2.stop()
+	pass
+
+
+func exit_eaten() -> void:
+	is_eaten = false
+	$Body.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
+	$LeftMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
+	$RightMirror.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_ON
+	pass
+
+
+func your_in_front_of_the_house() -> void:
+	if is_eaten:
+		enter_house.call_func(self)
+	pass
+
+
+func active_in_house_walking_timer() -> void:
+	$InHouseWalkingTimer.start()
+	pass
+
+
+func set_in_house_walking_timer(sec : float) -> void:
+	$InHouseWalkingTimer.wait_time = sec
 	pass
 
 
