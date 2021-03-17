@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ghost/ghost.gd" type="Script" id=1]
 [ext_resource path="res://ghost/ghost_visual.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sounds/NormalMove.wav" type="AudioStream" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0392157, 1, 1 )
@@ -51,6 +52,14 @@ one_shot = true
 [node name="FrightenedTimer2" type="Timer" parent="."]
 wait_time = 8.0
 one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+stream = ExtResource( 3 )
+autoplay = true
+max_distance = 15.0
+emission_angle_enabled = true
+doppler_tracking = 1
 [connection signal="timeout" from="InHouseWalkingTimer" to="." method="_on_InHouseWalkingTimer_timeout" flags=3]
 [connection signal="timeout" from="FrightenedTimer" to="." method="_on_FrightenedTimer_timeout" flags=3]
 [connection signal="timeout" from="FrightenedTimer2" to="." method="_on_FrightenedTimer2_timeout" flags=3]

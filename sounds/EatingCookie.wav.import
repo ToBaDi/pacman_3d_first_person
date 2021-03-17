@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/EatingCookie.wav-93c609b6f2f5db9159bca3ee68d416c6.sample"
+
+[deps]
+
+source_file="res://sounds/EatingCookie.wav"
+dest_files=[ "res://.import/EatingCookie.wav-93c609b6f2f5db9159bca3ee68d416c6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
