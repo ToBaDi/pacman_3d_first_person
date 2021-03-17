@@ -52,12 +52,6 @@ func _physics_process(_delta : float) -> void:
 	pass
 
 
-func _unhandled_key_input(event : InputEventKey) -> void:
-	if event.is_action_pressed("ui_accept"):
-		start_game()
-	pass
-
-
 ### Gathering information for target calculation
 func _on_Player_next_dir(dir : int) -> void:
 	player_dir = dir

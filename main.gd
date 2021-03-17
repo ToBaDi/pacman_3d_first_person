@@ -8,14 +8,19 @@ var ghost_combo : int = 0
 onready var ui : CanvasLayer = $UI
 onready var hud : CanvasLayer = $HUD
 
+var is_playing : bool = false
 
-#func _ready() -> void:
-#	print($Dots.get_child_count())
-#	for c in get_children():
-#		if c == $HUD or c == $UI:
-#			continue
-#		(c as Node).queue_free()
-#		remove_child(c)
+
+func _ready() -> void:
+	$Show.show()
+
+
+func _input(event : InputEvent) -> void:
+	if event.is_action_pressed("start"):
+		if not is_playing:
+			$Show.play()
+			is_playing = true
+	pass
 
 
 func _exit_tree() -> void:
@@ -45,4 +50,10 @@ func _on_Player_ate_a_ghost() -> void:
 
 
 func _on_Player_caught_by_a_ghost() -> void:
+	pass
+
+
+func camera_is_set() -> void:
+	$Player.start()
+	$GhostsManager.start_game()
 	pass

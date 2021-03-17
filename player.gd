@@ -16,15 +16,13 @@ var clear : bool = true
 var teleport : Vector3 = Vector3.ZERO
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_left", true):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("left", true):
 		rotate_left()
-	if event.is_action_pressed("ui_right", true):
+	if event.is_action_pressed("right", true):
 		rotate_right()
-	if event.is_action_pressed("ui_down", true):
+	if event.is_action_pressed("back", true):
 		rotate_back()
-	if event.is_action_pressed("ui_accept", true):
-		start()
 	pass
 
 

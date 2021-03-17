@@ -57,9 +57,8 @@ one_shot = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 stream = ExtResource( 3 )
 autoplay = true
-max_distance = 15.0
+max_distance = 20.0
 emission_angle_enabled = true
-doppler_tracking = 1
 [connection signal="timeout" from="InHouseWalkingTimer" to="." method="_on_InHouseWalkingTimer_timeout" flags=3]
 [connection signal="timeout" from="FrightenedTimer" to="." method="_on_FrightenedTimer_timeout" flags=3]
 [connection signal="timeout" from="FrightenedTimer2" to="." method="_on_FrightenedTimer2_timeout" flags=3]
