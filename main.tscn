@@ -24,10 +24,10 @@ func _process(delta : float) -> void:
 		text = \"{}\\n{}\".format([1/delta, delta], \"{}\")
 "
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.5, 0.5, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 1, 1, 0, 1 )
 emission_enabled = true
 emission = Color( 1, 1, 0, 1 )
@@ -35,45 +35,45 @@ emission_energy = 0.3
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
 radius = 1.25
 height = 2.5
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="SphereMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
 radius = 0.2
 height = 0.2
 
-[sub_resource type="PhysicsMaterial" id=8]
+[sub_resource type="PhysicsMaterial" id=7]
 friction = 0.0
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0, 0.329412, 0.0352941, 1 )
 
-[sub_resource type="PlaneMesh" id=10]
-material = SubResource( 9 )
+[sub_resource type="PlaneMesh" id=9]
+material = SubResource( 8 )
 size = Vector2( 1, 1 )
 
-[sub_resource type="ConvexPolygonShape" id=11]
+[sub_resource type="ConvexPolygonShape" id=10]
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
 
-[sub_resource type="PhysicsMaterial" id=12]
+[sub_resource type="PhysicsMaterial" id=11]
 friction = 0.0
 
-[sub_resource type="ConvexPolygonShape" id=13]
+[sub_resource type="ConvexPolygonShape" id=12]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
-[sub_resource type="BoxShape" id=14]
+[sub_resource type="BoxShape" id=13]
 extents = Vector3( 1, 1, 7 )
 
-[sub_resource type="BoxShape" id=15]
+[sub_resource type="BoxShape" id=14]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[sub_resource type="GDScript" id=16]
+[sub_resource type="GDScript" id=15]
 script/source = "extends Area
 
 
@@ -83,25 +83,25 @@ func _on_YourInFrontOfTheHouse_area_entered(area : Area) -> void:
 	pass
 "
 
-[sub_resource type="BoxShape" id=17]
+[sub_resource type="BoxShape" id=16]
 
-[sub_resource type="SpatialMaterial" id=18]
+[sub_resource type="SpatialMaterial" id=17]
 albedo_color = Color( 1, 0, 0, 1 )
 metallic = 0.5
 
-[sub_resource type="SpatialMaterial" id=19]
+[sub_resource type="SpatialMaterial" id=18]
 albedo_color = Color( 1, 0.478431, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=20]
+[sub_resource type="SpatialMaterial" id=19]
 albedo_color = Color( 0, 0.576471, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=20]
 albedo_color = Color( 1, 0.521569, 0.376471, 1 )
 
-[sub_resource type="PlaneMesh" id=22]
+[sub_resource type="PlaneMesh" id=21]
 size = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=22]
 length = 3.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:transform")
@@ -227,8 +227,212 @@ tracks/9/keys = {
 "method": "night"
 } ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("../LeftMirror:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../RightMirror:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("../Ground:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector3( 60, 1, 57 ), Vector3( 60, 1, 100 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("../Dots/Dot126/LeftMirror:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("../Dots/Dot127/LeftMirror:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("../Dots/Dot128/LeftMirror:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("../Dots/Dot236/RightMirror:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("../Dots/Dot237/RightMirror:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("../Dots/Dot238/RightMirror:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("../GhostsManager/Oikake/LeftMirror:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("../GhostsManager/Oikake/RightMirror:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("../GhostsManager/Machibuse/LeftMirror:visible")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("../GhostsManager/Machibuse/RightMirror:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("../GhostsManager/Kimagure/LeftMirror:visible")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("../GhostsManager/Kimagure/RightMirror:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("../GhostsManager/Otoboke/LeftMirror:visible")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("../GhostsManager/Otoboke/RightMirror:visible")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0, 3.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=23]
 length = 8.0
 loop = true
 tracks/0/type = "value"
@@ -244,7 +448,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -90, 0 ), Vector3( 0, -180, 0 ), Vector3( 0, -270, 0 ), Vector3( 0, -360, 0 ) ]
 }
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Environment" id=24]
 background_mode = 1
 
 [sub_resource type="Animation" id=25]
@@ -260,7 +464,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.101 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ null, SubResource( 2 ), SubResource( 2 ) ]
+"values": [ null, SubResource( 24 ), SubResource( 24 ) ]
 }
 
 [node name="Main" type="Node"]
@@ -300,7 +504,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -339,29 +543,29 @@ current = true
 
 [node name="Pac-Man" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-mesh = SubResource( 5 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Eye" type="MeshInstance" parent="Player/Pac-Man"]
 transform = Transform( 0.984808, 0.173648, -3.6687e-09, -0.163176, 0.925416, -0.34202, -0.0593912, 0.336824, 0.939693, -0.398481, 0.85052, 0.81197 )
-mesh = SubResource( 7 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Eye2" type="MeshInstance" parent="Player/Pac-Man"]
 transform = Transform( 0.984808, -0.173648, 0, 0.163176, 0.925416, -0.34202, 0.0593912, 0.336824, 0.939693, 0.398, 0.850202, 0.812031 )
-mesh = SubResource( 7 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 100, 16, 0, 0 )
-physics_material_override = SubResource( 8 )
+transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 57, 16, 0, 0 )
+physics_material_override = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
 [node name="Mesh" type="MeshInstance" parent="Ground"]
-mesh = SubResource( 10 )
+mesh = SubResource( 9 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -369,7 +573,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -889,18 +1093,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot126" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot127" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot127" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot128" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot128" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot129" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 15 )
@@ -1228,18 +1435,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot236" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot237" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot237" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot238" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot238" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot239" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15 )
@@ -1288,7 +1498,7 @@ transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 22, 0, -5 )
 
 [node name="InvisibleWall" type="StaticBody" parent="GhostHouse"]
 transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 3.5, 22, 0, 0 )
-physics_material_override = SubResource( 12 )
+physics_material_override = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -1304,13 +1514,14 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="GhostHouse/InvisibleWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 13 )
+shape = SubResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="LeftMirror" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -29 )
+visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -1333,6 +1544,7 @@ transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, -21 )
 
 [node name="RightMirror" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
+visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -1364,7 +1576,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="DontGoUpZone1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 14 )
+shape = SubResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1379,7 +1591,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="DontGoUpZone2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 14 )
+shape = SubResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1391,7 +1603,7 @@ destination = Vector3( 18, 0, 27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="LeftTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 15 )
+shape = SubResource( 14 )
 
 [node name="RightTeleportToggle" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
@@ -1400,18 +1612,18 @@ destination = Vector3( 18, 0, -27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="RightTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 15 )
+shape = SubResource( 14 )
 
 [node name="YourInFrontOfTheHouse" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0 )
-script = SubResource( 16 )
+script = SubResource( 15 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="YourInFrontOfTheHouse"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 17 )
+shape = SubResource( 16 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1422,32 +1634,57 @@ script = ExtResource( 8 )
 [node name="Oikake" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 1 )
 input_ray_pickable = false
-material = SubResource( 18 )
+material = SubResource( 17 )
 scatter_pos = Vector3( 54, 0, 23 )
+
+[node name="LeftMirror" parent="GhostsManager/Oikake" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Oikake" index="2"]
+visible = false
 
 [node name="Machibuse" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -1 )
 input_ray_pickable = false
-material = SubResource( 19 )
+material = SubResource( 18 )
 scatter_pos = Vector3( 54, 0, -23 )
+
+[node name="LeftMirror" parent="GhostsManager/Machibuse" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Machibuse" index="2"]
+visible = false
 
 [node name="Kimagure" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -3 )
 input_ray_pickable = false
-material = SubResource( 20 )
+material = SubResource( 19 )
 scatter_pos = Vector3( -16, 0, 27 )
+
+[node name="LeftMirror" parent="GhostsManager/Kimagure" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Kimagure" index="2"]
+visible = false
 
 [node name="Otoboke" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 3 )
 input_ray_pickable = false
-material = SubResource( 21 )
+material = SubResource( 20 )
 scatter_pos = Vector3( -16, 0, -27 )
+
+[node name="LeftMirror" parent="GhostsManager/Otoboke" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Otoboke" index="2"]
+visible = false
 
 [node name="TargetingDebug" type="Node" parent="GhostsManager"]
 
 [node name="Oikake" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14, 10, -50.5 )
-mesh = SubResource( 22 )
+visible = false
+mesh = SubResource( 21 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1455,7 +1692,8 @@ __meta__ = {
 
 [node name="Machibuse" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -13.5, 10, -50 )
-mesh = SubResource( 22 )
+visible = false
+mesh = SubResource( 21 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1463,7 +1701,8 @@ __meta__ = {
 
 [node name="Kimagure" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14.5, 10, -50 )
-mesh = SubResource( 22 )
+visible = false
+mesh = SubResource( 21 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1471,7 +1710,8 @@ __meta__ = {
 
 [node name="Otoboke" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14, 10, -49.5 )
-mesh = SubResource( 22 )
+visible = false
+mesh = SubResource( 21 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1479,6 +1719,7 @@ __meta__ = {
 
 [node name="TapViewCamera" type="Camera" parent="."]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 16, 50, 0 )
+visible = false
 projection = 1
 size = 65.0
 __meta__ = {
@@ -1499,8 +1740,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Show"]
-anims/Play = SubResource( 23 )
-anims/Show = SubResource( 24 )
+anims/Play = SubResource( 22 )
+anims/Show = SubResource( 23 )
 
 [node name="SkyAnimation" type="AnimationPlayer" parent="Show"]
 anims/night = SubResource( 25 )
@@ -1524,3 +1765,11 @@ anims/night = SubResource( 25 )
 [connection signal="tween_all_completed" from="GhostsManager/Machibuse" to="GhostsManager" method="_on_Machibuse_tween_all_completed"]
 [connection signal="tween_all_completed" from="GhostsManager/Kimagure" to="GhostsManager" method="_on_Kimagure_tween_all_completed"]
 [connection signal="tween_all_completed" from="GhostsManager/Otoboke" to="GhostsManager" method="_on_Otoboke_tween_all_completed"]
+
+[editable path="GhostsManager/Oikake"]
+
+[editable path="GhostsManager/Machibuse"]
+
+[editable path="GhostsManager/Kimagure"]
+
+[editable path="GhostsManager/Otoboke"]
