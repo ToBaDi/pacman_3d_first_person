@@ -24,10 +24,10 @@ func _process(delta : float) -> void:
 		text = \"{}\\n{}\".format([1/delta, delta], \"{}\")
 "
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.5, 0.5, 1 )
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 1, 1, 0, 1 )
 emission_enabled = true
 emission = Color( 1, 1, 0, 1 )
@@ -35,45 +35,45 @@ emission_energy = 0.3
 emission_operator = 0
 emission_on_uv2 = false
 
-[sub_resource type="SphereMesh" id=22]
-material = SubResource( 21 )
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
 radius = 1.25
 height = 2.5
 
-[sub_resource type="SpatialMaterial" id=23]
+[sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="SphereMesh" id=24]
-material = SubResource( 23 )
+[sub_resource type="SphereMesh" id=7]
+material = SubResource( 6 )
 radius = 0.2
 height = 0.2
 
-[sub_resource type="PhysicsMaterial" id=3]
+[sub_resource type="PhysicsMaterial" id=8]
 friction = 0.0
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0, 0.329412, 0.0352941, 1 )
 
-[sub_resource type="PlaneMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="PlaneMesh" id=10]
+material = SubResource( 9 )
 size = Vector2( 1, 1 )
 
-[sub_resource type="ConvexPolygonShape" id=6]
+[sub_resource type="ConvexPolygonShape" id=11]
 points = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5 )
 
-[sub_resource type="PhysicsMaterial" id=7]
+[sub_resource type="PhysicsMaterial" id=12]
 friction = 0.0
 
-[sub_resource type="ConvexPolygonShape" id=8]
+[sub_resource type="ConvexPolygonShape" id=13]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
-[sub_resource type="BoxShape" id=9]
+[sub_resource type="BoxShape" id=14]
 extents = Vector3( 1, 1, 7 )
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=15]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=16]
 script/source = "extends Area
 
 
@@ -83,26 +83,25 @@ func _on_YourInFrontOfTheHouse_area_entered(area : Area) -> void:
 	pass
 "
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=17]
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=18]
 albedo_color = Color( 1, 0, 0, 1 )
 metallic = 0.5
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=19]
 albedo_color = Color( 1, 0.478431, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=15]
+[sub_resource type="SpatialMaterial" id=20]
 albedo_color = Color( 0, 0.576471, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=21]
 albedo_color = Color( 1, 0.521569, 0.376471, 1 )
 
-[sub_resource type="PlaneMesh" id=17]
+[sub_resource type="PlaneMesh" id=22]
 size = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=20]
-resource_name = "Play"
+[sub_resource type="Animation" id=23]
 length = 3.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:transform")
@@ -229,8 +228,7 @@ tracks/9/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=18]
-resource_name = "Show"
+[sub_resource type="Animation" id=24]
 length = 8.0
 loop = true
 tracks/0/type = "value"
@@ -246,10 +244,10 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -90, 0 ), Vector3( 0, -180, 0 ), Vector3( 0, -270, 0 ), Vector3( 0, -360, 0 ) ]
 }
 
-[sub_resource type="Environment" id=30]
+[sub_resource type="Environment" id=2]
 background_mode = 1
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=25]
 resource_name = "night"
 length = 0.1
 tracks/0/type = "value"
@@ -259,10 +257,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.101 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ null, SubResource( 30 ) ]
+"values": [ null, SubResource( 2 ), SubResource( 2 ) ]
 }
 
 [node name="Main" type="Node"]
@@ -302,7 +300,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -341,29 +339,29 @@ current = true
 
 [node name="Pac-Man" type="MeshInstance" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-mesh = SubResource( 22 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="Eye" type="MeshInstance" parent="Player/Pac-Man"]
 transform = Transform( 0.984808, 0.173648, -3.6687e-09, -0.163176, 0.925416, -0.34202, -0.0593912, 0.336824, 0.939693, -0.398481, 0.85052, 0.81197 )
-mesh = SubResource( 24 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Eye2" type="MeshInstance" parent="Player/Pac-Man"]
 transform = Transform( 0.984808, -0.173648, 0, 0.163176, 0.925416, -0.34202, 0.0593912, 0.336824, 0.939693, 0.398, 0.850202, 0.812031 )
-mesh = SubResource( 24 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Ground" type="StaticBody" parent="."]
 transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 100, 16, 0, 0 )
-physics_material_override = SubResource( 3 )
+physics_material_override = SubResource( 8 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
 
 [node name="Mesh" type="MeshInstance" parent="Ground"]
-mesh = SubResource( 5 )
+mesh = SubResource( 10 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -371,7 +369,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1290,7 +1288,7 @@ transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1.5, 22, 0, -5 )
 
 [node name="InvisibleWall" type="StaticBody" parent="GhostHouse"]
 transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 3.5, 22, 0, 0 )
-physics_material_override = SubResource( 7 )
+physics_material_override = SubResource( 12 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -1306,7 +1304,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="GhostHouse/InvisibleWall"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 13 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1366,7 +1364,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="DontGoUpZone1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1381,7 +1379,7 @@ __meta__ = {
 
 [node name="CollisionShape" type="CollisionShape" parent="DontGoUpZone2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 14 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1393,7 +1391,7 @@ destination = Vector3( 18, 0, 27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="LeftTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 10 )
+shape = SubResource( 15 )
 
 [node name="RightTeleportToggle" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
@@ -1402,18 +1400,18 @@ destination = Vector3( 18, 0, -27 )
 
 [node name="CollisionShape" type="CollisionShape" parent="RightTeleportToggle"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 10 )
+shape = SubResource( 15 )
 
 [node name="YourInFrontOfTheHouse" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 0 )
-script = SubResource( 11 )
+script = SubResource( 16 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="YourInFrontOfTheHouse"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 17 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1424,32 +1422,32 @@ script = ExtResource( 8 )
 [node name="Oikake" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0, 1 )
 input_ray_pickable = false
-material = SubResource( 13 )
+material = SubResource( 18 )
 scatter_pos = Vector3( 54, 0, 23 )
 
 [node name="Machibuse" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -1 )
 input_ray_pickable = false
-material = SubResource( 14 )
+material = SubResource( 19 )
 scatter_pos = Vector3( 54, 0, -23 )
 
 [node name="Kimagure" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -3 )
 input_ray_pickable = false
-material = SubResource( 15 )
+material = SubResource( 20 )
 scatter_pos = Vector3( -16, 0, 27 )
 
 [node name="Otoboke" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 3 )
 input_ray_pickable = false
-material = SubResource( 16 )
+material = SubResource( 21 )
 scatter_pos = Vector3( -16, 0, -27 )
 
 [node name="TargetingDebug" type="Node" parent="GhostsManager"]
 
 [node name="Oikake" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14, 10, -50.5 )
-mesh = SubResource( 17 )
+mesh = SubResource( 22 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1457,7 +1455,7 @@ __meta__ = {
 
 [node name="Machibuse" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -13.5, 10, -50 )
-mesh = SubResource( 17 )
+mesh = SubResource( 22 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1465,7 +1463,7 @@ __meta__ = {
 
 [node name="Kimagure" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14.5, 10, -50 )
-mesh = SubResource( 17 )
+mesh = SubResource( 22 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1473,7 +1471,7 @@ __meta__ = {
 
 [node name="Otoboke" type="MeshInstance" parent="GhostsManager/TargetingDebug"]
 transform = Transform( 0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -14, 10, -49.5 )
-mesh = SubResource( 17 )
+mesh = SubResource( 22 )
 material/0 = null
 __meta__ = {
 "_edit_lock_": true
@@ -1495,17 +1493,17 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="Show"]
-transform = Transform( 0.707107, 0.353554, -0.612372, 2.98023e-08, 0.866025, 0.5, 0.707107, -0.353554, 0.612372, -34.5588, 23.245, 26.5588 )
+transform = Transform( 0.707107, 0.353553, -0.612372, 1.49012e-08, 0.866025, 0.499999, 0.707107, -0.353553, 0.612372, -34.5588, 23.245, 26.5588 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Show"]
-anims/Play = SubResource( 20 )
-anims/Show = SubResource( 18 )
+anims/Play = SubResource( 23 )
+anims/Show = SubResource( 24 )
 
 [node name="SkyAnimation" type="AnimationPlayer" parent="Show"]
-anims/night = SubResource( 29 )
+anims/night = SubResource( 25 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="ate_a_ghost" from="Player" to="." method="_on_Player_ate_a_ghost" flags=3]
 [connection signal="ate_cookie" from="Player" to="." method="_on_Player_ate_cookie" flags=3]
