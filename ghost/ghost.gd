@@ -29,6 +29,7 @@ var start_game : FuncRef = FuncRef.new()
 var enter_house : FuncRef = FuncRef.new()
 var exit_house : FuncRef = FuncRef.new()
 var tween_msg_bus : Array = []
+var init_trans : Transform
 
 
 func _init() -> void:
@@ -37,9 +38,10 @@ func _init() -> void:
 	exit_house.set_function("_exit_house")
 	rot_quat.set_axis_angle(Vector3.RIGHT, deg2rad(90))
 
-
 func _enter_tree() -> void:
 	target_pos = scatter_pos
+	init_trans = transform
+
 
 
 func _ready() -> void:
@@ -235,3 +237,19 @@ func set_in_house_walking_timer(sec : float) -> void:
 	pass
 
 
+func reset() -> void:
+	disconnect_tween()
+	$Tween.stop_all()
+	transform = init_trans
+	back_dir = 270
+	is_frightened = false
+	is_eaten = false
+	$Body.material_override = material
+	$LeftMirror.material_override = material
+	$RightMirror.material_override = material
+	$Body.visible = true
+	$LeftMirror.visible = true
+	$RightMirror.visible = true
+	$InHouseWalkingTimer.stop()
+	$FrightenedTimer.stop()
+	$FrightenedTimer2.stop()

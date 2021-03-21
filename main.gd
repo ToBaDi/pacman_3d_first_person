@@ -23,6 +23,8 @@ func _input(event : InputEvent) -> void:
 		if not is_playing:
 			$Show.play()
 			is_playing = true
+	elif event.is_action_pressed("ui_cancel"):
+		reset()
 	pass
 
 
@@ -69,3 +71,7 @@ func add_to_score(value : int) -> void:
 	pass
 
 
+func reset() -> void:
+	$Player.reset()
+	$GhostsManager.reset()
+	is_playing = false

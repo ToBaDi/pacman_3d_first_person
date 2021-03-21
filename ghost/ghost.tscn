@@ -7,9 +7,9 @@
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0392157, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 
 [node name="Ghost" type="Area"]
 monitoring = false
@@ -18,7 +18,7 @@ __meta__ = {
 "_edit_group_": true
 }
 frightened_material = SubResource( 1 )
-frightened_white_material = SubResource( 3 )
+frightened_white_material = SubResource( 2 )
 
 [node name="Body" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3, 0 )
@@ -31,7 +31,7 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 3, 5
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }

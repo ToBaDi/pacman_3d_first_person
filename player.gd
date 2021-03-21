@@ -14,14 +14,19 @@ const ROTATION_DURATION : float = .25
 
 var clear : bool = true
 var teleport : Vector3 = Vector3.ZERO
+var init_trans : Transform
+
+
+func _enter_tree() -> void:
+	init_trans = transform
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left", true):
 		rotate_left()
-	if event.is_action_pressed("right", true):
+	elif event.is_action_pressed("right", true):
 		rotate_right()
-	if event.is_action_pressed("back", true):
+	elif event.is_action_pressed("back", true):
 		rotate_back()
 	pass
 
@@ -107,4 +112,11 @@ func add_movement_task():
 		null, target, MOVEMENT_DURATION,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	emit_signal("next_pos", target)
+	pass
+
+
+func reset() -> void:
+	$Tween.stop_all()
+	transform = init_trans
+	clear = true
 	pass
