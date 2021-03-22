@@ -4,6 +4,8 @@ extends Spatial
 func _ready() -> void:
 	$SkyAnimation.play("day")
 	$AnimationPlayer.play("Norm")
+	yield(get_tree().create_timer(.1), "timeout")
+	show()
 
 
 func show() -> void:

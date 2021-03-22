@@ -13,7 +13,6 @@ var is_playing : bool = false
 
 
 func _ready() -> void:
-	$Show.show()
 	high_score = SaveLoad.load_score()
 	$HUD/high_score.text = String(high_score)
 
