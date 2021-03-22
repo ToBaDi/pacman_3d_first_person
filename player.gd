@@ -115,8 +115,10 @@ func add_movement_task():
 	pass
 
 
-func reset() -> void:
+func stop() -> void:
 	$Tween.stop_all()
 	transform = init_trans
 	clear = true
 	pass
+
+

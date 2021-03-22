@@ -141,9 +141,9 @@ func go_frightened() -> void:
 	pass
 
 
-func reset() -> void:
+func stop() -> void:
 	for c in get_children():
 		if c is Ghost:
-			c.reset()
+			c.stop()
 
 

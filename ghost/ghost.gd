@@ -237,7 +237,7 @@ func set_in_house_walking_timer(sec : float) -> void:
 	pass
 
 
-func reset() -> void:
+func stop() -> void:
 	disconnect_tween()
 	$Tween.stop_all()
 	transform = init_trans

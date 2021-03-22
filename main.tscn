@@ -102,7 +102,7 @@ albedo_color = Color( 1, 0.521569, 0.376471, 1 )
 [sub_resource type="PlaneMesh" id=21]
 size = Vector2( 1, 1 )
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=22]
 resource_name = "Norm"
 length = 0.001
 tracks/0/type = "value"
@@ -406,7 +406,7 @@ tracks/24/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=23]
 length = 3.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Camera:transform")
@@ -737,7 +737,7 @@ tracks/26/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=24]
 length = 8.0
 loop = true
 tracks/0/type = "value"
@@ -753,7 +753,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -90, 0 ), Vector3( 0, -180, 0 ), Vector3( 0, -270, 0 ), Vector3( 0, -360, 0 ) ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=25]
 resource_name = "play_to_show"
 length = 3.5
 tracks/0/type = "value"
@@ -1059,7 +1059,7 @@ tracks/24/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=26]
 resource_name = "day"
 length = 0.001
 tracks/0/type = "value"
@@ -1075,11 +1075,10 @@ tracks/0/keys = {
 "values": [ null ]
 }
 
-[sub_resource type="Environment" id=24]
+[sub_resource type="Environment" id=27]
 background_mode = 1
 
-[sub_resource type="Animation" id=25]
-resource_name = "night"
+[sub_resource type="Animation" id=28]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("../WorldEnvironment:environment")
@@ -1091,7 +1090,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ SubResource( 24 ) ]
+"values": [ SubResource( 27 ) ]
 }
 
 [node name="Main" type="Node"]
@@ -2383,14 +2382,14 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Show"]
-anims/Norm = SubResource( 27 )
-anims/Play = SubResource( 22 )
-anims/Show = SubResource( 23 )
-anims/play_to_show = SubResource( 26 )
+anims/Norm = SubResource( 22 )
+anims/Play = SubResource( 23 )
+anims/Show = SubResource( 24 )
+anims/play_to_show = SubResource( 25 )
 
 [node name="SkyAnimation" type="AnimationPlayer" parent="Show"]
-anims/day = SubResource( 28 )
-anims/night = SubResource( 25 )
+anims/day = SubResource( 26 )
+anims/night = SubResource( 28 )
 [connection signal="area_entered" from="Player" to="Player" method="_on_Player_area_entered" flags=3]
 [connection signal="ate_a_ghost" from="Player" to="." method="_on_Player_ate_a_ghost" flags=3]
 [connection signal="ate_cookie" from="Player" to="." method="_on_Player_ate_cookie" flags=3]

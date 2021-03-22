@@ -24,7 +24,7 @@ func _input(event : InputEvent) -> void:
 			$Show.play()
 			is_playing = true
 	elif event.is_action_pressed("ui_cancel"):
-		reset()
+		stop()
 	pass
 
 
@@ -71,8 +71,8 @@ func add_to_score(value : int) -> void:
 	pass
 
 
-func reset() -> void:
-#	$Player.reset()
-#	$GhostsManager.reset()
+func stop() -> void:
+	$Player.stop()
+	$GhostsManager.stop()
 	is_playing = false
 	$Show.play_to_show()
