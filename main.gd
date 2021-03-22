@@ -72,6 +72,7 @@ func add_to_score(value : int) -> void:
 
 
 func reset() -> void:
-	$Player.reset()
-	$GhostsManager.reset()
+#	$Player.reset()
+#	$GhostsManager.reset()
 	is_playing = false
+	$Show.play_to_show()
