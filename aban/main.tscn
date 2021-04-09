@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -60,12 +60,7 @@ func initiate(time : float) -> void:
 
 
 func _on_Tween_tween_all_completed() -> void:
-	data.emit_signal(\"play_initiation_finished\")
-"
-
-[sub_resource type="GDScript" id=7]
-script/source = "extends Node
-
+	data.player_camera.current = true
 "
 
 [sub_resource type="PlaneMesh" id=4]
@@ -95,9 +90,6 @@ script = SubResource( 2 )
 script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="Systems/InitiatePlay"]
-
-[node name="StartPlay" type="Node" parent="Systems"]
-script = SubResource( 7 )
 
 [node name="Scene" type="Node" parent="."]
 
