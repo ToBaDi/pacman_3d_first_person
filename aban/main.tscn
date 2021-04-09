@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
 [ext_resource path="res://aban/data/data.gd" type="Script" id=3]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 	
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Node
 
 
@@ -32,42 +32,43 @@ func _process(delta : float) -> void:
 		data.show_node.rotate_y(deg2rad(delta * SPEED))
 "
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Node
 
 
-var time : float = 0
+var initial_show_node_y_rot : float
 var initial_show_cam_trans : Transform
 
 onready var data : Data = $\"../../Data\"
-
-
-func _process(_delta : float) -> void:
-	if not data.is_on_play_initiation:
-		return
-	
-	data.show_camera.fov = lerp(70, 120, time)
-	
-	if not $Tween.is_active():
-		data.is_on_play_initiation = false
 
 
 func _input(event : InputEvent) -> void:
 	if data.is_on_show:
 		if event.is_action_pressed(\"start\"):
 			data.is_on_show = false
-			data.is_on_play_initiation = true
-			start_initiation()
+			# start_initiation
+			initial_show_node_y_rot = data.show_node.rotation.y
+			initial_show_cam_trans = data.show_camera.transform
+			$Tween.interpolate_method(self, \"initiate\", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+			$Tween.start()
 
 
-func start_initiation() -> void:
-	initial_show_cam_trans = data.show_camera.transform
-	$Tween.interpolate_property(self, \"time\", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
+func initiate(time : float) -> void:
+	data.show_node.rotation.y = lerp_angle(initial_show_node_y_rot, 0, time)
+	data.show_camera.transform = initial_show_cam_trans.interpolate_with(data.player_camera.transform, time)
+	data.show_camera.fov = lerp(70, 120, time)
+
+
+func _on_Tween_tween_all_completed() -> void:
+	data.emit_signal(\"play_initiation_finished\")
+"
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Node
 
 "
 
-[sub_resource type="PlaneMesh" id=2]
+[sub_resource type="PlaneMesh" id=4]
 size = Vector2( 60, 56 )
 
 [sub_resource type="ProceduralSky" id=5]
@@ -85,22 +86,25 @@ script = ExtResource( 3 )
 [node name="Systems" type="Node" parent="."]
 
 [node name="SetupGame" type="Node" parent="Systems"]
-script = SubResource( 4 )
+script = SubResource( 1 )
 
 [node name="RotateShow" type="Node" parent="Systems"]
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="InitiatePlay" type="Node" parent="Systems"]
-script = SubResource( 7 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="Systems/InitiatePlay"]
+
+[node name="StartPlay" type="Node" parent="Systems"]
+script = SubResource( 7 )
 
 [node name="Scene" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="Scene"]
 
 [node name="Ground" type="MeshInstance" parent="Scene/Map"]
-mesh = SubResource( 2 )
+mesh = SubResource( 4 )
 material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -350,3 +354,4 @@ transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
 environment = SubResource( 6 )
+[connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
