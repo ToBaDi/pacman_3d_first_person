@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/NormalMove.wav-7b2f71cc0c00d735a14aefd1a9988e7a.sample"
+path="res://.import/NormalMove.wav-2b18620b48911e9062d9398d4e4cd972.sample"
 
 [deps]
 
-source_file="res://sounds/NormalMove.wav"
-dest_files=[ "res://.import/NormalMove.wav-7b2f71cc0c00d735a14aefd1a9988e7a.sample" ]
+source_file="res://old/sounds/NormalMove.wav"
+dest_files=[ "res://.import/NormalMove.wav-2b18620b48911e9062d9398d4e4cd972.sample" ]
 
 [params]
 

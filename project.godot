@@ -9,45 +9,45 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area",
+"base": "Reference",
 "class": "Ghost",
 "language": "GDScript",
-"path": "res://ghost/ghost.gd"
+"path": "res://old/ghost/ghost.gd"
 }, {
 "base": "Object",
 "class": "GhostPattern",
 "language": "GDScript",
-"path": "res://paterns/pattern.gd"
+"path": "res://old/paterns/pattern.gd"
 }, {
 "base": "GhostPattern",
 "class": "KimagurePattern",
 "language": "GDScript",
-"path": "res://paterns/kimagure.gd"
+"path": "res://old/paterns/kimagure.gd"
 }, {
 "base": "GhostPattern",
 "class": "MachibusePattern",
 "language": "GDScript",
-"path": "res://paterns/machibuse.gd"
+"path": "res://old/paterns/machibuse.gd"
 }, {
 "base": "GhostPattern",
 "class": "OikakePattern",
 "language": "GDScript",
-"path": "res://paterns/oikake.gd"
+"path": "res://old/paterns/oikake.gd"
 }, {
 "base": "GhostPattern",
 "class": "OtobokePattern",
 "language": "GDScript",
-"path": "res://paterns/otoboke.gd"
+"path": "res://old/paterns/otoboke.gd"
 }, {
 "base": "Object",
 "class": "SaveLoad",
 "language": "GDScript",
-"path": "res://save_load.gd"
+"path": "res://old/save_load.gd"
 }, {
 "base": "Object",
 "class": "TweenMessages",
 "language": "GDScript",
-"path": "res://paterns/tween_messages.gd"
+"path": "res://old/paterns/tween_messages.gd"
 } ]
 _global_script_class_icons={
 "Ghost": "",
@@ -63,11 +63,11 @@ _global_script_class_icons={
 [application]
 
 config/name="pacman_3d_first_person"
-run/main_scene="res://main.tscn"
+run/main_scene="res://aban/main.tscn"
 
 [autoload]
 
-RNG="*res://rng.gd"
+RNG="*res://old/rng.gd"
 
 [debug]
 
@@ -105,4 +105,4 @@ common/physics_fps=10
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://old/default_env.tres"

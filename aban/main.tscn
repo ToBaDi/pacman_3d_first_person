@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+
+var space_state : PhysicsDirectSpaceState
+
+
+func _ready() -> void:
+	set_space_state()
+
+
+func _physics_process(_delta : float) -> void:
+	call_deferred(\"set_space_state\")
+
+
+func set_space_state() -> void:
+	space_state = PhysicsServer.space_get_direct_state(get_tree().root.world.space)
+"
+
+[node name="Main" type="Node"]
+
+[node name="Data" type="Node" parent="."]
+script = SubResource( 1 )
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="Scene" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/StartMusic.wav-d589ec02b7ac4c7ffecf5a30f41261a5.sample"
+path="res://.import/EatingCookie.wav-886a9c72d609a3151a6d741ad4d6a2d2.sample"
 
 [deps]
 
-source_file="res://sounds/StartMusic.wav"
-dest_files=[ "res://.import/StartMusic.wav-d589ec02b7ac4c7ffecf5a30f41261a5.sample" ]
+source_file="res://old/sounds/EatingCookie.wav"
+dest_files=[ "res://.import/EatingCookie.wav-886a9c72d609a3151a6d741ad4d6a2d2.sample" ]
 
 [params]
 

@@ -1,8 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://ghost/ghost.gd" type="Script" id=1]
-[ext_resource path="res://ghost/ghost_visual.tscn" type="PackedScene" id=2]
-[ext_resource path="res://sounds/NormalMove.wav" type="AudioStream" id=3]
+[ext_resource path="res://old/ghost/ghost.gd" type="Script" id=1]
+[ext_resource path="res://old/ghost/ghost_visual.tscn" type="PackedScene" id=2]
+[ext_resource path="res://old/sounds/NormalMove.wav" type="AudioStream" id=3]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0392157, 1, 1 )
