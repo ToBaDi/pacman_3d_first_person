@@ -85,7 +85,6 @@ onready var data : Data = $\"../../Data\"
 
 
 func _ready() -> void:
-#	next_trans = data.player.transform
 	next_pos = data.player.transform.origin
 
 
@@ -128,7 +127,6 @@ func _input(event : InputEvent) -> void:
 
 func rotate(dir : int) -> void:
 	data.player_dir = (dir + data.player_dir) % 360
-	print(data.player.rotation_degrees)
 	data.player.rotation_degrees = Vector3(0, data.player_dir, 0)
 "
 
@@ -261,6 +259,7 @@ width = 6.0
 
 [node name="TShapes" type="CSGCombiner" parent="Scene/Map"]
 material_override = ExtResource( 2 )
+use_collision = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -332,6 +331,7 @@ width = 6.0
 
 [node name="Lines" type="CSGCombiner" parent="Scene/Map"]
 material_override = ExtResource( 2 )
+use_collision = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -363,6 +363,7 @@ depth = 6.0
 
 [node name="Boxes" type="CSGCombiner" parent="Scene/Map"]
 material_override = ExtResource( 2 )
+use_collision = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -390,6 +391,7 @@ depth = 6.0
 
 [node name="Gates" type="CSGCombiner" parent="Scene/Map"]
 material_override = ExtResource( 2 )
+use_collision = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
