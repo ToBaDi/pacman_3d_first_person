@@ -1,5 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://assets/ground.tres" type="Material" id=1]
+
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
@@ -25,9 +27,6 @@ func set_space_state() -> void:
 [sub_resource type="PlaneMesh" id=2]
 size = Vector2( 60, 100 )
 
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.0313726, 0.282353, 0, 1 )
-
 [node name="Main" type="Node"]
 
 [node name="Data" type="Node" parent="."]
@@ -39,7 +38,7 @@ script = SubResource( 1 )
 
 [node name="Ground" type="MeshInstance" parent="Scene"]
 mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -47,63 +46,197 @@ __meta__ = {
 [node name="PlayerCamera" type="Camera" parent="Scene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 0 )
 
-[node name="Walls" type="CSGCombiner" parent="Scene"]
-use_collision = true
+[node name="Map" type="Node" parent="Scene"]
 
-[node name="Bottom" type="CSGBox" parent="Scene/Walls"]
+[node name="Borders" type="CSGCombiner" parent="Scene/Map"]
+use_collision = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Bottom" type="CSGBox" parent="Scene/Map/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 1, 0 )
 depth = 54.0
 
-[node name="Top" type="CSGBox" parent="Scene/Walls"]
+[node name="Top" type="CSGBox" parent="Scene/Map/Borders"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 1, 0 )
 depth = 54.0
 
-[node name="LeftBottom" type="CSGBox" parent="Scene/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, -28 )
-width = 22.0
+[node name="LeftBottom" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -28 )
+width = 24.0
 
-[node name="RightBottom" type="CSGBox" parent="Scene/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, 28 )
-width = 22.0
+[node name="RightBottom" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 28 )
+width = 24.0
 
-[node name="LeftTop" type="CSGBox" parent="Scene/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, -28 )
-width = 22.0
+[node name="LeftTop" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -28 )
+width = 20.0
 
-[node name="RightTop" type="CSGBox" parent="Scene/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 28 )
-width = 22.0
+[node name="RightTop" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, 28 )
+width = 20.0
 
-[node name="LeftAnchor" type="CSGBox" parent="Scene/Walls"]
+[node name="LeftLittle" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 1, -25 )
+depth = 4.0
+
+[node name="RightLittle" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 1, 25 )
+depth = 4.0
+
+[node name="MiddleOne" type="CSGBox" parent="Scene/Map/Borders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, 0 )
+width = 8.0
+
+[node name="Anchors" type="CSGCombiner" parent="Scene/Map"]
+use_collision = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftAnchor" type="CSGBox" parent="Scene/Map/Anchors"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, -14 )
 depth = 18.0
 
-[node name="LeftAnchorOne" type="CSGBox" parent="Scene/Walls"]
+[node name="LeftAnchorOne" type="CSGBox" parent="Scene/Map/Anchors"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, -12 )
 width = 6.0
 
-[node name="RightAnchor" type="CSGBox" parent="Scene/Walls"]
+[node name="RightAnchor" type="CSGBox" parent="Scene/Map/Anchors"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 14 )
 depth = 18.0
 
-[node name="RightAnchorOne" type="CSGBox" parent="Scene/Walls"]
+[node name="RightAnchorOne" type="CSGBox" parent="Scene/Map/Anchors"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, 12 )
 width = 6.0
 
-[node name="BottomBottomTHandle" type="CSGBox" parent="Scene/Walls"]
+[node name="TShapes" type="CSGCombiner" parent="Scene/Map"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="BottomBottomTHandle" type="CSGBox" parent="Scene/Map/TShapes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1, 0 )
 width = 6.0
 
-[node name="BottomBottomTHead" type="CSGBox" parent="Scene/Walls"]
+[node name="BottomBottomTHead" type="CSGBox" parent="Scene/Map/TShapes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 1, 0 )
 depth = 14.0
 
-[node name="BottomTHandle" type="CSGBox" parent="Scene/Walls"]
+[node name="BottomTHandle" type="CSGBox" parent="Scene/Map/TShapes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 0 )
 width = 6.0
 
-[node name="BottomTHead" type="CSGBox" parent="Scene/Walls"]
+[node name="BottomTHead" type="CSGBox" parent="Scene/Map/TShapes"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 0 )
 depth = 14.0
+
+[node name="TopTHandle" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 0 )
+width = 6.0
+
+[node name="TopTHead" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 0 )
+depth = 14.0
+
+[node name="LeftTHandle" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -8 )
+depth = 6.0
+
+[node name="LefTHead" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, -12 )
+width = 14.0
+
+[node name="RightTHandle" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 8 )
+depth = 6.0
+
+[node name="RightTHead" type="CSGBox" parent="Scene/Map/TShapes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 12 )
+width = 14.0
+
+[node name="Corners" type="CSGCombiner" parent="Scene/Map"]
+use_collision = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftCornerHead" type="CSGBox" parent="Scene/Map/Corners"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -20 )
+depth = 6.0
+
+[node name="LeftCornerHandle" type="CSGBox" parent="Scene/Map/Corners"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, -18 )
+width = 6.0
+
+[node name="RightCornerHead" type="CSGBox" parent="Scene/Map/Corners"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 20 )
+depth = 6.0
+
+[node name="RightCornerHandle" type="CSGBox" parent="Scene/Map/Corners"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 18 )
+width = 6.0
+
+[node name="Lines" type="CSGCombiner" parent="Scene/Map"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="BottomLeft" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, -9 )
+depth = 8.0
+
+[node name="BottomRight" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 1, 9 )
+depth = 8.0
+
+[node name="LeftOne" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -12 )
+width = 8.0
+
+[node name="RightOne" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 12 )
+width = 8.0
+
+[node name="TopLeft" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, -20 )
+depth = 6.0
+
+[node name="TopRight" type="CSGBox" parent="Scene/Map/Lines"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 20 )
+depth = 6.0
+
+[node name="Boxes" type="CSGCombiner" parent="Scene/Map"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="MostLeft" type="CSGBox" parent="Scene/Map/Boxes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -20 )
+width = 4.0
+depth = 6.0
+
+[node name="Left" type="CSGBox" parent="Scene/Map/Boxes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -9 )
+width = 4.0
+depth = 8.0
+
+[node name="Right" type="CSGBox" parent="Scene/Map/Boxes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, 10 )
+width = 4.0
+depth = 8.0
+
+[node name="MostRight" type="CSGBox" parent="Scene/Map/Boxes"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, 20 )
+width = 4.0
+depth = 6.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
