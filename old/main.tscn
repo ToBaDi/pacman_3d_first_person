@@ -1198,7 +1198,7 @@ mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Ground" type="StaticBody" parent="."]
-transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 100, 16, 0, 0 )
+transform = Transform( 60, 0, 0, 0, 1, 0, 0, 0, 57, 16, 0, 0 )
 physics_material_override = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
@@ -1734,18 +1734,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot126" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot127" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot127" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot128" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
 
 [node name="LeftMirror" parent="Dots/Dot128" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
+visible = false
 
 [node name="Dot129" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 15 )
@@ -2073,18 +2076,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot236" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot237" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot237" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot238" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -15 )
 
 [node name="RightMirror" parent="Dots/Dot238" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
+visible = false
 
 [node name="Dot239" parent="Dots" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -15 )
@@ -2156,6 +2162,7 @@ __meta__ = {
 
 [node name="LeftMirror" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -29 )
+visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -2178,6 +2185,7 @@ transform = Transform( 3.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, -21 )
 
 [node name="RightMirror" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 29 )
+visible = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -2270,11 +2278,23 @@ input_ray_pickable = false
 material = SubResource( 17 )
 scatter_pos = Vector3( 54, 0, 23 )
 
+[node name="LeftMirror" parent="GhostsManager/Oikake" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Oikake" index="2"]
+visible = false
+
 [node name="Machibuse" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -1 )
 input_ray_pickable = false
 material = SubResource( 18 )
 scatter_pos = Vector3( 54, 0, -23 )
+
+[node name="LeftMirror" parent="GhostsManager/Machibuse" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Machibuse" index="2"]
+visible = false
 
 [node name="Kimagure" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -3 )
@@ -2282,11 +2302,23 @@ input_ray_pickable = false
 material = SubResource( 19 )
 scatter_pos = Vector3( -16, 0, 27 )
 
+[node name="LeftMirror" parent="GhostsManager/Kimagure" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Kimagure" index="2"]
+visible = false
+
 [node name="Otoboke" parent="GhostsManager" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 3 )
 input_ray_pickable = false
 material = SubResource( 20 )
 scatter_pos = Vector3( -16, 0, -27 )
+
+[node name="LeftMirror" parent="GhostsManager/Otoboke" index="1"]
+visible = false
+
+[node name="RightMirror" parent="GhostsManager/Otoboke" index="2"]
+visible = false
 
 [node name="TargetingDebug" type="Node" parent="GhostsManager"]
 
@@ -2343,7 +2375,7 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera" parent="Show"]
-transform = Transform( 0.707107, 0.353553, -0.612372, 1.49012e-08, 0.866025, 0.499999, 0.707107, -0.353553, 0.612372, -34.5588, 23.245, 26.5588 )
+transform = Transform( 0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, -0.353553, 0.612373, -34.5588, 23.245, 26.5588 )
 current = true
 __meta__ = {
 "_edit_lock_": true

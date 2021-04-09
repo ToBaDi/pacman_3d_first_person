@@ -37,6 +37,7 @@ script/source = "extends Node
 
 
 var time : float = 0
+var initial_show_cam_trans : Transform
 
 onready var data : Data = $\"../../Data\"
 
@@ -45,18 +46,24 @@ func _process(_delta : float) -> void:
 	if not data.is_on_play_initiation:
 		return
 	
+	data.show_camera.fov = lerp(70, 120, time)
+	
+	if not $Tween.is_active():
+		data.is_on_play_initiation = false
 
 
 func _input(event : InputEvent) -> void:
 	if data.is_on_show:
 		if event.is_action_pressed(\"start\"):
 			data.is_on_show = false
-			data.is_on_play_initiation = false
-			initiate_play()
+			data.is_on_play_initiation = true
+			start_initiation()
 
 
-func initiate_play() -> void:
-	$Tween.interpolate_property(self, time, 0, 1, 5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+func start_initiation() -> void:
+	initial_show_cam_trans = data.show_camera.transform
+	$Tween.interpolate_property(self, \"time\", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
 
 "
 
