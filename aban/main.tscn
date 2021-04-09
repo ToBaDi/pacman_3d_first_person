@@ -1,44 +1,94 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
+[ext_resource path="res://aban/data/data.gd" type="Script" id=3]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Node
 
 
-var space_state : PhysicsDirectSpaceState
-
-onready var ground : MeshInstance = $\"../Scene/Ground\"
-onready var playerCamera : Camera = $\"../Scene/PlayerCamera\"
+onready var data : Data = $\"../../Data\"
 
 
 func _ready() -> void:
-	set_space_state()
+	data.show_camera.current = true
+	data.is_on_show = true
+	queue_free()
+	
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Node
 
 
-func _physics_process(_delta : float) -> void:
-	call_deferred(\"set_space_state\")
+const SPEED : float = -50.0
+
+onready var data : Data = $\"../../Data\"
 
 
-func set_space_state() -> void:
-	space_state = PhysicsServer.space_get_direct_state(get_tree().root.world.space)
+func _process(delta : float) -> void:
+	if data.is_on_show:
+		data.show_node.rotate_y(deg2rad(delta * SPEED))
+"
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Node
+
+
+var time : float = 0
+
+onready var data : Data = $\"../../Data\"
+
+
+func _process(_delta : float) -> void:
+	if not data.is_on_play_initiation:
+		return
+	
+
+
+func _input(event : InputEvent) -> void:
+	if data.is_on_show:
+		if event.is_action_pressed(\"start\"):
+			data.is_on_show = false
+			data.is_on_play_initiation = false
+			initiate_play()
+
+
+func initiate_play() -> void:
+	$Tween.interpolate_property(self, time, 0, 1, 5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+
 "
 
 [sub_resource type="PlaneMesh" id=2]
 size = Vector2( 60, 56 )
 
+[sub_resource type="ProceduralSky" id=5]
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+background_sky_custom_fov = 80.0
+
 [node name="Main" type="Node"]
 
 [node name="Data" type="Node" parent="."]
-script = SubResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="Scene" type="Node" parent="."]
+[node name="SetupGame" type="Node" parent="Systems"]
+script = SubResource( 4 )
 
-[node name="PlayerCamera" type="Camera" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0 )
+[node name="RotateShow" type="Node" parent="Systems"]
+script = SubResource( 3 )
+
+[node name="InitiatePlay" type="Node" parent="Systems"]
+script = SubResource( 7 )
+
+[node name="Tween" type="Tween" parent="Systems/InitiatePlay"]
+
+[node name="Scene" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="Scene"]
 
@@ -273,4 +323,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 23 )
 width = 8.0
 depth = 12.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="PlayerCamera" type="Camera" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0 )
+fov = 120.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Show" type="Spatial" parent="Scene"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="ShowCamera" type="Camera" parent="Scene/Show"]
+transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 20, 45 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Scene"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
+environment = SubResource( 6 )
