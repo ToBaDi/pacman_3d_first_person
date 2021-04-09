@@ -79,10 +79,31 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, -14 )
 depth = 18.0
 
 [node name="LeftAnchorOne" type="CSGBox" parent="Scene/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1, -10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, -12 )
+width = 6.0
 
 [node name="RightAnchor" type="CSGBox" parent="Scene/Walls"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 14 )
 depth = 18.0
+
+[node name="RightAnchorOne" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, 12 )
+width = 6.0
+
+[node name="BottomBottomTHandle" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1, 0 )
+width = 6.0
+
+[node name="BottomBottomTHead" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 1, 0 )
+depth = 14.0
+
+[node name="BottomTHandle" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, 0 )
+width = 6.0
+
+[node name="BottomTHead" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 0 )
+depth = 14.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
