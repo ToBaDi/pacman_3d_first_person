@@ -123,11 +123,18 @@ func _input(event : InputEvent) -> void:
 			rotate(90)
 		elif event.is_action_pressed(\"right\"):
 			rotate(-90)
+		elif event.is_action_pressed(\"back\"):
+			rotate_back()
+
+
+func rotate_back() -> void:
+	rotate(180)
 
 
 func rotate(dir : int) -> void:
 	data.player_dir = (dir + data.player_dir) % 360
 	data.player.rotation_degrees = Vector3(0, data.player_dir, 0)
+
 "
 
 [sub_resource type="PlaneMesh" id=6]
