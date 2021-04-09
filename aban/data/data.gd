@@ -5,6 +5,8 @@ extends Node
 var is_on_show : bool = false
 var is_on_play : bool = false
 
+var player_dir : int = 0
+
 onready var ground : MeshInstance = $"../Scene/Map/Ground"
 onready var player : KinematicBody = $"../Scene/Player"
 onready var player_camera : Camera = $"../Scene/Player/Camera"
