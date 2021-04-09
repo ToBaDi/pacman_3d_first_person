@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
+[ext_resource path="res://assets/wall.tres" type="Material" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -25,7 +26,7 @@ func set_space_state() -> void:
 "
 
 [sub_resource type="PlaneMesh" id=2]
-size = Vector2( 60, 100 )
+size = Vector2( 60, 56 )
 
 [node name="Main" type="Node"]
 
@@ -36,19 +37,20 @@ script = SubResource( 1 )
 
 [node name="Scene" type="Node" parent="."]
 
-[node name="Ground" type="MeshInstance" parent="Scene"]
+[node name="PlayerCamera" type="Camera" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0 )
+
+[node name="Map" type="Node" parent="Scene"]
+
+[node name="Ground" type="MeshInstance" parent="Scene/Map"]
 mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerCamera" type="Camera" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 0 )
-
-[node name="Map" type="Node" parent="Scene"]
-
 [node name="Borders" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 use_collision = true
 __meta__ = {
 "_edit_group_": true,
@@ -92,6 +94,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 1, 0 )
 width = 8.0
 
 [node name="Anchors" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 use_collision = true
 __meta__ = {
 "_edit_group_": true,
@@ -115,6 +118,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, 12 )
 width = 6.0
 
 [node name="TShapes" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -161,6 +165,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1, 12 )
 width = 14.0
 
 [node name="Corners" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 use_collision = true
 __meta__ = {
 "_edit_group_": true,
@@ -184,6 +189,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 1, 18 )
 width = 6.0
 
 [node name="Lines" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -214,6 +220,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 20 )
 depth = 6.0
 
 [node name="Boxes" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -238,5 +245,32 @@ depth = 8.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, 20 )
 width = 4.0
 depth = 6.0
+
+[node name="Gates" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="LeftBottom" type="CSGBox" parent="Scene/Map/Gates"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -23 )
+width = 8.0
+depth = 12.0
+
+[node name="LeftTop" type="CSGBox" parent="Scene/Map/Gates"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, -23 )
+width = 8.0
+depth = 12.0
+
+[node name="RightBottom" type="CSGBox" parent="Scene/Map/Gates"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 23 )
+width = 8.0
+depth = 12.0
+
+[node name="RightTop" type="CSGBox" parent="Scene/Map/Gates"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 23 )
+width = 8.0
+depth = 12.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
