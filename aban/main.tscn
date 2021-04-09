@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
 
 
 var space_state : PhysicsDirectSpaceState
+
+onready var ground : MeshInstance = $\"../Scene/Ground\"
+onready var playerCamera : Camera = $\"../Scene/PlayerCamera\"
 
 
 func _ready() -> void:
@@ -19,6 +22,12 @@ func set_space_state() -> void:
 	space_state = PhysicsServer.space_get_direct_state(get_tree().root.world.space)
 "
 
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 60, 100 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.0313726, 0.282353, 0, 1 )
+
 [node name="Main" type="Node"]
 
 [node name="Data" type="Node" parent="."]
@@ -27,5 +36,12 @@ script = SubResource( 1 )
 [node name="Systems" type="Node" parent="."]
 
 [node name="Scene" type="Node" parent="."]
+
+[node name="Ground" type="MeshInstance" parent="Scene"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="PlayerCamera" type="Camera" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
