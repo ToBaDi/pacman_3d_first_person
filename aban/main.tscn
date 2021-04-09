@@ -40,8 +40,49 @@ script = SubResource( 1 )
 [node name="Ground" type="MeshInstance" parent="Scene"]
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PlayerCamera" type="Camera" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 2, 0 )
+
+[node name="Walls" type="CSGCombiner" parent="Scene"]
+use_collision = true
+
+[node name="Bottom" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 1, 0 )
+depth = 54.0
+
+[node name="Top" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 1, 0 )
+depth = 54.0
+
+[node name="LeftBottom" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, -28 )
+width = 22.0
+
+[node name="RightBottom" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 1, 28 )
+width = 22.0
+
+[node name="LeftTop" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, -28 )
+width = 22.0
+
+[node name="RightTop" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, 28 )
+width = 22.0
+
+[node name="LeftAnchor" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, -14 )
+depth = 18.0
+
+[node name="LeftAnchorOne" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 1, -10 )
+
+[node name="RightAnchor" type="CSGBox" parent="Scene/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 14 )
+depth = 18.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
