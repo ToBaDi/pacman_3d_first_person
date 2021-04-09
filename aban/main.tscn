@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -36,6 +36,9 @@ func _process(delta : float) -> void:
 script/source = "extends Node
 
 
+const SPEED : float = 1.0
+
+
 var initial_show_node_y_rot : float
 var initial_show_cam_trans : Transform
 
@@ -49,18 +52,63 @@ func _input(event : InputEvent) -> void:
 			# start_initiation
 			initial_show_node_y_rot = data.show_node.rotation.y
 			initial_show_cam_trans = data.show_camera.transform
-			$Tween.interpolate_method(self, \"initiate\", 0, 1, 2, Tween.TRANS_LINEAR, Tween.EASE_IN)
+			$Tween.interpolate_method(self, \"initiate\", 0.0, 1.0, SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
 			$Tween.start()
 
 
 func initiate(time : float) -> void:
 	data.show_node.rotation.y = lerp_angle(initial_show_node_y_rot, 0, time)
-	data.show_camera.transform = initial_show_cam_trans.interpolate_with(data.player_camera.transform, time)
+	data.show_camera.transform = initial_show_cam_trans.interpolate_with(data.player_camera.global_transform, time)
 	data.show_camera.fov = lerp(70, 120, time)
 
 
 func _on_Tween_tween_all_completed() -> void:
 	data.player_camera.current = true
+	data.is_on_play = true
+	$\"../PlayerMovement\".next_move()
+"
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Node
+
+
+const SPEED : float = 0.5
+
+
+var perv_trans : Transform
+var next_trans : Transform
+
+
+onready var data : Data = $\"../../Data\"
+
+
+func _ready() -> void:
+	perv_trans = data.player.transform
+	next_trans = data.player.transform
+
+
+func _on_Tween_tween_all_completed() -> void:
+	if data.is_on_play:
+		next_move()
+
+
+func next_move() -> void:
+	perv_trans = data.player.transform
+	data.player_raycast.cast_to = Vector3.FORWARD * 2
+	data.player_raycast.force_raycast_update()
+	if not data.player_raycast.get_collider():
+		next_trans = next_trans.translated(Vector3.FORWARD * 2)
+	$Tween.interpolate_method(self, \"move\", 0.0, 1.0, SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+
+
+func move(time : float) -> void:
+	data.player.transform = perv_trans.interpolate_with(next_trans, time)
+"
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends Node
+
 "
 
 [sub_resource type="PlaneMesh" id=4]
@@ -90,6 +138,14 @@ script = SubResource( 2 )
 script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="Systems/InitiatePlay"]
+
+[node name="PlayerMovement" type="Node" parent="Systems"]
+script = SubResource( 7 )
+
+[node name="Tween" type="Tween" parent="Systems/PlayerMovement"]
+
+[node name="PlayerRotation" type="Node" parent="Systems"]
+script = SubResource( 8 )
 
 [node name="Scene" type="Node" parent="."]
 
@@ -326,12 +382,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 23 )
 width = 8.0
 depth = 12.0
 
-[node name="PlayerCamera" type="Camera" parent="Scene"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, 0 )
+[node name="Player" type="KinematicBody" parent="Scene"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0 )
+
+[node name="Camera" type="Camera" parent="Scene/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 fov = 120.0
-__meta__ = {
-"_edit_lock_": true
-}
+
+[node name="RayCast" type="RayCast" parent="Scene/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+cast_to = Vector3( 0, 0, -3 )
 
 [node name="Show" type="Spatial" parent="Scene"]
 __meta__ = {
@@ -347,3 +407,4 @@ transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
 environment = SubResource( 6 )
 [connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
+[connection signal="tween_all_completed" from="Systems/PlayerMovement/Tween" to="Systems/PlayerMovement" method="_on_Tween_tween_all_completed"]
