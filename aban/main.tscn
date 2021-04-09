@@ -97,7 +97,8 @@ func _on_Tween_tween_all_completed() -> void:
 func next_move() -> void:
 	perv_pos = data.player.transform.origin
 	var forward := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(data.player_dir))
-	data.player_raycast.transform = Transform.IDENTITY
+	data.player_raycast.transform.origin = Vector3.ZERO
+	data.player_raycast.global_transform.basis = Basis.IDENTITY
 	data.player_raycast.cast_to = forward * 3
 	data.player_raycast.force_raycast_update()
 	if not data.player_raycast.get_collider():
