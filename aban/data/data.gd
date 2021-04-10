@@ -2,9 +2,12 @@ class_name Data
 extends Node
 
 
+# warning-ignore:unused_signal
+signal on_play
+
+
 var is_on_show : bool = false
 var is_on_play : bool = false
-
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -22,12 +25,26 @@ var player_dir : int = 0
 
 # Ghosts [
 onready var ghosts : Array = [
-	$"../Scene/Oikake",
-	$"../Scene/Machibuse",
-	$"../Scene/Kimagure",
-	$"../Scene/Otoboke",
+	$"../Scene/Oikake" as Ghost,
+	$"../Scene/Machibuse" as Ghost,
+	$"../Scene/Kimagure" as Ghost,
+	$"../Scene/Otoboke" as Ghost,
 ]
-var frightened_ghosts : Array = []
-var frightened_timer : PoolRealArray = [0.0, 0.0, 0.0, 0.0]
-var eaten_ghosts : Array = []
+var ghosts_dir : PoolIntArray = [0, 0, 0, 0]
+var ghosts_targets : PoolVector3Array = [Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, Vector3.ZERO]
+var ghosts_tweens : Array = [Tween.new(), Tween.new(), Tween.new(), Tween.new()]
+var message_queue : Array = [
+	[
+		[], [], [],
+	],
+	[
+		[], [], [],
+	],
+	[
+		[], [], [],
+	],
+	[
+		[], [], [],
+	],
+]
 #        ]

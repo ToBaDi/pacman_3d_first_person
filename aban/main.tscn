@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -6,27 +6,24 @@
 [ext_resource path="res://assets/ghost/ghost.tscn" type="PackedScene" id=4]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Node
-
-
-onready var data : Data = $\"../../Data\"
+script/source = "extends System
 
 
 func _ready() -> void:
 	data.rng.randomize()
 	data.show_camera.current = true
 	data.is_on_show = true
+	for t in data.ghosts_tweens:
+		data.add_child(t as Tween)
 	queue_free()
 	
 "
 
 [sub_resource type="GDScript" id=2]
-script/source = "extends Node
+script/source = "extends System
 
 
 const SPEED : float = -50.0
-
-onready var data : Data = $\"../../Data\"
 
 
 func _process(delta : float) -> void:
@@ -35,7 +32,7 @@ func _process(delta : float) -> void:
 "
 
 [sub_resource type="GDScript" id=3]
-script/source = "extends Node
+script/source = "extends System
 
 
 const SPEED : float = 1.0
@@ -43,8 +40,6 @@ const SPEED : float = 1.0
 
 var initial_show_node_y_rot : float
 var initial_show_cam_trans : Transform
-
-onready var data : Data = $\"../../Data\"
 
 
 func _input(event : InputEvent) -> void:
@@ -69,11 +64,11 @@ func initiate(time : float) -> void:
 func _on_Tween_tween_all_completed() -> void:
 	data.player_camera.current = true
 	data.is_on_play = true
-	$\"../PlayerMovement\".next_move()
+	data.emit_signal(\"on_play\")
 "
 
 [sub_resource type="GDScript" id=4]
-script/source = "extends Node
+script/source = "extends System
 
 
 const SPEED : float = 0.5
@@ -83,11 +78,11 @@ var perv_pos : Vector3
 var next_pos : Vector3
 
 
-onready var data : Data = $\"../../Data\"
-
-
 func _ready() -> void:
 	next_pos = data.player.transform.origin
+	var err := data.connect(\"on_play\", self, \"_on_Tween_tween_all_completed\")
+	if err:
+		printerr(\"On Player on_play Connecting Signal Error: \", err)
 
 
 func _on_Tween_tween_all_completed() -> void:
@@ -122,7 +117,7 @@ func move(time : float) -> void:
 "
 
 [sub_resource type="GDScript" id=5]
-script/source = "extends Node
+script/source = "extends System
 
 
 const SPEED : float = 0.2
@@ -130,8 +125,6 @@ const SPEED : float = 0.2
 
 var perv_basis : Basis
 var next_basis : Basis
-
-onready var data : Data = $\"../../Data\"
 
 
 func _input(event : InputEvent) -> void:
@@ -180,8 +173,93 @@ func smooth_rotation(time : float) -> void:
 "
 
 [sub_resource type="GDScript" id=16]
-script/source = "extends Node
+script/source = "extends System
 
+
+func _ready() -> void:
+	for i in data.ghosts_tweens.size():
+		var tween := data.ghosts_tweens[i] as Tween
+		var err := tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\", [i])
+		if err:
+			printerr(\"On Ghosts Tweens Connecting Signal Error: \", err)
+
+
+func _on_Tween_tween_all_completed(index : int) -> void:
+	var message_name_queue := data.message_queue[index][0] as Array
+	if message_name_queue.size() > 0:
+		read_and_apply_message(index)
+	else:
+		if data.is_on_play:
+			$\"../GhostsMovement\".next_move(index)
+			read_and_apply_message(index)
+
+
+func read_and_apply_message(index : int) -> void:
+	var message_object_queue := data.message_queue[index][0] as Array
+	var message_name_queue := data.message_queue[index][1] as Array
+	var message_time_queue := data.message_queue[index][2] as Array
+	var object := message_object_queue[0] as Object
+	message_object_queue.remove(0)
+	var name := message_name_queue[0] as String
+	message_name_queue.remove(0)
+	var time := message_time_queue[0] as float
+	message_time_queue.remove(0)
+	var tween := data.ghosts_tweens[index] as Tween
+# warning-ignore:return_value_discarded
+	tween.interpolate_method(object, name, .0, 1.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+# warning-ignore:return_value_discarded
+	tween.start()
+
+
+
+
+
+"
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends System
+
+
+const MOVE_SPEED : float = .5
+const ROTATE_SPEED :float = .2
+
+var perv_pos : PoolVector3Array
+var next_pos : PoolVector3Array
+
+
+func _ready() -> void:
+	for g in data.ghosts:
+		var ghost := g as Ghost
+		perv_pos.append(ghost.transform.origin)
+		next_pos.append(ghost.transform.origin)
+
+
+func next_move(index : int) -> void:
+	perv_pos.resize(0)
+	for g in data.ghosts:
+		var ghost := g as Ghost
+		perv_pos.append(ghost.transform.origin)
+	
+	for i in next_pos.size():
+		var forward := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(data.ghosts_dir[i]))
+		next_pos[i] = next_pos[i] + (forward * 2)
+	
+	var message_name_queue := data.message_queue[index][0] as Array
+	var message_time_queue := data.message_queue[index][1] as Array
+	message_name_queue.append(\"move\")
+	message_time_queue.append(MOVE_SPEED)
+
+
+func move(time : float) -> void:
+	for i in data.ghosts.size():
+		var ghost := data.ghosts[i] as Ghost
+		var pp := perv_pos[i] as Vector3
+		var np := next_pos[i] as Vector3
+		ghost.transform.origin = pp.linear_interpolate(np, time)
+
+
+func rotate(time : float) -> void:
+	pass
 "
 
 [sub_resource type="PlaneMesh" id=6]
@@ -248,8 +326,11 @@ script = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="Systems/PlayerRotation"]
 
-[node name="GhostsMovement" type="Node" parent="Systems"]
+[node name="GhostsTweens" type="Node" parent="Systems"]
 script = SubResource( 16 )
+
+[node name="GhostsMovement" type="Node" parent="Systems"]
+script = SubResource( 17 )
 
 [node name="Scene" type="Node" parent="."]
 
@@ -506,10 +587,6 @@ mesh = SubResource( 11 )
 material/0 = null
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-material = SubResource( 12 )
-
-[node name="Oikake2" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
 material = SubResource( 12 )
 

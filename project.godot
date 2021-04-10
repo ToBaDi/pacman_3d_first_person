@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://old/save_load.gd"
 }, {
+"base": "Node",
+"class": "System",
+"language": "GDScript",
+"path": "res://aban/system/system.gd"
+}, {
 "base": "Object",
 "class": "TweenMessages",
 "language": "GDScript",
@@ -63,6 +68,7 @@ _global_script_class_icons={
 "OikakePattern": "",
 "OtobokePattern": "",
 "SaveLoad": "",
+"System": "",
 "TweenMessages": ""
 }
 
