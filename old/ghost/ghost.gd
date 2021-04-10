@@ -2,10 +2,6 @@ class_name Ghost
 extends Area
 
 
-signal next_pos(pos)
-signal tween_all_completed()
-
-
 const MOVEMENT_DURATION : float = .5
 const ROTATION_DURATION : float = .25
 const FRONT_HOUSE_POS : Vector3 = Vector3(24, 0, 0)

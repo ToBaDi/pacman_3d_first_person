@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -179,6 +179,11 @@ func smooth_rotation(time : float) -> void:
 
 "
 
+[sub_resource type="GDScript" id=16]
+script/source = "extends Node
+
+"
+
 [sub_resource type="PlaneMesh" id=6]
 size = Vector2( 60, 56 )
 
@@ -242,6 +247,9 @@ script = SubResource( 4 )
 script = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="Systems/PlayerRotation"]
+
+[node name="GhostsMovement" type="Node" parent="Systems"]
+script = SubResource( 16 )
 
 [node name="Scene" type="Node" parent="."]
 

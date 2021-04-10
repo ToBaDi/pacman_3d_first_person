@@ -21,7 +21,7 @@ var player_dir : int = 0
 #        ]
 
 # Ghosts [
-onready var static_ghosts : Array = [
+onready var ghosts : Array = [
 	$"../Scene/Oikake",
 	$"../Scene/Machibuse",
 	$"../Scene/Kimagure",
