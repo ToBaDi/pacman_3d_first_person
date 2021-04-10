@@ -71,10 +71,6 @@ _global_script_class_icons={
 config/name="pacman_3d_first_person"
 run/main_scene="res://aban/main.tscn"
 
-[autoload]
-
-RNG="*res://old/rng.gd"
-
 [debug]
 
 settings/stdout/verbose_stdout=true
