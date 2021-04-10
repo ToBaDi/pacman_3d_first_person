@@ -12,6 +12,7 @@ onready var data : Data = $\"../../Data\"
 
 
 func _ready() -> void:
+	data.rng.randomize()
 	data.show_camera.current = true
 	data.is_on_show = true
 	queue_free()
@@ -108,17 +109,34 @@ func next_move() -> void:
 
 func move(time : float) -> void:
 	data.player.transform.origin = perv_pos.linear_interpolate(next_pos, time)
+
+
+
+
+
+
+
+
+
 "
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends Node
 
 
+const SPEED : float = 0.2
+
+
+var perv_basis : Basis
+var next_basis : Basis
+
 onready var data : Data = $\"../../Data\"
 
 
 func _input(event : InputEvent) -> void:
 	if data.is_on_play:
+		if $Tween.is_active():
+			return
 		if event.is_action_pressed(\"left\"):
 			rotate(90)
 		elif event.is_action_pressed(\"right\"):
@@ -128,13 +146,20 @@ func _input(event : InputEvent) -> void:
 
 
 func rotate_back() -> void:
-	rotate(180)
+	if data.rng.randi_range(0, 1):
+		rotate(-180)
+	else:
+		rotate(180)
 
 
 func rotate(dir : int) -> void:
-	if ray_test(dir):
-		data.player_dir = (dir + data.player_dir) % 360
-		data.player.rotation_degrees = Vector3(0, data.player_dir, 0)
+	if not ray_test(dir):
+		return
+	data.player_dir = (dir + data.player_dir) % 360
+	perv_basis = data.player.transform.basis
+	next_basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(data.player_dir))
+	$Tween.interpolate_method(self, \"smooth_rotation\", 0.0, 1.0, SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
 
 
 func ray_test(dir : int) -> bool:
@@ -146,6 +171,9 @@ func ray_test(dir : int) -> bool:
 	else:
 		return true
 
+
+func smooth_rotation(time : float) -> void:
+	data.player.transform.basis = perv_basis.slerp(next_basis, time)
 
 
 "
@@ -198,6 +226,8 @@ script = SubResource( 4 )
 
 [node name="PlayerRotation" type="Node" parent="Systems"]
 script = SubResource( 5 )
+
+[node name="Tween" type="Tween" parent="Systems/PlayerRotation"]
 
 [node name="Scene" type="Node" parent="."]
 

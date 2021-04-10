@@ -7,6 +7,8 @@ var is_on_play : bool = false
 
 var player_dir : int = 0
 
+var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
 onready var ground : MeshInstance = $"../Scene/Map/Ground"
 onready var player : KinematicBody = $"../Scene/Player"
 onready var player_camera : Camera = $"../Scene/Player/Camera"
