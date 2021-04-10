@@ -177,11 +177,20 @@ script/source = "extends System
 
 
 func _ready() -> void:
+	var err : int
 	for i in data.ghosts_tweens.size():
 		var tween := data.ghosts_tweens[i] as Tween
-		var err := tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\", [i])
+		err = tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\", [i])
 		if err:
 			printerr(\"On Ghosts Tweens Connecting Signal Error: \", err)
+	err = data.connect(\"on_play\", self, \"start\")
+	if err:
+		printerr(\"On GhostTweens on_play Connect Signal Error: \", err)
+
+
+func start() -> void:
+	for i in data.ghosts.size():
+		_on_Tween_tween_all_completed(i)
 
 
 func _on_Tween_tween_all_completed(index : int) -> void:
@@ -190,7 +199,7 @@ func _on_Tween_tween_all_completed(index : int) -> void:
 		read_and_apply_message(index)
 	else:
 		if data.is_on_play:
-			$\"../GhostsMovement\".next_move(index)
+			data.emit_signal(\"ghost_tween_completed\", index)
 			read_and_apply_message(index)
 
 
@@ -232,6 +241,9 @@ func _ready() -> void:
 		var ghost := g as Ghost
 		perv_pos.append(ghost.transform.origin)
 		next_pos.append(ghost.transform.origin)
+	var err := data.connect(\"ghost_tween_completed\", self, \"next_move\")
+	if err:
+		printerr(\"On GhsotMovement ghost_tween_completed Signal Connect Error: \", err)
 
 
 func next_move(index : int) -> void:
@@ -244,8 +256,10 @@ func next_move(index : int) -> void:
 		var forward := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(data.ghosts_dir[i]))
 		next_pos[i] = next_pos[i] + (forward * 2)
 	
-	var message_name_queue := data.message_queue[index][0] as Array
-	var message_time_queue := data.message_queue[index][1] as Array
+	var message_object_queue := data.message_queue[index][0] as Array
+	var message_name_queue := data.message_queue[index][1] as Array
+	var message_time_queue := data.message_queue[index][2] as Array
+	message_object_queue.append(self)
 	message_name_queue.append(\"move\")
 	message_time_queue.append(MOVE_SPEED)
 

@@ -3,7 +3,9 @@ extends Node
 
 
 # warning-ignore:unused_signal
-signal on_play
+signal on_play()
+# warning-ignore:unused_signal
+signal ghost_tween_completed(ghost_index)
 
 
 var is_on_show : bool = false
