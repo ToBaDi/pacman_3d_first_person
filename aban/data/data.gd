@@ -3,9 +3,7 @@ extends Node
 
 
 # warning-ignore:unused_signal
-signal on_play()
-# warning-ignore:unused_signal
-signal ghost_tween_completed(ghost_index)
+signal on_play
 
 
 var is_on_show : bool = false
@@ -35,18 +33,4 @@ onready var ghosts : Array = [
 var ghosts_dir : PoolIntArray = [0, 0, 0, 0]
 var ghosts_targets : PoolVector3Array = [Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, Vector3.ZERO]
 var ghosts_tweens : Array = [Tween.new(), Tween.new(), Tween.new(), Tween.new()]
-var message_queue : Array = [
-	[
-		[], [], [],
-	],
-	[
-		[], [], [],
-	],
-	[
-		[], [], [],
-	],
-	[
-		[], [], [],
-	],
-]
 #        ]

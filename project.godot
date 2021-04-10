@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "Ghost",
 "language": "GDScript",
-"path": "res://old/ghost/ghost.gd"
+"path": "res://assets/ghost/ghost.gd"
 }, {
 "base": "Object",
 "class": "GhostPattern",

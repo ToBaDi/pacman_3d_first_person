@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -172,137 +172,109 @@ func smooth_rotation(time : float) -> void:
 
 "
 
-[sub_resource type="GDScript" id=16]
-script/source = "extends System
-
-
-func _ready() -> void:
-	var err : int
-	for i in data.ghosts_tweens.size():
-		var tween := data.ghosts_tweens[i] as Tween
-		err = tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\", [i])
-		if err:
-			printerr(\"On Ghosts Tweens Connecting Signal Error: \", err)
-	err = data.connect(\"on_play\", self, \"start\")
-	if err:
-		printerr(\"On GhostTweens on_play Connect Signal Error: \", err)
-
-
-func start() -> void:
-	for i in data.ghosts.size():
-		_on_Tween_tween_all_completed(i)
-
-
-func _on_Tween_tween_all_completed(index : int) -> void:
-	var message_name_queue := data.message_queue[index][0] as Array
-	if message_name_queue.size() > 0:
-		read_and_apply_message(index)
-	else:
-		if data.is_on_play:
-			data.emit_signal(\"ghost_tween_completed\", index)
-			read_and_apply_message(index)
-
-
-func read_and_apply_message(index : int) -> void:
-	var message_object_queue := data.message_queue[index][0] as Array
-	var message_name_queue := data.message_queue[index][1] as Array
-	var message_time_queue := data.message_queue[index][2] as Array
-	var object := message_object_queue[0] as Object
-	message_object_queue.remove(0)
-	var name := message_name_queue[0] as String
-	message_name_queue.remove(0)
-	var time := message_time_queue[0] as float
-	message_time_queue.remove(0)
-	var tween := data.ghosts_tweens[index] as Tween
-# warning-ignore:return_value_discarded
-	tween.interpolate_method(object, name, .0, 1.0, time, Tween.TRANS_LINEAR, Tween.EASE_IN)
-# warning-ignore:return_value_discarded
-	tween.start()
-
-
-
-
-
-"
-
-[sub_resource type="GDScript" id=17]
+[sub_resource type="GDScript" id=6]
 script/source = "extends System
 
 
 const MOVE_SPEED : float = .5
 const ROTATE_SPEED :float = .2
 
-var perv_pos : PoolVector3Array
-var next_pos : PoolVector3Array
-
 
 func _ready() -> void:
+	var err : int
+	
 	for g in data.ghosts:
 		var ghost := g as Ghost
-		perv_pos.append(ghost.transform.origin)
-		next_pos.append(ghost.transform.origin)
-	var err := data.connect(\"ghost_tween_completed\", self, \"next_move\")
+		ghost.next_pos = ghost.transform.origin
+	
+	err = data.connect(\"on_play\", self, \"start\")
 	if err:
-		printerr(\"On GhsotMovement ghost_tween_completed Signal Connect Error: \", err)
+		printerr(\"On GhsotMovement on_play Signal Connect Error: \", err)
+	
+	for i in data.ghosts_tweens.size():
+		var tween := data.ghosts_tweens[i] as Tween
+		err = tween.connect(\"tween_all_completed\", self, \"_on_Tween_tween_all_completed\", [i])
+		if err:
+			printerr(\"On Ghosts Tweens Connecting Signal Error: \", err)
+
+
+func _on_Tween_tween_all_completed(index : int) -> void:
+	if data.is_on_play:
+		next_move(index)
+
+func start() -> void:
+	for t in data.ghosts_tweens:
+		# warning-ignore:return_value_discarded
+		(t as Tween).start()
 
 
 func next_move(index : int) -> void:
-	perv_pos.resize(0)
-	for g in data.ghosts:
-		var ghost := g as Ghost
-		perv_pos.append(ghost.transform.origin)
+	var tween := data.ghosts_tweens[index] as Tween
+	var ghost := data.ghosts[index] as Ghost
+	var pos := ghost.global_transform.origin as Vector3
+	var dir := data.ghosts_dir[index] as int
+	var target := data.ghosts_targets[index] as Vector3
 	
-	for i in next_pos.size():
-		var forward := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(data.ghosts_dir[i]))
-		next_pos[i] = next_pos[i] + (forward * 2)
+	var valid_directions : PoolIntArray = []
+	for i in range(-1, 3):
+		var td : int = i * 90
+		if td == norm_angle(dir + 180):
+			continue
+		valid_directions.append(td)
+#		if not ghost.ray_test(td):
 	
-	var message_object_queue := data.message_queue[index][0] as Array
-	var message_name_queue := data.message_queue[index][1] as Array
-	var message_time_queue := data.message_queue[index][2] as Array
-	message_object_queue.append(self)
-	message_name_queue.append(\"move\")
-	message_time_queue.append(MOVE_SPEED)
+	var closest_direction : int = valid_directions[0]
+	for second_dir in valid_directions.size():
+		var first_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(closest_direction))
+		var second_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(second_dir))
+		var first_dis := int(stepify(first_pos.distance_squared_to(target), .5))
+		var second_dis := int(stepify(second_pos.distance_squared_to(target), .5))
+		if  second_dis < first_dis:
+			closest_direction = second_dir
+	
+	if closest_direction != dir:
+		ghost.perv_basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(dir))
+		ghost.next_basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(closest_direction))
+		# warning-ignore:return_value_discarded
+		tween.interpolate_method(ghost, \"smooth_rotation\", .0, 1.0, ROTATE_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	ghost.perv_pos = ghost.transform.origin
+	var forward := Vector3.FORWARD.rotated(Vector3.UP, deg2rad(closest_direction))
+	ghost.next_pos = ghost.next_pos + (forward * 2)
+	# warning-ignore:return_value_discarded
+	tween.interpolate_method(ghost, \"move\", .0, 1.0, MOVE_SPEED, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	# warning-ignore:return_value_discarded
+	tween.start()
+	data.ghosts_dir[index] = closest_direction
 
 
-func move(time : float) -> void:
-	for i in data.ghosts.size():
-		var ghost := data.ghosts[i] as Ghost
-		var pp := perv_pos[i] as Vector3
-		var np := next_pos[i] as Vector3
-		ghost.transform.origin = pp.linear_interpolate(np, time)
-
-
-func rotate(time : float) -> void:
-	pass
+func norm_angle(angle : int) -> int:
+	angle = angle % 360
+	match angle:
+		270:
+			angle = -90
+		-180:
+			angle = 180
+		-270:
+			angle = 90
+	return angle
 "
 
-[sub_resource type="PlaneMesh" id=6]
+[sub_resource type="PlaneMesh" id=7]
 size = Vector2( 60, 56 )
 
-[sub_resource type="PrismMesh" id=11]
+[sub_resource type="PrismMesh" id=8]
 size = Vector3( 1, 2, 1 )
 
-[sub_resource type="SpatialMaterial" id=12]
-albedo_color = Color( 1, 0, 0, 1 )
-metallic = 0.5
+[sub_resource type="ProceduralSky" id=9]
 
-[sub_resource type="SpatialMaterial" id=13]
-albedo_color = Color( 1, 0.478431, 1, 1 )
-
-[sub_resource type="SpatialMaterial" id=14]
-albedo_color = Color( 0, 0.576471, 1, 1 )
-
-[sub_resource type="SpatialMaterial" id=15]
-albedo_color = Color( 1, 0.521569, 0.376471, 1 )
-
-[sub_resource type="ProceduralSky" id=8]
-
-[sub_resource type="Environment" id=9]
+[sub_resource type="Environment" id=10]
 background_mode = 2
-background_sky = SubResource( 8 )
+background_sky = SubResource( 9 )
 background_sky_custom_fov = 80.0
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=11]
 script/source = "extends Camera
 
 
@@ -310,6 +282,11 @@ func _physics_process(_delta : float) -> void:
 	if not current:
 		current = true
 	pass
+"
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends Node
+
 "
 
 [node name="Main" type="Node"]
@@ -340,18 +317,15 @@ script = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="Systems/PlayerRotation"]
 
-[node name="GhostsTweens" type="Node" parent="Systems"]
-script = SubResource( 16 )
-
-[node name="GhostsMovement" type="Node" parent="Systems"]
-script = SubResource( 17 )
+[node name="GhostsNextMove" type="Node" parent="Systems"]
+script = SubResource( 6 )
 
 [node name="Scene" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="Scene"]
 
 [node name="Ground" type="MeshInstance" parent="Scene/Map"]
-mesh = SubResource( 6 )
+mesh = SubResource( 7 )
 material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -597,23 +571,20 @@ cast_to = Vector3( 0, 0, -3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2, 0 )
-mesh = SubResource( 11 )
+mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
-material = SubResource( 12 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -3 )
 
 [node name="Machibuse" parent="Scene" instance=ExtResource( 4 )]
-material = SubResource( 13 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -3 )
 
 [node name="Kimagure" parent="Scene" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
-material = SubResource( 14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
 
 [node name="Otoboke" parent="Scene" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
-material = SubResource( 15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 3 )
 
 [node name="Show" type="Spatial" parent="Scene"]
 __meta__ = {
@@ -625,14 +596,17 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 20, 45 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
-environment = SubResource( 9 )
+environment = SubResource( 10 )
 
 [node name="Debug" type="Node" parent="."]
 
 [node name="Camera" type="Camera" parent="Debug"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 23, 0 )
+transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 0, 23, 0 )
 projection = 1
 size = 76.0
-script = SubResource( 10 )
+script = SubResource( 11 )
+
+[node name="Test" type="Node" parent="Debug"]
+script = SubResource( 12 )
 [connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
 [connection signal="tween_all_completed" from="Systems/PlayerMovement/Tween" to="Systems/PlayerMovement" method="_on_Tween_tween_all_completed"]
