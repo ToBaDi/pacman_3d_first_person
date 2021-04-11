@@ -272,7 +272,7 @@ static func find_valid_directions(ghost : Ghost, ghost_dir : int) -> PoolIntArra
 		var td : int = i * 90
 		if td == norm_angle(ghost_dir + 180):
 			continue
-		if ghost.ray_test(td):
+		if not ghost.ray_test(td):
 			valid_directions.append(td)
 	return valid_directions
 "
@@ -586,7 +586,7 @@ mesh = SubResource( 8 )
 material/0 = null
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -18 )
 
 [node name="Machibuse" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -3 )

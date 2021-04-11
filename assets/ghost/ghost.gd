@@ -21,11 +21,13 @@ func smooth_rotation(time : float) -> void:
 
 
 func ray_test(dir : int) -> bool:
-	raycast.transform.origin = Vector3.ZERO
+#	print(dir)
+	raycast.transform.origin = Vector3(0, 2, 0)
 	raycast.global_transform.basis = Basis.IDENTITY
-	raycast.cast_to = transform.origin + (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
+	raycast.cast_to = (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
 	raycast.force_raycast_update()
-	if raycast.get_collider():
+	var res := raycast.get_collider()
+	if res:
 		return true
 	else:
 		return false
