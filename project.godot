@@ -19,11 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://assets/ghost/ghost.gd"
 }, {
-"base": "System",
-"class": "GhostNextMove",
-"language": "GDScript",
-"path": "res://aban/system/ghost_next_move.tres.gd"
-}, {
 "base": "Object",
 "class": "GhostPattern",
 "language": "GDScript",
@@ -67,7 +62,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Data": "",
 "Ghost": "",
-"GhostNextMove": "",
 "GhostPattern": "",
 "KimagurePattern": "",
 "MachibusePattern": "",
