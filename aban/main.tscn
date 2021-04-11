@@ -308,7 +308,8 @@ script/source = "extends Camera
 
 func _physics_process(_delta : float) -> void:
 	if not current:
-		current = true
+#		current = true
+		pass
 	pass
 "
 
@@ -342,6 +343,8 @@ script = SubResource( 5 )
 
 [node name="GhostsNextMove" type="Node" parent="Systems"]
 script = SubResource( 6 )
+
+[node name="Node" type="Node" parent="Systems"]
 
 [node name="Scene" type="Node" parent="."]
 
