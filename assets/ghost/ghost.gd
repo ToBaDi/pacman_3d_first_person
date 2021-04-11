@@ -20,18 +20,6 @@ func smooth_rotation(time : float) -> void:
 	$RightMirror.transform.basis = perv_basis.slerp(next_basis, time)
 
 
-func ray_test(dir : int) -> bool:
-#	print(dir)
-	raycast.transform.origin = Vector3(0, 2, 0)
-	raycast.global_transform.basis = Basis.IDENTITY
-	raycast.cast_to = (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
-	raycast.force_raycast_update()
-	var res := raycast.get_collider()
-	if res:
-		return true
-	else:
-		return false
-
 
 #const MOVEMENT_DURATION : float = .5
 #const ROTATION_DURATION : float = .25

@@ -272,9 +272,21 @@ static func find_valid_directions(ghost : Ghost, ghost_dir : int) -> PoolIntArra
 		var td : int = i * 90
 		if td == norm_angle(ghost_dir + 180):
 			continue
-		if not ghost.ray_test(td):
+		if not ray_test(ghost.raycast, td):
 			valid_directions.append(td)
 	return valid_directions
+
+
+static func ray_test(raycast : RayCast, dir : int) -> bool:
+	raycast.transform.origin = Vector3(0, 2, 0)
+	raycast.global_transform.basis = Basis.IDENTITY
+	raycast.cast_to = (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
+	raycast.force_raycast_update()
+	var res := raycast.get_collider()
+	if res:
+		return true
+	else:
+		return false
 "
 
 [sub_resource type="PlaneMesh" id=7]
