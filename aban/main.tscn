@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -289,20 +289,38 @@ static func ray_test(raycast : RayCast, dir : int) -> bool:
 		return false
 "
 
-[sub_resource type="PlaneMesh" id=7]
+[sub_resource type="GDScript" id=7]
+script/source = "extends System
+
+
+var timings : PoolIntArray = []
+
+
+func _ready() -> void:
+	var err := data.connect(\"on_play\", self, \"_on_Timer_timeout\")
+	print(\"On GhostTargeting on_play Signal Connect Error: \", err)
+
+
+func _on_Timer_timeout():
+	if timings:
+		$Timer.start(timings[0])
+		timings.remove(0)
+"
+
+[sub_resource type="PlaneMesh" id=8]
 size = Vector2( 60, 56 )
 
-[sub_resource type="PrismMesh" id=8]
+[sub_resource type="PrismMesh" id=9]
 size = Vector3( 1, 2, 1 )
 
-[sub_resource type="ProceduralSky" id=9]
+[sub_resource type="ProceduralSky" id=10]
 
-[sub_resource type="Environment" id=10]
+[sub_resource type="Environment" id=11]
 background_mode = 2
-background_sky = SubResource( 9 )
+background_sky = SubResource( 10 )
 background_sky_custom_fov = 80.0
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=12]
 script/source = "extends Camera
 
 
@@ -344,14 +362,17 @@ script = SubResource( 5 )
 [node name="GhostsNextMove" type="Node" parent="Systems"]
 script = SubResource( 6 )
 
-[node name="Node" type="Node" parent="Systems"]
+[node name="GhostsTargeting" type="Node" parent="Systems"]
+script = SubResource( 7 )
+
+[node name="Timer" type="Timer" parent="Systems/GhostsTargeting"]
 
 [node name="Scene" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="Scene"]
 
 [node name="Ground" type="MeshInstance" parent="Scene/Map"]
-mesh = SubResource( 7 )
+mesh = SubResource( 8 )
 material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -597,7 +618,7 @@ cast_to = Vector3( 0, 0, -3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2, 0 )
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
@@ -622,7 +643,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 20, 45 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
-environment = SubResource( 10 )
+environment = SubResource( 11 )
 
 [node name="Debug" type="Node" parent="."]
 
@@ -630,6 +651,7 @@ environment = SubResource( 10 )
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 0, 23, 0 )
 projection = 1
 size = 76.0
-script = SubResource( 11 )
+script = SubResource( 12 )
 [connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
 [connection signal="tween_all_completed" from="Systems/PlayerMovement/Tween" to="Systems/PlayerMovement" method="_on_Tween_tween_all_completed"]
+[connection signal="timeout" from="Systems/GhostsTargeting/Timer" to="Systems/GhostsTargeting" method="_on_Timer_timeout"]
