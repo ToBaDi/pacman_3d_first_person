@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -194,11 +194,6 @@ func _physics_process(_delta : float) -> void:
 	if not current:
 		current = true
 	pass
-"
-
-[sub_resource type="GDScript" id=12]
-script/source = "extends Node
-
 "
 
 [node name="Main" type="Node"]
@@ -517,8 +512,5 @@ transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62
 projection = 1
 size = 76.0
 script = SubResource( 11 )
-
-[node name="Test" type="Node" parent="Debug"]
-script = SubResource( 12 )
 [connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
 [connection signal="tween_all_completed" from="Systems/PlayerMovement/Tween" to="Systems/PlayerMovement" method="_on_Tween_tween_all_completed"]

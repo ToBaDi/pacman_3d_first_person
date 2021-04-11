@@ -63,16 +63,6 @@ _global_script_classes=[ {
 "class": "TweenMessages",
 "language": "GDScript",
 "path": "res://old/paterns/tween_messages.gd"
-}, {
-"base": "Reference",
-"class": "WAT",
-"language": "GDScript",
-"path": "res://addons/WAT/namespace.gd"
-}, {
-"base": "Node",
-"class": "WATTest",
-"language": "GDScript",
-"path": "res://addons/WAT/core/test/test.gd"
 } ]
 _global_script_class_icons={
 "Data": "",
@@ -85,9 +75,7 @@ _global_script_class_icons={
 "OtobokePattern": "",
 "SaveLoad": "",
 "System": "",
-"TweenMessages": "",
-"WAT": "",
-"WATTest": ""
+"TweenMessages": ""
 }
 
 [WAT]
@@ -113,10 +101,6 @@ run/main_scene="res://aban/main.tscn"
 [debug]
 
 settings/stdout/verbose_stdout=true
-
-[editor_plugins]
-
-enabled=PoolStringArray( "WAT" )
 
 [input]
 

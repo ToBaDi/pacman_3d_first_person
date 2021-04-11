@@ -49,14 +49,7 @@ func next_move(index : int) -> void:
 		valid_directions.append(td)
 #		if not ghost.ray_test(td):
 	
-	var closest_direction : int = valid_directions[0]
-	for second_dir in valid_directions.size():
-		var first_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(closest_direction))
-		var second_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(second_dir))
-		var first_dis := int(stepify(first_pos.distance_squared_to(target), .5))
-		var second_dis := int(stepify(second_pos.distance_squared_to(target), .5))
-		if  second_dis < first_dis:
-			closest_direction = second_dir
+	var closest_direction : int = find_direction_closest_to_target(valid_directions, pos, target)
 	
 	if closest_direction != dir:
 		ghost.perv_basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(dir))
@@ -85,3 +78,22 @@ static func norm_angle(angle : int) -> int:
 		-270:
 			angle = 90
 	return angle
+
+
+static func find_direction_closest_to_target(
+	valid_directions : PoolIntArray,
+	in_pos : Vector3,
+	in_target : Vector3) -> int:
+	
+	var pos := Vector3(in_pos.x, 0, in_pos.z)
+	var target := Vector3(in_target.x, 0, in_target.z)
+	
+	var closest_direction : int = valid_directions[0]
+	for second_dir in valid_directions.size():
+		var first_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(closest_direction))
+		var second_pos := pos + Vector3.FORWARD.rotated(Vector3.UP, deg2rad(second_dir))
+		var first_dis := int(stepify(first_pos.distance_squared_to(target), .5))
+		var second_dis := int(stepify(second_pos.distance_squared_to(target), .5))
+		if  second_dis < first_dis:
+			closest_direction = second_dir
+	return closest_direction
