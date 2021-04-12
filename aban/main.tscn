@@ -293,7 +293,12 @@ static func ray_test(raycast : RayCast, dir : int) -> bool:
 script/source = "extends System
 
 
+const SCATTER : bool = false
+const CHASE : bool = true
+
+
 var timings : PoolIntArray = []
+var state : bool = SCATTER
 
 
 func _ready() -> void:
@@ -305,6 +310,10 @@ func _on_Timer_timeout():
 	if timings:
 		$Timer.start(timings[0])
 		timings.remove(0)
+		if state == SCATTER:
+			state = CHASE
+		else:
+			state = SCATTER
 "
 
 [sub_resource type="PlaneMesh" id=8]
