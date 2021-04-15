@@ -2,6 +2,11 @@ class_name Ghost
 extends Area
 
 
+export(Material) var material : Material
+export(Material) var frightened_material : Material
+export(Material) var frightened_white_material : Material
+export(Vector3) var scatter_taregt : Vector3 = Vector3.ZERO
+
 var perv_pos : Vector3
 var next_pos : Vector3
 var perv_basis : Basis
@@ -25,9 +30,6 @@ func smooth_rotation(time : float) -> void:
 #const ROTATION_DURATION : float = .25
 #const FRONT_HOUSE_POS : Vector3 = Vector3(24, 0, 0)
 #
-#export(Material) var material : Material
-#export(Material) var frightened_material : Material
-#export(Material) var frightened_white_material : Material
 #export(Vector3) var scatter_pos : Vector3
 #
 #var target_pos : Vector3
