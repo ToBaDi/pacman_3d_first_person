@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -421,6 +421,17 @@ albedo_color = Color( 1, 0.621094, 0, 1 )
 background_mode = 2
 background_sky = SubResource( 16 )
 background_sky_custom_fov = 80.0
+
+[sub_resource type="GDScript" id=24]
+script/source = "extends Node
+
+
+func _ready() -> void:
+	for m in get_tree().get_nodes_in_group(\"Mirror\"):
+		var s := m as Spatial
+#		s.visible = false
+		pass
+"
 
 [sub_resource type="GDScript" id=18]
 script/source = "extends Camera
@@ -866,6 +877,7 @@ transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 
 environment = SubResource( 17 )
 
 [node name="Debug" type="Node" parent="."]
+script = SubResource( 24 )
 
 [node name="Camera" type="Camera" parent="Debug"]
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 0, 23, 0 )
