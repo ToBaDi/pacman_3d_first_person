@@ -797,10 +797,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, -5 )
 width = 1.0
 depth = 4.0
 
-[node name="GateCollision" type="StaticBody" parent="Scene/Map"]
+[node name="HouseGateCollision" type="StaticBody" parent="Scene/Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Scene/Map/GateCollision"]
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Map/HouseGateCollision"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 20 )
 __meta__ = {
