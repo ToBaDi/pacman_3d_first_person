@@ -350,7 +350,7 @@ func _on_Timer_timeout():
 		data.emit_signal(\"ghost_state_change\")
 "
 
-[sub_resource type="GDScript" id=13]
+[sub_resource type="GDScript" id=8]
 script/source = "extends System
 
 
@@ -367,35 +367,35 @@ func _on_Player_area_entered(area : Area) -> void:
 
 "
 
-[sub_resource type="PlaneMesh" id=8]
+[sub_resource type="PlaneMesh" id=9]
 size = Vector2( 60, 56 )
 
-[sub_resource type="PrismMesh" id=9]
+[sub_resource type="PrismMesh" id=10]
 size = Vector3( 1, 2, 1 )
 
-[sub_resource type="BoxShape" id=14]
+[sub_resource type="BoxShape" id=11]
 extents = Vector3( 0.5, 1, 0.5 )
 
-[sub_resource type="SpatialMaterial" id=16]
+[sub_resource type="SpatialMaterial" id=12]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=17]
+[sub_resource type="SpatialMaterial" id=13]
 albedo_color = Color( 1, 0, 0.976471, 1 )
 
-[sub_resource type="SpatialMaterial" id=18]
+[sub_resource type="SpatialMaterial" id=14]
 albedo_color = Color( 0, 0.945098, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=19]
+[sub_resource type="SpatialMaterial" id=15]
 albedo_color = Color( 1, 0.621094, 0, 1 )
 
-[sub_resource type="ProceduralSky" id=10]
+[sub_resource type="ProceduralSky" id=16]
 
-[sub_resource type="Environment" id=11]
+[sub_resource type="Environment" id=17]
 background_mode = 2
-background_sky = SubResource( 10 )
+background_sky = SubResource( 16 )
 background_sky_custom_fov = 80.0
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=18]
 script/source = "extends Camera
 
 
@@ -406,7 +406,7 @@ func _physics_process(_delta : float) -> void:
 	pass
 "
 
-[sub_resource type="GDScript" id=15]
+[sub_resource type="GDScript" id=19]
 script/source = "extends CanvasLayer
 
 
@@ -464,14 +464,14 @@ script = SubResource( 7 )
 one_shot = true
 
 [node name="Cookies" type="Node" parent="Systems"]
-script = SubResource( 13 )
+script = SubResource( 8 )
 
 [node name="Scene" type="Node" parent="."]
 
 [node name="Map" type="Node" parent="Scene"]
 
 [node name="Ground" type="MeshInstance" parent="Scene/Map"]
-mesh = SubResource( 8 )
+mesh = SubResource( 9 )
 material/0 = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -712,6 +712,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, -1 )
 monitorable = false
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true
 }
 
@@ -724,29 +725,29 @@ cast_to = Vector3( 0, 0, -3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Scene/Player"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2, 0 )
-mesh = SubResource( 9 )
+mesh = SubResource( 10 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Scene/Player"]
-shape = SubResource( 14 )
+shape = SubResource( 11 )
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 15 )
-material = SubResource( 16 )
+material = SubResource( 12 )
 scatter_taregt = Vector3( 34, 0, 23 )
 
 [node name="Machibuse" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -3 )
-material = SubResource( 17 )
+material = SubResource( 13 )
 scatter_taregt = Vector3( 34, 0, -23 )
 
 [node name="Kimagure" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
-material = SubResource( 18 )
+material = SubResource( 14 )
 
 [node name="Otoboke" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 3 )
-material = SubResource( 19 )
+material = SubResource( 15 )
 
 [node name="Show" type="Spatial" parent="Scene"]
 __meta__ = {
@@ -758,7 +759,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 20, 45 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Scene"]
-environment = SubResource( 11 )
+environment = SubResource( 17 )
 
 [node name="Debug" type="Node" parent="."]
 
@@ -766,10 +767,10 @@ environment = SubResource( 11 )
 transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62921e-07, 2.65431e-14, 0, 23, 0 )
 projection = 1
 size = 76.0
-script = SubResource( 12 )
+script = SubResource( 18 )
 
 [node name="Information" type="CanvasLayer" parent="Debug"]
-script = SubResource( 15 )
+script = SubResource( 19 )
 
 [node name="Score" type="Label" parent="Debug/Information"]
 anchor_top = 1.0
