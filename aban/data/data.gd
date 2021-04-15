@@ -39,6 +39,5 @@ onready var ghosts : Array = [
 	$"../Scene/Otoboke" as Ghost,
 ]
 var ghosts_dir : PoolIntArray = [0, 0, 0, 0]
-var ghosts_targets : PoolVector3Array = [Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, Vector3.ZERO]
 var ghosts_tweens : Array = [Tween.new(), Tween.new(), Tween.new(), Tween.new()]
 #        ]

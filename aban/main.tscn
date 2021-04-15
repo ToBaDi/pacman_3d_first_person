@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -214,7 +214,7 @@ func next_move(index : int) -> void:
 	var ghost := data.ghosts[index] as Ghost
 	var pos := ghost.global_transform.origin as Vector3
 	var dir := data.ghosts_dir[index] as int
-	var target := data.ghosts_targets[index] as Vector3
+	var target := ghost.target.call_func(ghost) as Vector3
 	
 	var valid_directions := find_valid_directions(ghost, dir) 
 	var closest_direction := find_direction_closest_to_target(valid_directions, pos, target)
@@ -350,6 +350,30 @@ func _on_Timer_timeout():
 		data.emit_signal(\"ghost_state_change\")
 "
 
+[sub_resource type="GDScript" id=21]
+script/source = "extends System
+
+
+func _ready() -> void:
+	for g in data.ghosts:
+		var ghost := g as Ghost
+		ghost.target = make_func_ref(\"Oikake\")
+
+
+func make_func_ref(name : String) -> FuncRef:
+	var fr := FuncRef.new()
+	fr.set_instance(self)
+	fr.set_function(name)
+	return fr
+
+
+func Oikake(ghost : Ghost) -> Vector3:
+	if data.ghost_state == Data.SCATTER:
+		return ghost.scatter_taregt
+	else:
+		return data.player.transform.origin
+"
+
 [sub_resource type="GDScript" id=8]
 script/source = "extends System
 
@@ -404,7 +428,7 @@ script/source = "extends Camera
 
 func _physics_process(_delta : float) -> void:
 	if not current:
-#		current = true
+		current = true
 		pass
 	pass
 "
@@ -465,6 +489,9 @@ script = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="Systems/GhostStateTimer"]
 one_shot = true
+
+[node name="GhostTarget" type="Node" parent="Systems"]
+script = SubResource( 21 )
 
 [node name="Cookies" type="Node" parent="Systems"]
 script = SubResource( 8 )

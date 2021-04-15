@@ -7,12 +7,20 @@ export(Material) var frightened_material : Material
 export(Material) var frightened_white_material : Material
 export(Vector3) var scatter_taregt : Vector3 = Vector3.ZERO
 
+var target : FuncRef
+
 var perv_pos : Vector3
 var next_pos : Vector3
 var perv_basis : Basis
 var next_basis : Basis
 
 onready var raycast : RayCast = $RayCast as RayCast
+
+
+func _ready() -> void:
+	$Body/Body.material_override = material
+	$LeftMirror/Body.material_override = material
+	$RightMirror/Body.material_override = material
 
 
 func move(time : float) -> void:
@@ -54,13 +62,6 @@ func smooth_rotation(time : float) -> void:
 #	init_trans = transform
 #
 #
-#
-#func _ready() -> void:
-#	$Body.material_override = material
-#	$LeftMirror.material_override = material
-#	$RightMirror.material_override = material
-
-
 #func _process(_delta : float) -> void:
 #	var b : Quat = Quat.IDENTITY
 #	b.set_euler(Vector3(deg2rad(90), deg2rad(rot), 0))
