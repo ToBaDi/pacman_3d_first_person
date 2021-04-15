@@ -8,6 +8,8 @@ const CHASE : bool = true
 
 # warning-ignore:unused_signal
 signal on_play
+# warning-ignore:unused_signal
+signal ghost_state_change
 
 var is_on_show : bool = false
 var is_on_play : bool = false

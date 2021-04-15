@@ -347,6 +347,7 @@ func _on_Timer_timeout():
 		data.ghost_state = timing[0][0]
 		$Timer.start(timing[0][1])
 		timing.remove(0)
+		data.emit_signal(\"ghost_state_change\")
 "
 
 [sub_resource type="GDScript" id=13]
