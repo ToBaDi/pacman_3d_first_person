@@ -4,12 +4,12 @@
 [ext_resource path="res://old/ghost/ghost_visual.tscn" type="PackedScene" id=2]
 [ext_resource path="res://old/sounds/NormalMove.wav" type="AudioStream" id=3]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0823529, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=2]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=3]
 
 [node name="Ghost" type="Area"]
 monitoring = false
@@ -17,8 +17,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-frightened_material = SubResource( 2 )
-frightened_white_material = SubResource( 3 )
+frightened_material = SubResource( 1 )
+frightened_white_material = SubResource( 2 )
 
 [node name="Body" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
@@ -31,14 +31,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 56 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="RayCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
-cast_to = Vector3( 0, 0, 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+cast_to = Vector3( 0, 0, -3 )
 collision_mask = 2147483649
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
@@ -279,7 +279,7 @@ static func find_valid_directions(ghost : Ghost, ghost_dir : int) -> PoolIntArra
 
 
 static func ray_test(raycast : RayCast, dir : int) -> bool:
-	raycast.transform.origin = Vector3(0, 2, 0)
+	raycast.transform.origin = Vector3(0, 1, 0)
 	raycast.global_transform.basis = Basis.IDENTITY
 	raycast.cast_to = (Vector3.FORWARD.rotated(Vector3.UP, deg2rad(dir)) * 3)
 	raycast.force_raycast_update()
@@ -369,6 +369,9 @@ func _on_Player_area_entered(area : Area) -> void:
 
 [sub_resource type="PlaneMesh" id=9]
 size = Vector2( 60, 56 )
+
+[sub_resource type="BoxShape" id=20]
+extents = Vector3( 0.5, 1, 3 )
 
 [sub_resource type="PrismMesh" id=10]
 size = Vector3( 1, 2, 1 )
@@ -704,6 +707,49 @@ depth = 12.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 23 )
 width = 8.0
 depth = 12.0
+
+[node name="House" type="CSGCombiner" parent="Scene/Map"]
+material_override = ExtResource( 2 )
+use_collision = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="SouthWall" type="CSGBox" parent="Scene/Map/House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1, 0 )
+width = 1.0
+depth = 14.0
+
+[node name="WestWall" type="CSGBox" parent="Scene/Map/House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -6.5 )
+width = 6.0
+depth = 1.0
+
+[node name="EastWall" type="CSGBox" parent="Scene/Map/House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 6.5 )
+width = 6.0
+depth = 1.0
+
+[node name="NorthRightWall" type="CSGBox" parent="Scene/Map/House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, 5 )
+width = 1.0
+depth = 4.0
+
+[node name="NorthLeftWall" type="CSGBox" parent="Scene/Map/House"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 1, -5 )
+width = 1.0
+depth = 4.0
+
+[node name="GateCollision" type="StaticBody" parent="Scene/Map"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Map/GateCollision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 20 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Dots" parent="Scene/Map" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0 )
