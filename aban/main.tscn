@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/ground.tres" type="Material" id=1]
 [ext_resource path="res://assets/wall.tres" type="Material" id=2]
 [ext_resource path="res://aban/data/data.gd" type="Script" id=3]
 [ext_resource path="res://assets/ghost/ghost.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/dot/dots.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends System
@@ -293,27 +294,76 @@ static func ray_test(raycast : RayCast, dir : int) -> bool:
 script/source = "extends System
 
 
-const SCATTER : bool = false
-const CHASE : bool = true
+const SCATTER : bool = Data.SCATTER
+const CHASE : bool = Data.CHASE
 
 
-var timings : PoolIntArray = []
-var state : bool = SCATTER
+const LVL1_TIMING : Array = [
+	[Data.SCATTER, 7],
+	[CHASE, 20],
+	[SCATTER, 7],
+	[CHASE, 20],
+	[SCATTER, 5],
+	[CHASE, 20],
+	[SCATTER, 5],
+	[CHASE, 0.1],
+]
+
+const LVL2_TIMING : Array = [
+	[SCATTER, 7],
+	[CHASE, 20],
+	[SCATTER, 7],
+	[CHASE, 20],
+	[SCATTER, 5],
+	[CHASE, 1033.23],
+	[SCATTER, 0.016],
+	[CHASE, 0.1],
+]
+
+const LVL5_TIMING : Array = [
+	[SCATTER, 5],
+	[CHASE, 20],
+	[SCATTER, 5],
+	[CHASE, 20],
+	[SCATTER, 5],
+	[CHASE, 1037.23],
+	[SCATTER, 0.016],
+	[CHASE, 0.1],
+]
+
+var timing : Array = []
 
 
 func _ready() -> void:
+	timing = LVL1_TIMING
 	var err := data.connect(\"on_play\", self, \"_on_Timer_timeout\")
-	print(\"On GhostTargeting on_play Signal Connect Error: \", err)
+	if err:
+		printerr(\"GhostTargeting System on_play Signal Connect Error: \", err)
 
 
 func _on_Timer_timeout():
-	if timings:
-		$Timer.start(timings[0])
-		timings.remove(0)
-		if state == SCATTER:
-			state = CHASE
-		else:
-			state = SCATTER
+	if timing:
+#		print(timing[0])
+		data.ghost_state = timing[0][0]
+		$Timer.start(timing[0][1])
+		timing.remove(0)
+"
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends System
+
+
+func _ready() -> void:
+	var err : int = data.player.connect(\"area_entered\", self, \"_on_Player_area_entered\")
+	if err:
+		printerr(\"Cookie System Player area_entered Signal Connect Error: \", err)
+
+
+func _on_Player_area_entered(area : Area) -> void:
+	if area.is_in_group(\"Dot\"):
+		data.score += 10
+		area.queue_free()
+
 "
 
 [sub_resource type="PlaneMesh" id=8]
@@ -321,6 +371,9 @@ size = Vector2( 60, 56 )
 
 [sub_resource type="PrismMesh" id=9]
 size = Vector3( 1, 2, 1 )
+
+[sub_resource type="BoxShape" id=14]
+extents = Vector3( 0.5, 1, 0.5 )
 
 [sub_resource type="ProceduralSky" id=10]
 
@@ -338,6 +391,26 @@ func _physics_process(_delta : float) -> void:
 #		current = true
 		pass
 	pass
+"
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends CanvasLayer
+
+
+onready var data : Data = $\"../../Data\"
+
+
+func _process(_delta : float) -> void:
+	$Score.text = String(data.score)
+	
+	var ghost_state_time : Timer = $\"../../Systems/GhostStateTimer/Timer\"
+	var txt : String = \"\"
+	if data.ghost_state == Data.SCATTER:
+		txt = \"Scatter\"
+	elif data.ghost_state == Data.CHASE:
+		txt = \"Chase\"
+	txt += \"\\n%f\" % ghost_state_time.time_left
+	$State.text = txt
 "
 
 [node name="Main" type="Node"]
@@ -371,10 +444,14 @@ script = SubResource( 5 )
 [node name="GhostsNextMove" type="Node" parent="Systems"]
 script = SubResource( 6 )
 
-[node name="GhostsTargeting" type="Node" parent="Systems"]
+[node name="GhostStateTimer" type="Node" parent="Systems"]
 script = SubResource( 7 )
 
-[node name="Timer" type="Timer" parent="Systems/GhostsTargeting"]
+[node name="Timer" type="Timer" parent="Systems/GhostStateTimer"]
+one_shot = true
+
+[node name="Cookies" type="Node" parent="Systems"]
+script = SubResource( 13 )
 
 [node name="Scene" type="Node" parent="."]
 
@@ -615,8 +692,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 23 )
 width = 8.0
 depth = 12.0
 
+[node name="Dots" parent="Scene/Map" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0 )
+
 [node name="Player" type="Area" parent="Scene"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 1, -1 )
+monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Camera" type="Camera" parent="Scene/Player"]
 current = true
@@ -629,6 +713,9 @@ cast_to = Vector3( 0, 0, -3 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 2, 0 )
 mesh = SubResource( 9 )
 material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Scene/Player"]
+shape = SubResource( 14 )
 
 [node name="Oikake" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -18 )
@@ -661,6 +748,30 @@ transform = Transform( -1.62921e-07, 1, 1.62921e-07, 0, -1.62921e-07, 1, 1, 1.62
 projection = 1
 size = 76.0
 script = SubResource( 12 )
+
+[node name="Information" type="CanvasLayer" parent="Debug"]
+script = SubResource( 15 )
+
+[node name="Score" type="Label" parent="Debug/Information"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+margin_right = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="State" type="Label" parent="Debug/Information"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -38.0
+margin_right = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="tween_all_completed" from="Systems/InitiatePlay/Tween" to="Systems/InitiatePlay" method="_on_Tween_tween_all_completed"]
 [connection signal="tween_all_completed" from="Systems/PlayerMovement/Tween" to="Systems/PlayerMovement" method="_on_Tween_tween_all_completed"]
-[connection signal="timeout" from="Systems/GhostsTargeting/Timer" to="Systems/GhostsTargeting" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Systems/GhostStateTimer/Timer" to="Systems/GhostStateTimer" method="_on_Timer_timeout"]

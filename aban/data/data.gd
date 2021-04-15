@@ -2,12 +2,17 @@ class_name Data
 extends Node
 
 
+const SCATTER : bool = false
+const CHASE : bool = true
+
+
 # warning-ignore:unused_signal
 signal on_play
 
-
 var is_on_show : bool = false
 var is_on_play : bool = false
+
+var score : int = 0
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -24,6 +29,7 @@ var player_dir : int = 0
 #        ]
 
 # Ghosts [
+var ghost_state : bool = SCATTER
 onready var ghosts : Array = [
 	$"../Scene/Oikake" as Ghost,
 	$"../Scene/Machibuse" as Ghost,
