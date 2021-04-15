@@ -846,10 +846,12 @@ scatter_taregt = Vector3( 34, 0, -23 )
 [node name="Kimagure" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 15 )
 material = SubResource( 14 )
+scatter_taregt = Vector3( -32, 0, 27 )
 
 [node name="Otoboke" parent="Scene" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 3 )
 material = SubResource( 15 )
+scatter_taregt = Vector3( -32, 0, -27 )
 
 [node name="Show" type="Spatial" parent="Scene"]
 __meta__ = {
@@ -898,7 +900,7 @@ __meta__ = {
 }
 
 [node name="Position3D" type="Position3D" parent="Debug"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -23 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33, 0, 27 )
 
 [node name="Targeting" type="Node" parent="Debug"]
 script = SubResource( 22 )
