@@ -2,14 +2,19 @@ class_name Data
 extends Node
 
 
-const SCATTER : bool = false
-const CHASE : bool = true
-
-
 # warning-ignore:unused_signal
 signal on_play
 # warning-ignore:unused_signal
 signal ghost_state_change
+
+
+const SCATTER : bool = false
+const CHASE : bool = true
+
+
+export var day_env : Environment
+export var night_env : Environment
+
 
 var is_on_show : bool = false
 var is_on_play : bool = false
@@ -27,6 +32,7 @@ onready var world_environment : WorldEnvironment = $"../Scene/WorldEnvironment"
 onready var player : Area = $"../Scene/Player"
 onready var player_camera : Camera = $"../Scene/Player/Camera"
 onready var player_raycast : RayCast = $"../Scene/Player/RayCast"
+onready var pacman_visual : MeshInstance = $"../Scene/Player/Pac-Man"
 var player_dir : int = 0
 #        ]
 

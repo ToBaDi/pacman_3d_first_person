@@ -4,7 +4,7 @@
 [ext_resource path="res://old/ghost/ghost_visual.tscn" type="PackedScene" id=2]
 [ext_resource path="res://old/sounds/NormalMove.wav" type="AudioStream" id=3]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0.0823529, 1, 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -17,21 +17,20 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-frightened_material = SubResource( 4 )
+frightened_material = SubResource( 1 )
 frightened_white_material = SubResource( 2 )
 
 [node name="Body" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
 
 [node name="LeftMirror" parent="." groups=[
 "Mirror",
 ] instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -56 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -56 )
 
 [node name="RightMirror" parent="." groups=[
 "Mirror",
 ] instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 56 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 56 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )

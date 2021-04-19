@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 1, 1, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 1, 0, 1 )
+emission_energy = 0.3
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="SphereMesh" id=2]
+material = SubResource( 1 )
+radius = 1.25
+height = 2.5
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends MeshInstance
+
+
+func set_eyes_visibility(state : bool) -> void:
+	$Eye.visible = state
+	$Eye2.visible = state
+"
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
+radius = 0.2
+height = 0.2
+
+[node name="Pac-Man" type="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+script = SubResource( 5 )
+
+[node name="Eye" type="MeshInstance" parent="."]
+transform = Transform( 0.984808, 0.173648, -3.6687e-09, -0.163176, 0.925416, -0.34202, -0.0593912, 0.336824, 0.939693, -0.398481, 0.85052, 0.81197 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Eye2" type="MeshInstance" parent="."]
+transform = Transform( 0.984808, -0.173648, 0, 0.163176, 0.925416, -0.34202, 0.0593912, 0.336824, 0.939693, 0.398, 0.850202, 0.812031 )
+mesh = SubResource( 4 )
+material/0 = null

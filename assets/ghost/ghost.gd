@@ -8,6 +8,7 @@ export(Material) var frightened_white_material : Material
 export(Vector3) var scatter_taregt : Vector3 = Vector3.ZERO
 
 var target : FuncRef
+var teleport : Vector3 = Vector3.ZERO
 
 var perv_pos : Vector3
 var next_pos : Vector3
